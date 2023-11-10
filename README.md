@@ -60,7 +60,7 @@ In the table below, you can see the complete list of the various technologies an
 
 |        |          |            |
 | :----: | :------: | :--------: |
-| NodeJS | NextJS   | Typescript |
+| NodeJS |  NextJS  | Typescript |
 | React  | Tailwind |    JWT     |
 
 <p align="right"><a href="#home">⬆ Back to top</a></p>
@@ -167,7 +167,7 @@ This project is not yet deployed, but you can try it in your local. Follow the i
   <p><strong>Dario Beratti:</strong> Developer</p>
   <a href="mailto:darioberatti@gmail.com" target="_blank" rel="noopener noreferrer">
     <img alt="Gmail" title="gmail" src="https://custom-icon-badges.demolab.com/badge/-darioberatti@gmail.com-red?style=for-the-badge&logo=mention&logoColor=white"/></a>
-  <a href="https://www.linkedin.com/in/esteban-nahuel-rodriguez-514775203/" target="_blank" rel="noopener noreferrer">
+  <a href="https://www.linkedin.com/in/darioberatti/" target="_blank" rel="noopener noreferrer">
     <img alt="Linkedin" title="linkedin" src="https://custom-icon-badges.demolab.com/badge/-Linkedin-blue?style=for-the-badge&logoColor=white&logo=linkedin"/></a>
   <a href="https://github.com/darioberatti/" target="_blank" rel="noopener noreferrer">
     <img alt="Github" title="Github" src="https://custom-icon-badges.demolab.com/badge/-Github-grey?style=for-the-badge&logoColor=white&logo=github"/></a>
