@@ -1,10 +1,10 @@
-import Input from "commons/Input";
+import {Input} from "commons";
 import React from "react";
 import { Button } from "commons/Button";
-import CustomLink from "commons/CustomLink";
-import IconBoxLogin from "commons/IconBoxLogin";
+import {CustomLink} from "commons";
+import {IconBoxLogin} from "commons";
 
-export default function Login() {
+export function Login() {
   return (
     <>
       <div className="absolute -mt-8">
