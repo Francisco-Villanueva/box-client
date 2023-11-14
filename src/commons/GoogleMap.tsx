@@ -15,7 +15,7 @@ const GoogleMap: FC<GoogleMapProps> = ({ origin, destination }) => {
       <div className="gmap_canvas">
         <iframe
           title="Google Maps Directions"
-          width="300"
+          width="100%"
           height="396"
           id="gmap_canvas"
           src={mapSrc}
