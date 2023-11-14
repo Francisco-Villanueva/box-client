@@ -3,12 +3,11 @@ import Link from "next/link";
 import { LinkProps } from "next/link";
 
 interface CustomLinkProps extends LinkProps {
-    children?: React.ReactNode;
+    children?: ReactNode;
     className?: string;
-
 }
 
-export default function CustomLink({ href, children, className }: CustomLinkProps) {
+export function CustomLink({ href, children, className }: CustomLinkProps) {
     return (
         <Link
             href={href}
