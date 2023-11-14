@@ -1,5 +1,6 @@
 interface IconProps {
   className?: string;
+  fill?: string;
 }
 const iconStyle = "text-darkGreen";
 export function ArrowLeft({ className }: IconProps) {
@@ -194,12 +195,12 @@ export function PenIcon({ className }: IconProps) {
   );
 }
 
-export function CircleIcon({ className }: IconProps) {
+export function CircleIcon({ fill }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      fill={className}
+      fill={fill}
       width="12px"
       height="12px"
     >

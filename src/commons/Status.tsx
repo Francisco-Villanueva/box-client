@@ -2,19 +2,25 @@ import React from "react";
 import { CircleIcon } from "./Icons";
 
 interface StatusProps {
-    statusColor: string;
-    statusShipment: string;
+  status: string;
 }
 
-export default function Status({statusColor, statusShipment} :StatusProps) {
+export default function Status({ status }: StatusProps) {
+  const STATUSCOLOR: any = {
+    "EN CURSO": "green",
+    PENDIENTE: "grey",
+    ENTREGADO: "blue",
+  };
   return (
     <>
-      <div className="bg-lightGrey h-4 flex items-center rounded-r-sm  rounded-l-md">
-        <div className="ml-2">
-        <CircleIcon className="green"/>
+      <div className="bg-lightGrey py-[.5] px-2 flex items-center rounded-md gap-2">
+        <div>
+          <CircleIcon fill={`${STATUSCOLOR[status]}`} />
         </div>
-        <p className="text-center ml-2 text-darkGreen font-roboto font-black uppercase">Entregado</p>
+        <p className="text-center text-darkGreen font-roboto font-[500] text-xs uppercase">
+          {status}
+        </p>
       </div>
     </>
   );
-} 
+}
