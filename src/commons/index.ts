@@ -4,8 +4,19 @@ export * from "./IconBox";
 export * from "./TitleBox";
 export * from "./BoxLayout";
 export * from "./UserImg";
+export * from "./Input";
+export * from "./MapDescription"
+export * from "./Status"
+export * from "./IconBoxLogin"
+export * from "./CustomLink"
+export * from "./Icons"
+export * from "./IconBoxLogin"
 export * from "./DateBox";
+<<<<<<< HEAD
 export * from "./Graph";
 export * from "./GoogleMap";
 export * from "./Switch";
 export * from "./MapDescription";
+=======
+
+>>>>>>> develop

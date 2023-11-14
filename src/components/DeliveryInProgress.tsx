@@ -1,13 +1,10 @@
 "use client";
 import React from "react";
-import BoxLayout from "commons/BoxLayout";
 import GoogleMap from "commons/GoogleMap";
 import { TitleBox } from "commons";
 import { ArrowLeft } from "commons/Icons";
 
 export function DeliveryInProgress() {
-  /* const origin = "Av Santa Fe 2545, CABA"
-  const destination = "Av Libertador 6954, CABA" */
   return (
     <div
       style={{

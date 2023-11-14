@@ -8,6 +8,8 @@
       "password": "asd",
       "image": "a",
       "role": "admin",
+      "status": "HABILITADO",
+
       "packages": []
     },
     {
@@ -18,6 +20,7 @@
       "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQHCzQX21fZFXw/profile-framedphoto-shrink_200_200/0/1696561973346?e=1700593200&v=beta&t=VGLLJBmpAEVOQ8OsOOfELeTtzoL6ig1xvVPveMtDC_M",
       "role": "deliver",
+      "status": "HABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 3100, Buenos Aires, Argentina",
@@ -53,6 +56,7 @@
       "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQGkViCwNSNcOw/profile-framedphoto-shrink_200_200/0/1699630110866?e=1700593200&v=beta&t=smdsWXbrZTlHwrSMaA-cXr-whyGFYN7AK-KlK2-gTv8",
       "role": "deliver",
+      "status": "DESHABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 9800, Buenos Aires, Argentina",
@@ -96,6 +100,7 @@
       "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQG3kgUoRCAu2g/profile-framedphoto-shrink_200_200/0/1698695092663?e=1700593200&v=beta&t=VLpwrZDojRDomy946K5JMlvAsZZgJoRruFGKRBt-M0E",
       "role": "deliver",
+      "status": "DESHABILITADO",
       "packages": [
         {
           "address": "Avenida de Mayo 900, Buenos Aires, Argentina",
@@ -155,6 +160,7 @@
       "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D03AQGTVCPhc-nosg/profile-displayphoto-shrink_200_200/0/1698073617553?e=1705536000&v=beta&t=0x0IzZCjYhxftLTbXktL1E5W9mL_EDK1iEjWlTArRIA",
       "role": "deliver",
+      "status": "HABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 2100, Buenos Aires, Argentina",
@@ -206,6 +212,7 @@
       "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQHfhqaPCtQMng/profile-framedphoto-shrink_200_200/0/1697580532341?e=1700593200&v=beta&t=jU1Ivf6u595LHbOzeFHE57MPR5P-bi-ZSZ8z7oZVkEU",
       "role": "deliver",
+      "status": "HABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 2100, Buenos Aires, Argentina",
