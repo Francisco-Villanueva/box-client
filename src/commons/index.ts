@@ -12,4 +12,5 @@ export * from "./CustomLink"
 export * from "./Icons"
 export * from "./IconBoxLogin"
 export * from "./DateBox";
+export * from "./Icons"
 
