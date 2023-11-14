@@ -19,7 +19,7 @@ export default function Input({
   value,
   required,
 }: InputProps) {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const inputType = showPassword ? "text" : type;
 
@@ -30,7 +30,7 @@ export default function Input({
         type={inputType}
         placeholder={placeholder}
         defaultValue={value}
-        className={`w-full h-14 py-2 rounded-none border-b text-darkGreen p-4 focus:outline-none`}
+        className={`w-full h-14 py-2 rounded-none border-b border-darkGreen placeholder-darkGreen text-darkGreen p-4 focus:outline-none bg-transparent placeholder-darkGreen::placeholder`}
       />
 
       {type === "password" && (
