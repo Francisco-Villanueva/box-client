@@ -7,7 +7,7 @@ import { Input } from "commons";
 export function RegisterForm() {
   return (
     <>
-      <div className="bg-white rounded-2xl">
+      <div className="bg-white rounded-2xl h-auto">
         <div className="flex justify-center items-center pt-4">
           <div className="bg-lightGrey flex justify-center items-center rounded-3xl w-24 h-24 ">
             <CameraIcon className="h-8" />
