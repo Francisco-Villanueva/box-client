@@ -11,7 +11,7 @@ type InputProps = {
   required?: boolean;
 };
 
-export default function Input({
+export function Input({
   placeholder,
   type,
   defaultValue = "",
