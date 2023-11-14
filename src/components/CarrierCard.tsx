@@ -40,7 +40,7 @@ export default function CarrierCard({ carrier }: CarrierCardProps) {
     : "PENDIENTE";
   return (
     <div
-      className="flex items-center justify-between p-4 border-b border-black"
+      className="flex items-center justify-between py-4 border-t border-black"
       key={carrier._id}
     >
       <div className="flex items-center gap-4">
