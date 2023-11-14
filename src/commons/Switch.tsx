@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 interface SwitchProps {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; //void: No retorna nada la función
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void; //void: No retorna nada la función
 }
 
 export function Switch({ onChange }: SwitchProps) {
@@ -13,18 +13,3 @@ export function Switch({ onChange }: SwitchProps) {
     />
   );
 }
-
-/* Ejemplo de uso en el componente en el cual se importe Switch:
-
-  const [usuarioHabilitado, setUsuarioHabilitado] = useState(false);
-
-  const handleSwitchChange = () => {
-    setUsuarioHabilitado(!usuarioHabilitado);
-  };
-
-  return (
-    <div>
-      <Switch onChange={handleSwitchChange} />
-      <p>{usuarioHabilitado ? "Habilitado" : "Deshabilitado"}</p>
-    </div>
-  ); */
