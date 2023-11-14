@@ -18,7 +18,7 @@ export function Button({
 }: ButtonProps) {
   const BUTTON_STYLE = {
     variant: {
-      primary: "bg-darkGreen text-yellow order border-darkGreen font-roboto",
+      primary: "bg-darkGreen text-yellow border-darkGreen font-roboto",
       secondary: "bg-none text-darkGreen border border-darkGreen",
     },
     disabled: {
