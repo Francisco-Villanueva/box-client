@@ -8,6 +8,8 @@
       "password": "asd",
       "image": "a",
       "role": "admin",
+      "status": "HABILITADO",
+
       "packages": []
     },
     {
@@ -16,8 +18,9 @@
       "lastName": "V",
       "email": "asdasd",
       "password": "asd",
-      "image": "a",
+      "image": "https://media.licdn.com/dms/image/D4D35AQHCzQX21fZFXw/profile-framedphoto-shrink_200_200/0/1696561973346?e=1700593200&v=beta&t=VGLLJBmpAEVOQ8OsOOfELeTtzoL6ig1xvVPveMtDC_M",
       "role": "deliver",
+      "status": "HABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 3100, Buenos Aires, Argentina",
@@ -40,7 +43,7 @@
           "clientName": "Luc\u00eda Garc\u00eda",
           "weight": 136.38,
           "deliverDate": "2023-14-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "461b84d9-2763-4839-b5e6-da8625fa8efe"
         }
       ]
@@ -51,15 +54,16 @@
       "lastName": "b",
       "email": "asdasd",
       "password": "asd",
-      "image": "a",
+      "image": "https://media.licdn.com/dms/image/D4D35AQGkViCwNSNcOw/profile-framedphoto-shrink_200_200/0/1699630110866?e=1700593200&v=beta&t=smdsWXbrZTlHwrSMaA-cXr-whyGFYN7AK-KlK2-gTv8",
       "role": "deliver",
+      "status": "DESHABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 9800, Buenos Aires, Argentina",
           "clientName": "Ana Mart\u00ednez",
           "weight": 148.05,
           "deliverDate": "2023-17-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "4deeea22-f908-4970-9a73-fdba71f4c9b1"
         },
         {
@@ -83,7 +87,7 @@
           "clientName": "Juan Gonz\u00e1lez",
           "weight": 86.56,
           "deliverDate": "2023-14-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "86b20ac4-6b9e-4d10-96cf-da7998969e1a"
         }
       ]
@@ -94,15 +98,16 @@
       "lastName": "B",
       "email": "asdasd",
       "password": "asd",
-      "image": "a",
+      "image": "https://media.licdn.com/dms/image/D4D35AQG3kgUoRCAu2g/profile-framedphoto-shrink_200_200/0/1698695092663?e=1700593200&v=beta&t=VLpwrZDojRDomy946K5JMlvAsZZgJoRruFGKRBt-M0E",
       "role": "deliver",
+      "status": "DESHABILITADO",
       "packages": [
         {
           "address": "Avenida de Mayo 900, Buenos Aires, Argentina",
           "clientName": "Ana Torres",
           "weight": 141.52,
           "deliverDate": "2023-19-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "6404803e-b696-40e0-8673-fb06b91e39fa"
         },
         {
@@ -110,7 +115,7 @@
           "clientName": "Carlos Ram\u00edrez",
           "weight": 83.74,
           "deliverDate": "2023-21-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "eba6f337-8446-4a73-85a9-b11de0cfee6c"
         },
         {
@@ -142,7 +147,7 @@
           "clientName": "Diego Ruiz",
           "weight": 141.93,
           "deliverDate": "2023-22-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "26fb86c9-4514-4126-a612-18591aedc1ec"
         }
       ]
@@ -153,15 +158,16 @@
       "lastName": "T",
       "email": "asdasd",
       "password": "asd",
-      "image": "a",
+      "image": "https://media.licdn.com/dms/image/D4D03AQGTVCPhc-nosg/profile-displayphoto-shrink_200_200/0/1698073617553?e=1705536000&v=beta&t=0x0IzZCjYhxftLTbXktL1E5W9mL_EDK1iEjWlTArRIA",
       "role": "deliver",
+      "status": "HABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 2100, Buenos Aires, Argentina",
           "clientName": "Ana Garc\u00eda",
           "weight": 130.81,
           "deliverDate": "2023-23-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "7dbe208d-ea9f-4849-aad5-024766ace8e2"
         },
         {
@@ -169,7 +175,7 @@
           "clientName": "Martina S\u00e1nchez",
           "weight": 84.54,
           "deliverDate": "2023-14-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "ee276305-63c1-4679-ba05-fffd388d2139"
         },
         {
@@ -204,15 +210,16 @@
       "lastName": "N",
       "email": "asdasd",
       "password": "asd",
-      "image": "a",
+      "image": "https://media.licdn.com/dms/image/D4D35AQHfhqaPCtQMng/profile-framedphoto-shrink_200_200/0/1697580532341?e=1700593200&v=beta&t=jU1Ivf6u595LHbOzeFHE57MPR5P-bi-ZSZ8z7oZVkEU",
       "role": "deliver",
+      "status": "HABILITADO",
       "packages": [
         {
           "address": "Avenida 9 de Julio 2100, Buenos Aires, Argentina",
           "clientName": "Carlos L\u00f3pez",
           "weight": 96.77,
           "deliverDate": "2023-20-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "13ec5ab1-dd34-40e2-b2e6-3859d394ddf1"
         },
         {
@@ -220,7 +227,7 @@
           "clientName": "Mar\u00eda Ram\u00edrez",
           "weight": 113.82,
           "deliverDate": "2023-22-11",
-          "status": "PENDIENTE",
+          "status": "ENTREGADO",
           "_id": "7f4421a2-a6c7-4ba3-80e5-3d27c882ea18"
         },
         {
