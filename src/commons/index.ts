@@ -9,3 +9,6 @@ export * from "./MapDescription"
 export * from "./Status"
 export * from "./IconBoxLogin"
 export * from "./CustomLink"
+export * from "./DateBox";
+
+
