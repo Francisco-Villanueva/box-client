@@ -40,6 +40,7 @@ export function DateBox({
           disabled ? "opacity-50" : null
         } `}
       >
+        {date && date < 10 && "0"}
         {date}
       </div>
     </div>
