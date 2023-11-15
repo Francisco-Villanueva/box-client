@@ -6,8 +6,19 @@ export const PackageStore = types
     packages: types.array(PackageModel),
   })
   .views((store) => ({
-    get entregados() {
+    get deliveredPackages() {
+      // RETORNA LOS PACKAGES QUE FUERON ENTREGADOS
       return store.packages.filter((pack) => pack.status === "ENTREGADO");
+    },
+    get unassignedPackages() {
+      // RETORNA LOS PACKAGES QUE NO ESTAN ASSIGANADOS (status = "unassigned")
+      return store.packages.filter((pack) => pack.status === "unassigned");
+    },
+    get onDeliverPackages() {
+      // RETORNA LOS PACKAGES QUE  ESTAN ASSIGANADOS PERO NO ENTREGADOS
+      return store.packages.filter(
+        (pack) => pack.status === "EN CURSO" || pack.status === "PENDIENTE"
+      );
     },
   }))
   .actions((store) => ({
