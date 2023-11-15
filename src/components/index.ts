@@ -4,3 +4,5 @@ export * from "./CarrierCard"
 export * from "./CarrierStatusCard"
 export * from "./ShipmentView"
 export * from "./ShipmentCard"
+export * from "./DetailView";
+export * from "./DetailCard";

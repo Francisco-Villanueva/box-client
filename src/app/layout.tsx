@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import {Roboto, Saira } from "next/font/google";
+import { Roboto, Saira } from "next/font/google";
 import "./globals.css";
-
+import Providers from "./Providers";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500"],
@@ -29,7 +29,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${roboto.variable} ${saira.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

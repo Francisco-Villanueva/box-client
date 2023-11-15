@@ -30,18 +30,15 @@ export function Button({
       alert: "bg-white text-grey ",
     },
   };
-  
-  const buttonClassName = `font-semibold rounded-2xl p-2 ${
+
+  const buttonClassName = `rounded-lg px-2 py-1 ${
     disabled
       ? `${BUTTON_STYLE.disabled[variant]} `
       : `${BUTTON_STYLE.variant[variant]} `
   } ${additionalClassName}`;
 
   return (
-    <button
-      disabled={disabled}
-      className={buttonClassName}
-    >
+    <button disabled={disabled} className={buttonClassName}>
       {children}
     </button>
   );

@@ -1,28 +1,12 @@
 "use client";
 import { UserImg, Title, Graph, Status } from "commons";
+import { User } from "types";
+
 
 interface CarrierCardProps {
   carrier: User;
 }
 
-interface User {
-  _id: string;
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-  image: string;
-  role: string;
-  packages: Pack[];
-}
-interface Pack {
-  _id: string;
-  address: string;
-  clientName: string;
-  weight: number;
-  deliverDate: string;
-  status: string;
-}
 export function CarrierCard({ carrier }: CarrierCardProps) {
   const packagesDelivered = carrier.packages.filter(
     (pack) => pack.status === "ENTREGADO"
@@ -41,7 +25,7 @@ export function CarrierCard({ carrier }: CarrierCardProps) {
       key={carrier._id}
     >
       <div className="flex items-center gap-4">
-        <Graph children={percentage} size="md" />
+        <Graph value={percentage} size="md" />
         <div className="flex flex-col">
           <Title>{carrier.name}</Title>
           <Status status={status} />
