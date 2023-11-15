@@ -1,5 +1,5 @@
-import { Button, Checkbox, Status, StatusString } from "commons";
-import { TrashIcon } from "commons/Icons";
+import { Checkbox, StatusString } from "commons";
+
 
 interface PackageCheckboxCardProps {
   pack: Pack;
