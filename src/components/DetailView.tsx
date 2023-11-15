@@ -1,8 +1,6 @@
 "use client";
 import { ArrowLeft, TitleBox, BoxLayout } from "commons";
 import React from "react";
-import { packages } from "../mocks/items.json";
-import { user } from "../mocks/users.json";
 import { DetailCard } from "./index";
 export function DetailView() {
   return (
@@ -17,9 +15,9 @@ export function DetailView() {
       </TitleBox>
 
       <section className="flex flex-col gap-2 p-2">
-        <DetailCard type="carrier" data={user} />
+        <DetailCard type="carrier" />
         <hr />
-        <DetailCard type="package" data={packages} />
+        <DetailCard type="package" />
       </section>
     </BoxLayout>
   );
