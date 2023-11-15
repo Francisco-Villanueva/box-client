@@ -1,20 +1,22 @@
-import { TitleBox, BoxLayout } from "commons";
-import { ShortArrowIcon } from "commons/Icons";
+import { TitleBox, BoxLayout, ShortArrowIcon } from "commons";
 
-import CarrierCard from "components/CarrierCard";
+import { CarrierCard } from "components";
 import { user } from "../mocks/users.json";
 
-export default function ShipmentView() {
-
-// TODO modificar el CarrierCard por el nuevo componente de Shipment Card
+export function ShipmentView() {
+  // TODO modificar el CarrierCard por el nuevo componente de Shipment Card
 
   return (
     <div>
-      <BoxLayout className="mx-auto w-[300px] bg-white pr-2 pl-2">
-        <TitleBox icon={<ShortArrowIcon />} variant="secondary" className="max-w-full mb-4 ">
+      <BoxLayout className="mx-auto w-[300px] bg-white ">
+        <TitleBox
+          icon={<ShortArrowIcon className="rotate-90"/>}
+          variant="secondary"
+          className="max-w-full mb-4 "
+        >
           Repartos Pendientes
         </TitleBox>
-        <div className="flex flex-col ">
+        <div className="flex flex-col w-[90%] m-auto">
           {user.slice(1).map((carrier, i) => (
             <CarrierCard key={i} carrier={carrier} />
           ))}

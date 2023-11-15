@@ -2,6 +2,7 @@
 import { UserImg } from "commons";
 import { Graph } from "commons/Graph";
 import Status from "commons/Status";
+import Title from "commons/Title";
 import { log } from "console";
 
 interface CarrierCardProps {
@@ -46,7 +47,7 @@ export default function CarrierCard({ carrier }: CarrierCardProps) {
       <div className="flex items-center gap-4">
         <Graph children={percentage} size="md" />
         <div className="flex flex-col">
-          <p className="font-semibold text-darkGreen text-lg">{carrier.name}</p>
+          <Title>{carrier.name}</Title>
           <Status status={status} />
         </div>
       </div>
