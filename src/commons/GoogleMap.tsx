@@ -1,31 +1,24 @@
-import React, { FC } from "react";
+import React from "react";
 
 interface GoogleMapProps {
   origin: string;
   destination: string;
 }
 
-const GoogleMap: FC<GoogleMapProps> = ({ origin, destination }) => {
+export const GoogleMap = ({ origin, destination }: GoogleMapProps) => {
   const mapSrc = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyDHpvaGqc_rZRtn4gmFBBnRqr3D4vumqE0&origin=${encodeURIComponent(
     origin
   )}&destination=${encodeURIComponent(destination)}&mode=driving`;
 
   return (
-    <div className="mapouter">
-      <div className="gmap_canvas">
-        <iframe
-          title="Google Maps Directions"
-          width="300"
-          height="396"
-          id="gmap_canvas"
-          src={mapSrc}
-        ></iframe>
-      </div>
-    </div>
+    <iframe
+      title="Google Maps Directions"
+      id="gmap_canvas"
+      src={mapSrc}
+      className="h-full w-full"
+    ></iframe>
   );
 };
-
-export default GoogleMap;
 
 // Ejemplo de uso:
 {
