@@ -1,8 +1,6 @@
-import {Input} from "commons";
 import React from "react";
-import { Button } from "commons/Button";
-import {CustomLink} from "commons";
-import {IconBoxLogin} from "commons";
+
+import { CustomLink, IconBoxLogin, Button, Input } from "commons";
 
 export function Login() {
   return (
@@ -16,8 +14,16 @@ export function Login() {
           <Input placeholder="Password" type="password" />
         </section>
         <section className="pt-8 pl-3.5 pr-3.5 flex flex-col items-center pb-5">
-          <Button children={"INGRESAR"} variant="primary" className="w-full mb-2" />
-          <Button children={"CREAR CUENTA"} variant="secondary" className="w-full" />
+          <Button
+            children={"INGRESAR"}
+            variant="primary"
+            className="w-full mb-2"
+          />
+          <Button
+            children={"CREAR CUENTA"}
+            variant="secondary"
+            className="w-full"
+          />
           <CustomLink href={"asdasd"} children={"Olvidé mi contraseña"} />
         </section>
       </div>

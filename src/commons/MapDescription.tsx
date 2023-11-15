@@ -6,7 +6,7 @@ interface MapDescriptionProps {
     receiver: string;
 }
 
-export default function MapDescription({destiny, packageNumber, receiver} : MapDescriptionProps) {
+export function MapDescription({destiny, packageNumber, receiver} : MapDescriptionProps) {
   return (
     <div className="bg-purple h-24 rounded-2xl flex items-center w-full">
       <div className="font-roboto ml-3.5">

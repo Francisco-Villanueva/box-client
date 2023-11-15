@@ -1,9 +1,7 @@
 "use client";
-import { UserImg } from "commons";
-import { Graph } from "commons/Graph";
-import Status from "commons/Status";
-import Title from "commons/Title";
+import { UserImg, Title, Graph, Status } from "commons";
 import { User } from "types";
+
 
 interface CarrierCardProps {
   carrier: User;

@@ -2,7 +2,7 @@ import React from "react";
 interface StatusProps {
   status: string;
 }
-export default function CarrierStatus({ status }: StatusProps) {
+export function CarrierStatus({ status }: StatusProps) {
   return (
     <>
       <div

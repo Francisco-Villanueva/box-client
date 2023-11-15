@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-import { Button, TitleBox, GoogleMap } from "commons";
+import { Button, TitleBox, GoogleMap, AppLayout, MapDescription } from "commons";
 import { ArrowLeft } from "commons/Icons";
-import { AppLayout } from "commons/AppLayout";
-import MapDescription from "commons/MapDescription";
 
 // TODO: Las props de GoogleMap y de MapDescription deben salir de la data real de los paquetes
 
