@@ -2,8 +2,13 @@ import { TitleBox, BoxLayout, ShortArrowIcon } from "commons";
 import { ShipmentCard } from "components";
 import { user } from "../mocks/users.json";
 
-export function ShipmentView() {
+interface ShipmentProps {
+  variant?: "pending" | "history";
+}
 
+export function ShipmentView({ variant }: ShipmentProps) {
+  const shipmentTitle =
+    variant === "pending" ? "repartos pendientes" : "historial de pedidos";
   const activeUser = user[2];
 
   return (
@@ -13,12 +18,12 @@ export function ShipmentView() {
         variant="secondary"
         className="w-full mb-4 "
       >
-        Repartos Pendientes
+        {shipmentTitle}
       </TitleBox>
       <div className="flex flex-col w-[90%] m-auto">
         {activeUser.packages.map((carrier, i) => (
           <>
-          {i!==0 && i!==activeUser.packages.length && <hr/>}
+            {i !== 0 && i !== activeUser.packages.length && <hr />}
             <ShipmentCard key={carrier._id} pack={carrier} />
           </>
         ))}
