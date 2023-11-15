@@ -30,7 +30,7 @@ interface Pack {
   status: string;
 }
 
-export default function CarrierStatusCard({ carrier }: CarrierProps) {
+export function CarrierStatusCard({ carrier }: CarrierProps) {
   return (
     <BoxLayout className="flex items-center   p-4 justify-between">
       <div className="flex gap-4 items-center">
