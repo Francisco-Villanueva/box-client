@@ -3,18 +3,26 @@ import { ReactNode } from "react";
 interface BoxTitleProps {
   className?: string;
   children?: ReactNode;
+  variant?: Style;
 }
 
-export function BoxTitle({ 
+type Style = keyof typeof BOX_TITLE_STYLE.variant;
+
+const BOX_TITLE_STYLE = {
+  variant: {
+    top: "flex flex-col bg-purple justify-center h-[50px] rounded-t-2xl",
+    bottom: "flex  bg-white justify-center h-[50px] rounded-b-2xl",
+  },
+};
+
+export function BoxTitle({
   className,
   children,
- }:BoxTitleProps) {
-  
+  variant = "top",
+}: BoxTitleProps) {
   return (
-  
-  <div className={` flex flex-col bg-purple justify-center h-[50px] rounded-t-2xl ${className}`}>
-    {children}
-  </div>
-  
+    <div className={`${BOX_TITLE_STYLE.variant[variant]} ${className}`}>
+      {children}
+    </div>
   );
 }
