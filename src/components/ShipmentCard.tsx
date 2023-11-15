@@ -22,7 +22,7 @@ export function ShipmentCard({ pack }: ShipmentCardProps) {
     <div className="font-roboto bg-white text-darkGreen w-full p-2 flex items-center">
       <div>{<IconBox />}</div>
       <div className="font-roboto text-xs pl-2">
-        <div className="font-semibold">{pack._id}</div>
+        <div className="font-semibold">#{pack._id.slice(pack._id.length-5)}</div>
         <div className="font-normal">{splitAddress[0]}</div>
         <div>{splitAddress[1]}</div>
       </div>
