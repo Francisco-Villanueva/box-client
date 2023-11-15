@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 
 interface SwitchProps {
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void; //void: No retorna nada la función
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void; 
 }
 
 export function Switch({ onChange }: SwitchProps) {

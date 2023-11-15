@@ -1,9 +1,6 @@
 "use client";
-import BoxLayout from "commons/BoxLayout";
-import CarrierStatus from "commons/CarrierStatus";
-import Status from "commons/Status";
-import { Switch } from "commons/Switch";
-import Title from "commons/Title";
+import { CarrierStatus, Switch, Title, BoxLayout } from "commons";
+
 import Image from "next/image";
 
 interface CarrierProps {

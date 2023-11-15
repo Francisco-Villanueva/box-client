@@ -1,7 +1,5 @@
-import { Button, IconBox } from "commons";
+import { Button, IconBox, Status, StatusString } from "commons";
 import { TrashIcon } from "commons/Icons";
-import Status from "commons/Status";
-
 interface ShipmentCardProps {
   pack: Pack;
 }
@@ -12,7 +10,7 @@ interface Pack {
   clientName: string;
   weight: number;
   deliverDate: string;
-  status: string;
+  status: StatusString;
 }
 
 export function ShipmentCard({ pack }: ShipmentCardProps) {

@@ -1,9 +1,11 @@
 import { ReactNode } from "react";
 import { BoxIcon, CameraIcon } from "./Icons";
 
+const Icons = ["package", "userPic"] as const
+
 interface IconBoxProps {
   body?: ReactNode;
-  variant?: "package" | "userPic";
+  variant?: typeof Icons[number];
   icon?: JSX.Element;
   className?: string;
   onClick?: (event: MouseEvent) => void;

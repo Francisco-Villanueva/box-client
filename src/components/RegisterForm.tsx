@@ -1,8 +1,6 @@
 import React from "react";
-import { Button } from "commons";
-import { CustomLink } from "commons";
-import { CameraIcon } from "commons";
-import { Input } from "commons";
+
+import { CustomLink, CameraIcon, Button, Input } from "commons";
 
 export function RegisterForm() {
   return (
