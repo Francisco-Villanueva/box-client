@@ -13,7 +13,7 @@
       "clientName": "Miguel Mart\u00ednez",
       "weight": 88.73,
       "deliverDate": "2023-16-11",
-      "status": "unassigned",
+      "status": "PENDIENTE",
       "_id": "c30d201f-3158-4cf1-a3dd-4f41c5c05eaa"
     },
     {
@@ -21,7 +21,7 @@
       "clientName": "Luc\u00eda Garc\u00eda",
       "weight": 136.38,
       "deliverDate": "2023-14-11",
-      "status": "unassigned",
+      "status": "PENDIENTE",
       "_id": "461b84d9-2763-4839-b5e6-da8625fa8efe"
     },
     {
@@ -53,7 +53,7 @@
       "clientName": "Juan Gonz\u00e1lez",
       "weight": 86.56,
       "deliverDate": "2023-14-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "86b20ac4-6b9e-4d10-96cf-da7998969e1a"
     },
     {
@@ -61,7 +61,7 @@
       "clientName": "Ana Garc\u00eda",
       "weight": 130.81,
       "deliverDate": "2023-23-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "7dbe208d-ea9f-4849-aad5-024766ace8e2"
     },
     {
@@ -69,7 +69,7 @@
       "clientName": "Martina S\u00e1nchez",
       "weight": 84.54,
       "deliverDate": "2023-14-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "ee276305-63c1-4679-ba05-fffd388d2139"
     },
     {
@@ -77,7 +77,7 @@
       "clientName": "Luc\u00eda Rodr\u00edguez",
       "weight": 109.0,
       "deliverDate": "2023-18-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "d9c94d46-fa6a-435b-bc88-fe66b1cabaf2"
     },
     {
@@ -85,7 +85,7 @@
       "clientName": "Ana Torres",
       "weight": 135.82,
       "deliverDate": "2023-16-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "2845effc-afae-4948-ac32-2f53fd667c19"
     },
     {
@@ -93,7 +93,7 @@
       "clientName": "Carlos S\u00e1nchez",
       "weight": 97.31,
       "deliverDate": "2023-17-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "f6adda71-d8b2-4dc6-842d-e0adf82f20ee"
     },
     {
@@ -125,7 +125,7 @@
       "clientName": "Mar\u00eda Rodr\u00edguez",
       "weight": 70.56,
       "deliverDate": "2023-22-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "94620483-987e-45cb-81f1-2d11cc17c041"
     },
     {
@@ -141,7 +141,7 @@
       "clientName": "Diego Ruiz",
       "weight": 141.93,
       "deliverDate": "2023-22-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "26fb86c9-4514-4126-a612-18591aedc1ec"
     },
     {
@@ -149,7 +149,7 @@
       "clientName": "Carlos L\u00f3pez",
       "weight": 96.77,
       "deliverDate": "2023-20-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "13ec5ab1-dd34-40e2-b2e6-3859d394ddf1"
     },
     {
@@ -189,7 +189,7 @@
       "clientName": "Juan Garc\u00eda",
       "weight": 69.57,
       "deliverDate": "2023-22-11",
-      "status": "unassigned",
+      "status": "ENTREGADO",
       "_id": "88df8097-3d76-46c9-92a8-c84b23108d64"
     },
     {

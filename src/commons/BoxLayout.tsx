@@ -5,9 +5,9 @@ interface LayoutProps {
   className?: string;
 }
 
-export default function BoxLayout({ children, className }: LayoutProps) {
+export function BoxLayout({ children, className }: LayoutProps) {
   return (
-    <div className={`h-full w-full rounded-xl shadow-sm  border ${className}`}>
+    <div className={`h-full w-full rounded-2xl shadow-sm  border ${className}`}>
       {children}
     </div>
   );
