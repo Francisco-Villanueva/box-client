@@ -16,6 +16,7 @@ export function TitleBox({
   icon,
   subtitle,
   date,
+  className,
 }: TitleProps) {
   const [isActive, setIsActive] = useState(true);
 
@@ -29,7 +30,7 @@ export function TitleBox({
   };
   return (
     <>
-      <div className={`${TITLE_STYLE.variant[variant]}`}>
+      <div className={`${TITLE_STYLE.variant[variant]} ${className}`}>
         <div className="flex justify-between">
           <div>
             <div>{children}</div>{" "}
