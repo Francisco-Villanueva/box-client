@@ -27,7 +27,7 @@ interface Pack {
   deliverDate: string;
   status: string;
 }
-export default function CarrierCard({ carrier }: CarrierCardProps) {
+export function CarrierCard({ carrier }: CarrierCardProps) {
   const packagesDelivered = carrier.packages.filter(
     (pack) => pack.status === "ENTREGADO"
   );
