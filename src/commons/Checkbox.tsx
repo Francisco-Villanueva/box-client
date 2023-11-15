@@ -9,7 +9,7 @@ export function Checkbox() {
   return (
     <div
       onClick={() => setCheck(!check)}
-      className={` transition-colors duration-200  grid place-items-center w-10 h-10 rounded-full ${
+      className={` transition-colors duration-200  grid place-items-center w-6 h-6 rounded-full ${
         check ? CHECKED_STYLE : UNCHECKED_STYLE
       }`}
     >
