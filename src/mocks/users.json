@@ -5,11 +5,9 @@
       "name": "ADMIN",
       "lastName": ".",
       "email": "asdasd",
-      "password": "asd",
       "image": "a",
-      "role": "admin",
+      "role": "Admin",
       "status": "HABILITADO",
-
       "packages": []
     },
     {
@@ -17,9 +15,8 @@
       "name": "Francisco",
       "lastName": "V",
       "email": "asdasd",
-      "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQHCzQX21fZFXw/profile-framedphoto-shrink_200_200/0/1696561973346?e=1700593200&v=beta&t=VGLLJBmpAEVOQ8OsOOfELeTtzoL6ig1xvVPveMtDC_M",
-      "role": "deliver",
+      "role": "Carrier",
       "status": "HABILITADO",
       "packages": [
         {
@@ -53,9 +50,8 @@
       "name": "Dario",
       "lastName": "b",
       "email": "asdasd",
-      "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQGkViCwNSNcOw/profile-framedphoto-shrink_200_200/0/1699630110866?e=1700593200&v=beta&t=smdsWXbrZTlHwrSMaA-cXr-whyGFYN7AK-KlK2-gTv8",
-      "role": "deliver",
+      "role": "Carrier",
       "status": "DESHABILITADO",
       "packages": [
         {
@@ -97,9 +93,8 @@
       "name": "Braian",
       "lastName": "B",
       "email": "asdasd",
-      "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQG3kgUoRCAu2g/profile-framedphoto-shrink_200_200/0/1698695092663?e=1700593200&v=beta&t=VLpwrZDojRDomy946K5JMlvAsZZgJoRruFGKRBt-M0E",
-      "role": "deliver",
+      "role": "Carrier",
       "status": "DESHABILITADO",
       "packages": [
         {
@@ -157,9 +152,8 @@
       "name": "Agustin",
       "lastName": "T",
       "email": "asdasd",
-      "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D03AQGTVCPhc-nosg/profile-displayphoto-shrink_200_200/0/1698073617553?e=1705536000&v=beta&t=0x0IzZCjYhxftLTbXktL1E5W9mL_EDK1iEjWlTArRIA",
-      "role": "deliver",
+      "role": "Carrier",
       "status": "HABILITADO",
       "packages": [
         {
@@ -211,7 +205,7 @@
       "email": "asdasd",
       "password": "asd",
       "image": "https://media.licdn.com/dms/image/D4D35AQHfhqaPCtQMng/profile-framedphoto-shrink_200_200/0/1697580532341?e=1700593200&v=beta&t=jU1Ivf6u595LHbOzeFHE57MPR5P-bi-ZSZ8z7oZVkEU",
-      "role": "deliver",
+      "role": "Carrier",
       "status": "HABILITADO",
       "packages": [
         {
