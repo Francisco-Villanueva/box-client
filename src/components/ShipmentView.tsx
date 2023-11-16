@@ -12,7 +12,7 @@ export function ShipmentView({ variant }: ShipmentProps) {
   const activeUser = user[2];
 
   return (
-    <BoxLayout className="mx-auto flex flex-col bg-white">
+    <BoxLayout className="mx-auto flex flex-col bg-white h-full">
       <TitleBox
         icon={<ShortArrowIcon className="rotate-90" />}
         variant="secondary"
