@@ -12,9 +12,11 @@ export default function useModal() {
     setIsModalOpen(false);
   };
 
+  const toggleModal = isModalOpen ? closeModal : openModal;
   return {
     isModalOpen,
     openModal,
     closeModal,
+    toggleModal,
   };
 }
