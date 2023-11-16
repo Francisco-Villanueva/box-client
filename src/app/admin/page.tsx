@@ -1,34 +1,12 @@
 "use client";
-import { DateBox, ShortArrowIcon, Title, UserImg } from "commons";
-import { DetailView } from "components";
+import { AddIcon, Button, Title } from "commons";
+import { Calendar, DetailView } from "components";
 import Image from "next/image";
 
 export default function AdminPage() {
-  const days = [
-    {
-      day: "lun",
-      date: 1,
-    },
-    {
-      day: "mar",
-      date: 2,
-    },
-    {
-      day: "mie",
-      date: 3,
-    },
-    {
-      day: "jue",
-      date: 4,
-    },
-    {
-      day: "vie",
-      date: 5,
-    },
-  ];
   return (
-    <div className="flex flex-col gap-4">
-      <div className="bg-white  flex items-center gap-2  p-4 rounded-2xl">
+    <div className="flex flex-col justify-between gap-2 h-full">
+      <section className="bg-white  flex items-center gap-2  p-4  rounded-2xl">
         <Image
           src="/users/user1.jpeg"
           alt="s"
@@ -41,22 +19,24 @@ export default function AdminPage() {
           <Title>Hola Admin!</Title>
           <span>Estos son los pedidos del dia</span>
         </div>
-      </div>
-      <div className="bg-white flex flex-col rounded-2xl">
-        <div className="bg-lightGrey w-full p-2 rounded-t-2xl">
-          <Title>ENERO</Title>
+      </section>
+      {/* */}
+      <section className="bg-white flex flex-col h-1/4 rounded-2xl">
+        <div className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl">
+          <Title>NOVIEMBRE</Title>
         </div>
 
-        <div className="flex items-center justify-around w-full p-4">
-          <ShortArrowIcon className="w-6 border  rounded-md border-darkGreen" />
-          {days.map((dia) => (
-            <DateBox date={dia.date} day={dia.day} variant="notSelected" />
-          ))}
-          <ShortArrowIcon className="w-6 border  rounded-md border-darkGreen" />
-        </div>
-      </div>
-
+        <Calendar />
+      </section>
+      {/* */}
       <DetailView />
+
+      <Button>
+        <span className="flex justify-center items-center   gap-2 ">
+          Nuevo Paquete
+          <AddIcon className="w-4" />
+        </span>
+      </Button>
     </div>
   );
 }

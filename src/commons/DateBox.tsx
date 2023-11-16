@@ -1,46 +1,46 @@
-import { ReactNode } from "react";
+import { MouseEvent } from "react";
 
 type Variant = keyof typeof DATE_STYLE.variant;
 
 interface DateProps {
-  children?: ReactNode;
   day?: string;
-  date?: number;
+  date?: string;
   disabled?: boolean;
+  onClick?: (event: MouseEvent) => void;
   variant: Variant;
 }
 
 const DATE_STYLE = {
   variant: {
-    selected:
-      "bg-yellow text-darkGreen w-10 h-10 rounded-md flex flex-col items-center justify-centerl ",
-    notSelected:
-      "bg-white text-darkGreen w-10 h-10 rounded-md flex flex-col items-center justify-center",
+    selected: "bg-yellow  ",
+    notSelected: "bg-white  ",
   },
 };
 
 export function DateBox({
-  children,
   variant = "selected",
   date,
   day,
   disabled = false,
+  onClick,
 }: DateProps) {
   return (
-    <div className={`${DATE_STYLE.variant[variant]}`}>
+    <div
+      onClick={onClick}
+      className={`transition-all duration-300 flex flex-col items-center  justify-center  text-darkGreen rounded-md h-12 w-12 ${DATE_STYLE.variant[variant]}`}
+    >
       <div
-        className={`font-roboto text-xs font-normal ${
+        className={`font-roboto text-sm font-normal ${
           disabled ? "opacity-50" : null
         } `}
       >
         {day}
       </div>
       <div
-        className={`font-roboto text-base font-bold ${
+        className={`font-roboto text-xl font-bold ${
           disabled ? "opacity-50" : null
         } `}
       >
-        {date && date < 10 && "0"}
         {date}
       </div>
     </div>

@@ -1,48 +1,40 @@
 import { Button, Graph, UserImg, Title } from "commons";
+import { log } from "console";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
 
 interface DetailCardProps {
   type: "carrier" | "package";
 }
-
-interface User {
-  _id: string;
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-  image: string;
-  role: string;
-  status: string;
-  packages: Pack[];
+interface AuxProps {
+  shortData: number;
+  mainData: number;
+  msg: string;
 }
-interface Pack {
-  _id: string;
-  address: string;
-  clientName: string;
-  weight: number;
-  deliverDate: string;
-  status: string;
+
+function Aux({ shortData, mainData, msg }: AuxProps) {
+  return ` ${shortData}/${mainData} ${msg}`;
 }
 
 export const DetailCard = observer(function DetailCard({
   type,
 }: DetailCardProps) {
-  //TODO Mover todo esto a los estados de mobx.
-
   const {
-    users: { users, avaliableCarriers },
-    packages: { packages },
+    users: { users, avaliableCarriers, carriers },
+    packages: { packages, deliveredPackages, packagesByDate },
+    date: { date_YMD },
   } = useStore();
 
   const title = type === "carrier" ? "Repartidores" : "Paquetes";
-  const FILTER = type === "carrier" ? "HABILITADO" : "ENTREGADO";
-  const msg = type === "carrier" ? "Habilitados" : "Entregados";
 
-  const percentage = Math.floor(
-    (avaliableCarriers.length / users.length) * 100
-  );
+  console.log(packagesByDate(deliveredPackages, date_YMD));
+
+  const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD);
+  const TOTAL_PACKAGES = packagesByDate(packages, date_YMD);
+  const percentage =
+    type === "carrier"
+      ? Math.floor((avaliableCarriers.length / carriers.length) * 100)
+      : Math.floor((DELIVERD_PACKAGES.length / TOTAL_PACKAGES.length) * 100);
 
   return (
     <div className="flex justify-between items-center text-darkGreen ">
@@ -51,7 +43,15 @@ export const DetailCard = observer(function DetailCard({
         <div className="flex flex-col">
           <Title>{title}</Title>
           <div>
-            {avaliableCarriers.length}/{users.length} {msg}
+            {type === "carrier" ? (
+              <>
+                {avaliableCarriers.length}/{carriers.length} Habilitados
+              </>
+            ) : (
+              <>
+                {DELIVERD_PACKAGES.length}/{TOTAL_PACKAGES.length} Entregados
+              </>
+            )}
           </div>
           {type === "carrier" && (
             // TODO fixear esto y hacerlo con imagenes reales
