@@ -21,3 +21,4 @@ export * from "./BoxLayout";
 export * from "./AppLayout";
 export * from "./BodyLayout";
 export * from "./InputCalendar"
+export * from "./BoxTitle";
