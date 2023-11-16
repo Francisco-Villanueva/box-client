@@ -3,5 +3,5 @@ interface Props {
 }
 
 export function Title({ children }: Props) {
-  return <p className="font-semibold text-darkGreen text-lg">{children}</p>;
+  return <p className="font-medium text-center text-darkGreen text-md">{children}</p>;
 }
