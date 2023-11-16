@@ -5,10 +5,10 @@ import { CustomLink, IconBoxLogin, Button, Input } from "commons";
 export function Login() {
   return (
     <>
-      <div className="absolute -mt-8">
-        <IconBoxLogin />
-      </div>
-      <div className="w-full h-auto rounded-3xl bg-lightGreen mt-[30%]">
+      <div className="w-full h-auto rounded-3xl bg-lightGreen ">
+        <div className=" w-full absolute -mt-8">
+          <IconBoxLogin />
+        </div>
         <section className="pt-10 pl-3.5 pr-3.5">
           <Input placeholder="Email@contraseña.com" />
           <Input placeholder="Password" type="password" />
