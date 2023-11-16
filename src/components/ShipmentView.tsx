@@ -20,7 +20,7 @@ export function ShipmentView({ variant }: ShipmentProps) {
       >
         {shipmentTitle}
       </TitleBox>
-      <div className="flex flex-col w-[90%] m-auto">
+      <div className="flex flex-col w-[90%] m-auto overflow-scroll">
         {activeUser.packages.map((carrier, i) => (
           <>
             {i !== 0 && i !== activeUser.packages.length && <hr />}

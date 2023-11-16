@@ -9,11 +9,11 @@ export default function page() {
       {/* <div className="w-full h-[45vh] rounded-2xl overflow-hidden my-2"></div> */}
 
       <div className="flex flex-col items-center justify-center gap-2">
-        <div className="h-[30vh] overflow-hidden">
+        <div className="h-[30vh] ">
           <ShipmentView variant="pending"></ShipmentView>
         </div>
 
-        <div className="h-[45vh] overflow-hidden">
+        <div className="h-[45vh] ">
           <ShipmentView variant="history"></ShipmentView>
         </div>
         <Button className="w-5/6 mt-4 m-6" variant="primary">
