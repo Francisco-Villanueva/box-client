@@ -1,7 +1,8 @@
 import { Button, Graph, UserImg, Title } from "commons";
-import { log } from "console";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
+import { type } from "os";
+
 
 interface DetailCardProps {
   type: "carrier" | "package";
