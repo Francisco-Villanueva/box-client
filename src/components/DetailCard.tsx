@@ -1,39 +1,41 @@
 import { Button, Graph, UserImg, Title } from "commons";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
 import { type } from "os";
+
 
 interface DetailCardProps {
   type: "carrier" | "package";
-  data: User[] | Pack[];
+}
+interface AuxProps {
+  shortData: number;
+  mainData: number;
+  msg: string;
 }
 
-interface User {
-  _id: string;
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-  image: string;
-  role: string;
-  status: string;
-  packages: Pack[];
-}
-interface Pack {
-  _id: string;
-  address: string;
-  clientName: string;
-  weight: number;
-  deliverDate: string;
-  status: string;
+function Aux({ shortData, mainData, msg }: AuxProps) {
+  return ` ${shortData}/${mainData} ${msg}`;
 }
 
-export function DetailCard({ type, data }: DetailCardProps) {
-  //TODO Mover todo esto a los estados de mobx.
+export const DetailCard = observer(function DetailCard({
+  type,
+}: DetailCardProps) {
+  const {
+    users: { users, avaliableCarriers, carriers },
+    packages: { packages, deliveredPackages, packagesByDate },
+    date: { date_YMD },
+  } = useStore();
+
   const title = type === "carrier" ? "Repartidores" : "Paquetes";
-  const FILTER = type === "carrier" ? "HABILITADO" : "ENTREGADO";
-  const msg = type === "carrier" ? "Habilitados" : "Entregados";
 
-  const filteredData = data.filter((element) => element.status === FILTER);
-  const percentage = Math.floor((filteredData.length / data.length) * 100);
+  console.log(packagesByDate(deliveredPackages, date_YMD));
+
+  const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD);
+  const TOTAL_PACKAGES = packagesByDate(packages, date_YMD);
+  const percentage =
+    type === "carrier"
+      ? Math.floor((avaliableCarriers.length / carriers.length) * 100)
+      : Math.floor((DELIVERD_PACKAGES.length / TOTAL_PACKAGES.length) * 100);
 
   return (
     <div className="flex justify-between items-center text-darkGreen ">
@@ -42,12 +44,20 @@ export function DetailCard({ type, data }: DetailCardProps) {
         <div className="flex flex-col">
           <Title>{title}</Title>
           <div>
-            {filteredData.length}/{data.length} {msg}
+            {type === "carrier" ? (
+              <>
+                {avaliableCarriers.length}/{carriers.length} Habilitados
+              </>
+            ) : (
+              <>
+                {DELIVERD_PACKAGES.length}/{TOTAL_PACKAGES.length} Entregados
+              </>
+            )}
           </div>
           {type === "carrier" && (
             // TODO fixear esto y hacerlo con imagenes reales
             <div className="flex ml-[1rem]">
-              {filteredData.map((element) => (
+              {avaliableCarriers.map((element) => (
                 <div className="ml-[-1rem] border rounded-full bg-green-700  w-[2rem] h-[2rem]"></div>
               ))}
             </div>
@@ -58,4 +68,4 @@ export function DetailCard({ type, data }: DetailCardProps) {
       <Button>VER</Button>
     </div>
   );
-}
+});

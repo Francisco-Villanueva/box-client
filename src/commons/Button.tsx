@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 
 interface ButtonProps {
   body?: ReactNode;
@@ -14,6 +14,7 @@ export function Button({
   children,
   variant = "primary",
   disabled = false,
+  onClick,
   className: additionalClassName = "",
 }: ButtonProps) {
   const BUTTON_STYLE = {
@@ -38,7 +39,7 @@ export function Button({
   } ${additionalClassName}`;
 
   return (
-    <button disabled={disabled} className={buttonClassName}>
+    <button onClick={onClick} disabled={disabled} className={buttonClassName}>
       {children}
     </button>
   );
