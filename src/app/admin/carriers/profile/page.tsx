@@ -9,7 +9,7 @@ import {
   Title,
   TitleBox,
 } from "commons";
-import { ShipmentCard } from "components";
+import { ShipmentCard, ShipmentView } from "components";
 import useModal from "hooks/useModal";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
@@ -18,19 +18,12 @@ import React, { useEffect } from "react";
 
 export default observer(function page() {
   const {
-    users: {
-      selectedCarrier,
-      setUserId,
-      pendingPackagesByCarrier,
-      delviredPackagesByCarrier,
-    },
+    users: { selectedCarrier, setUserId },
   } = useStore();
   useEffect(() => {
-    setUserId("3");
+    setUserId("1");
   }, [selectedCarrier]);
 
-  const MODAL_PENDING = useModal();
-  const MODAL_HISTORY = useModal();
   return (
     <div className="h-[90%]  flex flex-col gap-2">
       <TitleBox icon={<ArrowLeft className="w-4" />}>
@@ -47,66 +40,17 @@ export default observer(function page() {
           />
           <div>
             <h2 className="font-bold"> {selectedCarrier?.name} </h2>
-            <CarrierStatus status="HABILITADO" />
+            <CarrierStatus status={selectedCarrier?.status} />
           </div>
         </section>
-        <Switch onChange={() => {}} />
+        <Switch
+          onChange={() => {
+            console.log("SWITCH STATE OF CARRIER");
+          }}
+        />
       </BoxLayout>
-
-      <BoxLayout className="bg-white ">
-        <TitleBox
-          className={`${MODAL_PENDING.isModalOpen && "rounded-b-none"}`}
-          subtitle={pendingPackagesByCarrier?.length ? "" : "Sin repartos"}
-          onClick={() =>
-            MODAL_PENDING.isModalOpen
-              ? MODAL_PENDING.closeModal()
-              : MODAL_PENDING.openModal()
-          }
-          icon={
-            <ShortArrowIcon
-              className={`w-4 transition-all duration-150 ${
-                MODAL_PENDING.isModalOpen ? "rotate-[270deg]" : "rotate-180"
-              }`}
-            />
-          }
-        >
-          repartos pendientes
-        </TitleBox>
-        {pendingPackagesByCarrier?.length && MODAL_PENDING.isModalOpen ? (
-          <section className="p-2">
-            {pendingPackagesByCarrier?.map((pack) => (
-              <ShipmentCard pack={pack} />
-            ))}
-          </section>
-        ) : null}
-      </BoxLayout>
-
-      <BoxLayout className="bg-white ">
-        <TitleBox
-          className={`${MODAL_HISTORY.isModalOpen && "rounded-b-none"}`}
-          onClick={() =>
-            MODAL_HISTORY.isModalOpen
-              ? MODAL_HISTORY.closeModal()
-              : MODAL_HISTORY.openModal()
-          }
-          icon={
-            <ShortArrowIcon
-              className={`w-4 transition-all duration-150 ${
-                MODAL_HISTORY.isModalOpen ? "rotate-[270deg]" : "rotate-180"
-              }`}
-            />
-          }
-        >
-          HISTORIAL DE PEDIDOS
-        </TitleBox>
-        {MODAL_HISTORY.isModalOpen ? (
-          <section className="p-2">
-            {delviredPackagesByCarrier?.map((pack) => (
-              <ShipmentCard pack={pack} />
-            ))}
-          </section>
-        ) : null}
-      </BoxLayout>
+      <ShipmentView variant="pending" shipmentTitle="pedidos pendientes" />
+      <ShipmentView variant="history" shipmentTitle="historial de pedidos" />
     </div>
   );
 });
