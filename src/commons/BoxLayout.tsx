@@ -7,7 +7,7 @@ interface LayoutProps {
 
 export function BoxLayout({ children, className }: LayoutProps) {
   return (
-    <div className={`h-full w-full rounded-2xl shadow-sm  border ${className}`}>
+    <div className={` w-full rounded-2xl shadow-sm  border ${className}`}>
       {children}
     </div>
   );
