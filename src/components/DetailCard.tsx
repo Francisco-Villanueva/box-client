@@ -1,5 +1,4 @@
-import { Button, Graph, UserImg } from "commons";
-import Title from "commons/Title";
+import { Button, Graph, UserImg, Title } from "commons";
 import { type } from "os";
 
 interface DetailCardProps {

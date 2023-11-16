@@ -10,8 +10,8 @@ interface GraphProps {
 
 export function Graph({ value, size }: GraphProps) {
   return (
-    <ProgressCircle value={value} size={size}>
-      <span className="text-lg text-darkGreen font-medium">{`${value}%`}</span>
+    <ProgressCircle value={value} size={size} className="relative">
+      <div className="text-lg text-darkGreen font-medium ">{`${value}%`}</div>
     </ProgressCircle>
   );
 }

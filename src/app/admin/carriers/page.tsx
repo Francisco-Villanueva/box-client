@@ -1,10 +1,23 @@
 "use client";
-import { ArrowLeft, BoxLayout, BoxTitle, Title, TitleBox } from "commons";
-import { DetailCard } from "components";
+import {
+  ArrowLeft,
+  BoxLayout,
+  BoxTitle,
+  ShortArrowIcon,
+  Title,
+  TitleBox,
+} from "commons";
+import { CarrierCard, DetailCard } from "components";
 import React from "react";
 import { user } from "../../../mocks/users.json";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
 
-export default function page() {
+export default observer(function page() {
+  const {
+    users: { carriers },
+  } = useStore();
+
   return (
     <div>
       <div>
@@ -13,21 +26,28 @@ export default function page() {
           icon={<ArrowLeft />}
           className="w-full my-2 pr-6"
         >
-          reparto en curso
+          repartidores
         </TitleBox>
-        <BoxLayout
-          children={
-            <div>
-              <BoxTitle children="Enero"></BoxTitle>{" "}
-              {user.map((carrier)=>(
-                <DetailCard type="carrier" data={} />
-              ))}
-              
-              <BoxTitle variant="bottom"></BoxTitle>
-            </div>
-          }
-        ></BoxLayout>
+
+        <BoxLayout className="h-[75vh] overflow-scroll">
+          <BoxTitle>
+            <Title>Enero</Title>
+          </BoxTitle>
+
+          {/* TODO ver el error de Type en PackageCheckboxCard */}
+          <div className="flex flex-col m-auto ">
+            {carriers.map((carrier) => (
+              <>
+                <CarrierCard carrier={carrier} />
+              </>
+            ))}
+          </div>
+
+          <BoxTitle variant="bottom">
+            <ShortArrowIcon className="rotate-[270deg]" />
+          </BoxTitle>
+        </BoxLayout>
       </div>
     </div>
   );
-}
+})
