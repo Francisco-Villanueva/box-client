@@ -6,4 +6,8 @@ export * from "./ShipmentView";
 export * from "./ShipmentCard";
 export * from "./DetailView";
 export * from "./DetailCard";
+
 export * from "./Calendar";
+
+export * from "./PackageCheckboxCard"
+

@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { Button, TitleBox, GoogleMap, AppLayout, MapDescription } from "commons";
+import { Button, TitleBox, GoogleMap, MapDescription } from "commons";
 import { ArrowLeft } from "commons/Icons";
 
 // TODO: Las props de GoogleMap y de MapDescription deben salir de la data real de los paquetes
 
 export function DeliveryInProgress() {
   return (
-    <AppLayout>
+    <>
       <TitleBox
         variant="primary"
         icon={<ArrowLeft />}
@@ -34,6 +34,6 @@ export function DeliveryInProgress() {
           CANCELAR ENTREGA
         </Button>
       </div>
-    </AppLayout>
+    </>
   );
 }
