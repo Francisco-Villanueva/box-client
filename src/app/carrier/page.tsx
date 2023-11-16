@@ -9,14 +9,14 @@ export default function page() {
       {/* <div className="w-full h-[45vh] rounded-2xl overflow-hidden my-2"></div> */}
 
       <div className="flex flex-col items-center justify-center gap-2">
-        <div className="h-[30vh] ">
+        <div className="h-[30vh] w-full">
           <ShipmentView variant="pending"></ShipmentView>
         </div>
 
-        <div className="h-[45vh] ">
+        <div className="h-[45vh] w-full">
           <ShipmentView variant="history"></ShipmentView>
         </div>
-        <Button className="w-5/6 mt-4 m-6" variant="primary">
+        <Button className="w-5/6 mt-4 " variant="primary">
           OBTENER PAQUETES
         </Button>
       </div>
