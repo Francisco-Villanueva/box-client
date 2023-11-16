@@ -25,13 +25,13 @@ export default observer(function packagesPage() {
         Obtener Paquetes
       </TitleBox>
 
-      <BoxLayout>
+      <BoxLayout className="h-[80%] overflow-scroll">
         <BoxTitle>
           <Title>¿Cuántos paquetes repartirás hoy?</Title>
         </BoxTitle>
 
         {/* TODO ver el error de Type en PackageCheckboxCard */}
-        <div className="flex flex-col m-auto">
+        <div className="flex flex-col m-auto ">
           {unassignedPackages.map((packages) => (
             <>
               <PackageCheckboxCard pack={packages}></PackageCheckboxCard>
