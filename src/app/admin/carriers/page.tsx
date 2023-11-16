@@ -7,9 +7,8 @@ import {
   Title,
   TitleBox,
 } from "commons";
-import { CarrierCard, DetailCard } from "components";
+import { CarrierCard } from "components";
 import React from "react";
-import { user } from "../../../mocks/users.json";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
 
@@ -30,8 +29,12 @@ export default observer(function page() {
         </TitleBox>
 
         <BoxLayout className="h-[75vh] overflow-scroll">
-          <BoxTitle>
+          <BoxTitle
+            variant="topDate"
+            className="justify-between p-6 items-center"
+          >
             <Title>Enero</Title>
+            <Title>mie/03</Title>
           </BoxTitle>
 
           {/* TODO ver el error de Type en PackageCheckboxCard */}
@@ -50,4 +53,4 @@ export default observer(function page() {
       </div>
     </div>
   );
-})
+});
