@@ -9,17 +9,22 @@ interface StatusProps {
 const Colors = {
   green: "green",
   grey: "grey",
+  orange: "#EF7709",
 } as const;
 
 type Color = keyof typeof Colors;
 
 //If you need add status, modified this line
-export type StatusString = "EN CURSO" | "PENDIENTE" | "ENTREGADO" | "unassigned";
+export type StatusString =
+  | "EN CURSO"
+  | "PENDIENTE"
+  | "ENTREGADO"
+  | "unassigned";
 
 const STATUSCOLOR: Record<StatusString, Color> = {
   "EN CURSO": "green",
-  PENDIENTE: "grey",
-  ENTREGADO: "grey",
+  PENDIENTE: "orange",
+  ENTREGADO: "green",
   unassigned: "grey",
 } as const;
 
@@ -28,7 +33,11 @@ export function Status({ status }: StatusProps) {
 
   return (
     <>
-      <div className="bg-lightGrey py-[.5] px-2 flex items-center rounded-md gap-2">
+      <div
+        className={`${
+          status === "ENTREGADO" ? "bg-[#ace366]" : "bg-lightGrey"
+        } bg-lightGrey py-[.5] px-2 flex items-center rounded-md gap-2`}
+      >
         <div>
           <CircleIcon fill={`${Colors[color]}`} />
         </div>

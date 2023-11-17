@@ -17,6 +17,25 @@ export const DateStore = types
       let year = store.date.getFullYear().toString();
       return `${year}-${month}-${day}`;
     },
+    get mounth() {
+      const MOUNTHS = [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ];
+      let month = store.date.getMonth(); // Los meses comienzan desde 0
+
+      return MOUNTHS[month];
+    },
   }))
   .actions((store) => ({
     setDate(date: Date) {
