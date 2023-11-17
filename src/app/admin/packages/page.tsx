@@ -61,7 +61,21 @@ export default observer(function adminPackagesPage() {
           ))}
         </div>
 
-        n
+        <BoxTitle variant="bottom" className="h-[10%]">
+          <Button
+            className="border-none"
+            variant="secondary"
+            onClick={handleTrimmer}
+          >
+            <ShortArrowIcon
+              className={`transition-all duration-300 ${
+                trimmer === deliveredPackages.length
+                  ? " rotate-[90deg]"
+                  : " rotate-[270deg]"
+              } w-6`}
+            />
+          </Button>
+        </BoxTitle>
       </BoxLayout>
     </div>
   );
