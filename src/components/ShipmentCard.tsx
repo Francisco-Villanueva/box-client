@@ -1,15 +1,30 @@
 import { Button, IconBox, Status, StatusString } from "commons";
-import { TrashIcon } from "commons/Icons";
+import { MapIcon, TrashIcon } from "commons/Icons";
 import { Package } from "types";
 import { message } from "antd";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
+import { useRouter } from "next/navigation";
 
 interface ShipmentCardProps {
   pack: Package;
 }
 
-export function ShipmentCard({ pack }: ShipmentCardProps) {
+export const ShipmentCard = observer(function ShipmentCard({
+  pack,
+}: ShipmentCardProps) {
   const splitAddress = pack.address.split(",");
 
+  const {
+    packages: { setPackageId },
+  } = useStore();
+
+  const router = useRouter();
+  const viewMap = () => {
+    setPackageId(pack._id);
+
+    router.push("/carrier/map");
+  };
   return (
     <div className="font-roboto bg-white text-darkGreen w-full p-2 flex items-center">
       <div>{<IconBox />}</div>
@@ -23,18 +38,31 @@ export function ShipmentCard({ pack }: ShipmentCardProps) {
       <div className="ml-auto flex flex-col items-end gap-2 justify-between">
         <div>{<Status status={`${pack.status}`}></Status>}</div>
 
-        <Button
-          variant="secondary"
-          className="rounded-md p-0"
-          onClick={() => message.success("Paquete eliminado")}
-        >
-          {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
-            <TrashIcon className="w-[1rem]" />
-          ) : (
-            <span className="text-[10px]">INICIAR</span>
+        <div className="flex items-center gap-2 w-full  justify-around">
+          {pack.status === "EN CURSO" && (
+            <Button
+              variant="secondary"
+              className="rounded-md p-0 w-full flex justify-center "
+              onClick={viewMap}
+            >
+              <MapIcon className="w-[1rem]" />
+            </Button>
           )}
-        </Button>
+          <Button
+            variant="secondary"
+            className="rounded-md p-0 w-full flex justify-center "
+            onClick={() => message.success("Paquete eliminado")}
+          >
+            {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
+              <div>
+                <TrashIcon className="w-[1rem]" />
+              </div>
+            ) : (
+              <span className="text-[10px]">INICIAR</span>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
-}
+});

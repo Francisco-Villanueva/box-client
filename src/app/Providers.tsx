@@ -27,6 +27,7 @@ export default observer(function Providers({ children }: ProvidersProps) {
   const loginValidations = () => {
     const USER_ID = localStorage.getItem("USER_LOGGED_ID") || "";
     store.users.setUserLoggedId(USER_ID);
+    store.users.setUserId(USER_ID);
     if (!store.users.loggedUser) {
       router.push("/login");
     }

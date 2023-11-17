@@ -26,19 +26,22 @@
           "clientName": "Miguel Rodr\u00edguez",
           "weight": 118.47,
           "deliverDate": "2023-11-15",
-          "status": "EN CURSO",
+          "status": "PENDIENTE",
           "_id": "a690fac1-f4a4-478b-8c04-e477b06c2614"
         },
         {
           "address": "Bernardo de Irigoyen 308, Buenos Aires, Argentina",
+
           "clientName": "Miguel Mart\u00ednez",
           "weight": 88.73,
           "deliverDate": "2023-11-15",
-          "status": "PENDIENTE",
+          "status": "EN CURSO",
           "_id": "c30d201f-3158-4cf1-a3dd-4f41c5c05eaa"
         },
         {
+
           "address": "Avenida Corrientes 5655, Buenos Aires, Argentina",
+
           "clientName": "Luc\u00eda Garc\u00eda",
           "weight": 136.38,
           "deliverDate": "2023-11-15",

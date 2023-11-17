@@ -4,11 +4,16 @@ import { PackageModel, Package } from "../types";
 export const PackageStore = types
   .model({
     packages: types.array(PackageModel),
+    packageId: types.maybe(types.string),
   })
   .views((store) => ({
     get deliveredPackages() {
       // RETORNA LOS PACKAGES QUE FUERON ENTREGADOS
       return store.packages.filter((pack) => pack.status === "ENTREGADO");
+    },
+    get currentPackage() {
+      // RETORNA LOS PACKAGES QUE FUERON ENTREGADOS
+      return store.packages.find((pack) => pack._id === store.packageId);
     },
     get unassignedPackages() {
       // RETORNA LOS PACKAGES QUE NO ESTAN ASSIGANADOS (status = "unassigned")
@@ -29,5 +34,8 @@ export const PackageStore = types
     //TODO este any tiene que ser Package[]
     setPackages(packages: any) {
       store.packages.push(...packages);
+    },
+    setPackageId(packId: string) {
+      store.packageId = packId;
     },
   }));

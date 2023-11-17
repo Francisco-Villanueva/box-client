@@ -6,9 +6,9 @@ import Link from "next/link";
 import { message } from "antd";
 
 interface DeliveryProps {
-  address: string;
-  receiver: string;
-  packNumber: string;
+  address: any;
+  receiver: any;
+  packNumber: any;
 }
 
 export function DeliveryInProgress({
