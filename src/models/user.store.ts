@@ -7,6 +7,12 @@ export const UserStore = types
     userId: types.maybe(types.string),
   })
   .views((store) => ({
+    get carriers() {
+      return store.users.filter((user) => user.role === "Carrier");
+    },
+    get admins() {
+      return store.users.filter((user) => user.role === "Admin");
+    },
     get avaliableCarriers() {
       return store.users.filter(
         (carrier) =>
@@ -22,11 +28,15 @@ export const UserStore = types
       const carrier = store.users.find((user) => user._id === store.userId);
       return carrier?.packages;
     },
-    get carriers() {
-      return store.users.filter((user) => user.role === "Carrier");
+    get delviredPackagesByCarrier() {
+      const carrier = store.users.find((user) => user._id === store.userId);
+
+      return carrier?.packages.filter((pack) => pack.status === "ENTREGADO");
     },
-    get admins() {
-      return store.users.filter((user) => user.role === "Admin");
+    get pendingPackagesByCarrier() {
+      const carrier = store.users.find((user) => user._id === store.userId);
+
+      return carrier?.packages.filter((pack) => pack.status !== "ENTREGADO");
     },
   }))
   .actions((store) => ({

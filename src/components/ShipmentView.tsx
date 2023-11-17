@@ -1,42 +1,59 @@
+import useModal from "hooks/useModal";
 import { TitleBox, BoxLayout, ShortArrowIcon } from "commons";
 import { ShipmentCard } from "components";
-import { user } from "../mocks/users.json";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
 
 interface ShipmentProps {
   variant?: "pending" | "history";
+  shipmentTitle: string;
 }
 
-export function ShipmentView({ variant }: ShipmentProps) {
-  const shipmentTitle =
-    variant === "pending" ? "repartos pendientes" : "historial de pedidos";
-  const activeUser = user[2];
+export const ShipmentView = observer(function ({
+  variant,
+  shipmentTitle,
+}: ShipmentProps) {
+  const {
+    users: { pendingPackagesByCarrier, delviredPackagesByCarrier },
+  } = useStore();
+
+  const packs =
+    variant === "pending"
+      ? pendingPackagesByCarrier
+      : delviredPackagesByCarrier;
+
+  const { isModalOpen, toggleModal } = useModal();
 
   return (
-    <BoxLayout className="mx-auto flex flex-col bg-white h-full">
+    <BoxLayout className=" bg-white ">
       <TitleBox
-        icon={<ShortArrowIcon className="rotate-90" />}
-        variant="secondary"
-        className="w-full"
+        className={`${isModalOpen && "rounded-b-none"}`}
+        subtitle={packs?.length ? "" : "Sin repartos"}
+        onClick={toggleModal}
+        icon={
+          <ShortArrowIcon
+            className={`w-4 transition-all duration-150 ${
+              isModalOpen ? "rotate-[270deg]" : "rotate-180"
+            }`}
+          />
+        }
       >
         {shipmentTitle}
       </TitleBox>
-      <div className="flex flex-col w-[90%] m-auto overflow-scroll">
-        {variant === "history" ? (
+
+      {isModalOpen ? (
+        <section className="p-2">
           <div>
             <div className="font-roboto text-xs font-medium p-2">
-              58 paquetes entregados{" "}
+              {packs?.length} paquetes entregados{" "}
             </div>
             <hr></hr>
           </div>
-        ) : null}
-
-        {activeUser.packages.map((carrier, i) => (
-          <>
-            {i !== 0 && i !== activeUser.packages.length && <hr />}
-            <ShipmentCard key={carrier._id} pack={carrier} />
-          </>
-        ))}
-      </div>
+          {packs?.map((pack) => (
+            <ShipmentCard pack={pack} />
+          ))}
+        </section>
+      ) : null}
     </BoxLayout>
   );
-}
+});
