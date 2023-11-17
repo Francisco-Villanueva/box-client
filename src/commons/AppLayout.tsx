@@ -2,13 +2,28 @@ import React, { ReactNode } from "react";
 import BoxLogo from "../../public/boxLogo-2.png";
 import Image from "next/image";
 import { Button, BodyLayout } from "commons";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
+import { useRouter } from "next/navigation";
 
 interface AppLayoutProps {
   children: ReactNode;
   className?: string;
 }
 
-export function AppLayout({ children, className }: AppLayoutProps) {
+export const AppLayout = observer(function ({
+  children,
+  className,
+}: AppLayoutProps) {
+  const {
+    users: { setUserLoggedId },
+  } = useStore();
+  const router = useRouter();
+  const handleLogOut = () => {
+    localStorage.setItem("USER_LOGGED_ID", "");
+    setUserLoggedId("");
+    router.push("/login");
+  };
   return (
     <div className=" flex flex-col gap-4 bg-lightGreen w-full min-h-screen overflow-auto p-3">
       <div className="flex justify-between items-center">
@@ -19,6 +34,7 @@ export function AppLayout({ children, className }: AppLayoutProps) {
         </div>
         <div>
           <Button
+            onClick={handleLogOut}
             children={"CERRAR SESIÓN"}
             variant="secondary"
             className="w-30 h-8 text-xs"
@@ -28,4 +44,4 @@ export function AppLayout({ children, className }: AppLayoutProps) {
       <BodyLayout>{children}</BodyLayout>
     </div>
   );
-}
+});

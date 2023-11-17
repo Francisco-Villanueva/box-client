@@ -12,6 +12,7 @@ export const UserModel = types.model({
   name: types.string,
   lastName: types.string,
   email: types.string,
+  password: types.string,
   image: types.string,
   role: types.enumeration(ROLES_TYPES),
   status: types.enumeration(USER_STATUSES),
