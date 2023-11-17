@@ -25,7 +25,7 @@ export const ShipmentView = observer(function ({
   const { isModalOpen, toggleModal } = useModal();
 
   return (
-    <BoxLayout className=" bg-white ">
+    <BoxLayout className={`bg-white`}>
       <TitleBox
         className={`${isModalOpen && "rounded-b-none"}`}
         subtitle={packs?.length ? "" : "Sin repartos"}
@@ -41,14 +41,16 @@ export const ShipmentView = observer(function ({
         {shipmentTitle}
       </TitleBox>
 
-      {isModalOpen ? (
-        <section className="p-2">
-          <div>
-            <div className="font-roboto text-xs font-medium p-2">
-              {packs?.length} paquetes entregados{" "}
+      {isModalOpen && packs?.length ? (
+        <section className="p-2 overflow-scroll h-max-[20%]">
+          {variant === "history" ? (
+            <div>
+              <div className="font-roboto text-xs font-medium p-2">
+                {`${packs?.length} paquetes entregados`}
+              </div>
+              <hr></hr>
             </div>
-            <hr></hr>
-          </div>
+          ) : null}
           {packs?.map((pack) => (
             <ShipmentCard pack={pack} />
           ))}

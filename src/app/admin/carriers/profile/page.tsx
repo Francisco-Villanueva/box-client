@@ -20,9 +20,7 @@ export default observer(function page() {
   const {
     users: { selectedCarrier, setUserId },
   } = useStore();
-  useEffect(() => {
-    setUserId("1");
-  }, [selectedCarrier]);
+  
 
   return (
     <div className="h-[90%]  flex flex-col gap-2">

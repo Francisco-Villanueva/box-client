@@ -5,21 +5,16 @@ import React from "react";
 
 export default function page() {
   return (
-    <div>
-      {/* <div className="w-full h-[45vh] rounded-2xl overflow-hidden my-2"></div> */}
+    <div className="flex flex-col justify-between items-center gap-2 h-full">
+      <div className="flex flex-col gap-3 w-full h-max-[50%]">
+        <ShipmentView variant="pending" shipmentTitle="repartos pendientes" />
 
-      <div className="flex flex-col items-center justify-center gap-2">
-        <div className="h-[30vh] w-full">
-          <ShipmentView variant="pending"></ShipmentView>
-        </div>
-
-        <div className="h-[45vh] w-full">
-          <ShipmentView variant="history"></ShipmentView>
-        </div>
-        <Button className="w-5/6 mt-4 " variant="primary">
-          OBTENER PAQUETES
-        </Button>
+        <ShipmentView variant="history" shipmentTitle="historial de repartos" />
       </div>
+
+      <Button className="w-5/6 " variant="primary">
+        OBTENER PAQUETES
+      </Button>
     </div>
   );
 }
