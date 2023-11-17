@@ -19,17 +19,17 @@ export default observer(function adminPackagesPage() {
   } = useStore();
 
   return (
-    <>
-      <TitleBox className="w-full mb-4" icon={<ArrowLeft />}>
+    <div className="h-[95%] flex flex-col gap-4 justify-between">
+      <TitleBox className="w-full" icon={<ArrowLeft />}>
         Paquetes
       </TitleBox>
 
-{/* TODO fixear el BoxTitle top y bottom, solo deberia scrollear el mapeo */}
+      {/* TODO fixear el BoxTitle top y bottom, solo deberia scrollear el mapeo */}
 
-      <BoxLayout className="h-[85%] overflow-scroll">
+      <BoxLayout className="h-[90%]">
         <BoxTitle
           variant="topDate"
-          className="justify-between p-6 items-center"
+          className="justify-between h-[10%] p-6 items-center"
         >
           <Title>ENERO</Title>
           <Title>Fecha</Title>
@@ -39,16 +39,16 @@ export default observer(function adminPackagesPage() {
           58 paquetes entregados{" "}
         </div>
 
-        {deliveredPackages.map((packages) => (
-          <>
+        <div className="overflow-scroll max-h-[80%] flex flex-col m-auto">
+          {deliveredPackages.map((packages) => (
             <ShipmentCard pack={packages}></ShipmentCard>
-          </>
-        ))}
+          ))}
+        </div>
 
         <BoxTitle variant="bottom">
           <ShortArrowIcon className="rotate-[270deg]" />
         </BoxTitle>
       </BoxLayout>
-    </>
+    </div>
   );
 });
