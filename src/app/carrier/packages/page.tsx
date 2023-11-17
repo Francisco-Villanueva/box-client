@@ -20,12 +20,12 @@ export default observer(function packagesPage() {
   } = useStore();
 
   return (
-    <div className="h-[90%] flex flex-col gap-4 justify-between">
+    <div className="h-[95%] flex flex-col gap-4 justify-between">
       <TitleBox className="w-full" icon={<ArrowLeft />}>
         Obtener Paquetes
       </TitleBox>
 
-      <BoxLayout className="bg-white h-[90%] ">
+      <BoxLayout className="bg-white h-[95%] ">
         <BoxTitle className="h-[10%]">
           <Title>¿Cuántos paquetes repartirás hoy?</Title>
         </BoxTitle>

@@ -39,13 +39,13 @@ export default observer(function adminPackagesPage() {
           58 paquetes entregados{" "}
         </div>
 
-        <div className="overflow-scroll max-h-[80%] flex flex-col m-auto">
+        <div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
           {deliveredPackages.map((packages) => (
             <ShipmentCard pack={packages}></ShipmentCard>
           ))}
         </div>
 
-        <BoxTitle variant="bottom">
+        <BoxTitle variant="bottom" className="h-[10%]">
           <ShortArrowIcon className="rotate-[270deg]" />
         </BoxTitle>
       </BoxLayout>
