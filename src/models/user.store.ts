@@ -1,11 +1,13 @@
 import { types } from "mobx-state-tree";
-import { UserModel, User } from "../types";
+import { UserModel, User, Package } from "../types";
 
 export const UserStore = types
   .model({
     users: types.array(UserModel),
     userId: types.maybe(types.string),
     userLoggedId: types.maybe(types.string),
+    pendingPack_ID: types.array(types.string),
+    historyPack_ID: types.array(types.string),
   })
   .views((store) => ({
     get carriers() {
@@ -37,13 +39,21 @@ export const UserStore = types
       //RETORNA LOS PACKAGES ENTREGADOS DEL CARRIER SELECCIONADO
       const carrier = store.users.find((user) => user._id === store.userId);
 
-      return carrier?.packages.filter((pack) => pack.status === "ENTREGADO");
+      return carrier?.packages.filter(
+        (pack) =>
+          pack.status === "ENTREGADO" &&
+          !store.historyPack_ID.some((id) => id === pack._id)
+      );
     },
     get pendingPackagesByCarrier() {
       //RETORNA LOS PACKAGES PENDIENTES Y EN CURSO DEL CARRIER SELECCIONADO
       const carrier = store.users.find((user) => user._id === store.userId);
 
-      return carrier?.packages.filter((pack) => pack.status !== "ENTREGADO");
+      return carrier?.packages.filter(
+        (pack) =>
+          pack.status !== "ENTREGADO" &&
+          !store.pendingPack_ID.some((id) => id === pack._id)
+      );
     },
 
     findUserByEmail(email: string) {
@@ -63,5 +73,15 @@ export const UserStore = types
     },
     setUserLoggedId(userId: string) {
       store.userLoggedId = userId;
+    },
+    deletePendingPackage(packId: string) {
+      store.pendingPack_ID.push(packId);
+    },
+    deleteHistoryPackages(packId: string) {
+      store.historyPack_ID.push(packId);
+    },
+    addPackage(pack: Package) {
+      const user = store.loggedUser;
+      user?.packages.push(pack);
     },
   }));
