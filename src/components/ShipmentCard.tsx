@@ -1,6 +1,8 @@
 import { Button, IconBox, Status, StatusString } from "commons";
 import { TrashIcon } from "commons/Icons";
 import { Package } from "types";
+import { message } from "antd";
+
 interface ShipmentCardProps {
   pack: Package;
 }
@@ -21,7 +23,11 @@ export function ShipmentCard({ pack }: ShipmentCardProps) {
       <div className="ml-auto flex flex-col items-end gap-2 justify-between">
         <div>{<Status status={`${pack.status}`}></Status>}</div>
 
-        <Button variant="secondary" className="rounded-md p-0">
+        <Button
+          variant="secondary"
+          className="rounded-md p-0"
+          onClick={() => message.success("Paquete eliminado")}
+        >
           {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
             <TrashIcon className="w-[1rem]" />
           ) : (

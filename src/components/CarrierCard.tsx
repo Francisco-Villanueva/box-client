@@ -1,14 +1,22 @@
 "use client";
-import { UserImg, Title, Graph, Status } from "commons";
+import { UserImg, Title, Graph, Status, CarrierStatus } from "commons";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
+import { useRouter } from "next/navigation";
 import { User } from "types";
 
 interface CarrierCardProps {
   carrier: User;
 }
 
-export function CarrierCard({ carrier }: CarrierCardProps) {
-  console.log("carrier--->", carrier);
+export const CarrierCard = observer(function CarrierCard({
+  carrier,
+}: CarrierCardProps) {
+  const router = useRouter();
 
+  const {
+    users: { setUserId },
+  } = useStore();
   const packagesDelivered = carrier.packages.filter(
     (pack) => pack.status === "ENTREGADO"
   );
@@ -23,16 +31,27 @@ export function CarrierCard({ carrier }: CarrierCardProps) {
     ? "ENTREGADO"
     : "PENDIENTE";
 
+  const handleSelectCarrier = () => {
+    setUserId(carrier._id);
+    router.push("/admin/carriers/profile");
+  };
+
   return (
     <div
       className="flex items-center justify-between p-4 border-t border-black bg-white"
       key={carrier._id}
+      onClick={handleSelectCarrier}
     >
       <div className="flex items-center gap-4">
         <Graph value={percentage} size="md" />
         <div className="flex flex-col">
-          <div className="font-medium text-start text-darkGreen text-md">{carrier.name}</div>
-          <Status status={status} />
+          <div className="font-medium text-start text-darkGreen text-md">
+            {carrier.name}
+          </div>
+          {/*
+          TODO: ESTE STATUS A QUE HACE REFERENCIA
+                    <Status status={status} /> */}
+          <CarrierStatus status={carrier.status} />
         </div>
       </div>
 
@@ -41,4 +60,4 @@ export function CarrierCard({ carrier }: CarrierCardProps) {
       </div>
     </div>
   );
-}
+});

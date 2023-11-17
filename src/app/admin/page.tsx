@@ -1,7 +1,8 @@
 "use client";
-import { AddIcon, Button, Title } from "commons";
+import { AddIcon, BoxTitle, Button, Title } from "commons";
 import { Calendar, DetailView } from "components";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AdminPage() {
   return (
@@ -20,23 +21,31 @@ export default function AdminPage() {
           <span>Estos son los pedidos del dia</span>
         </div>
       </section>
-      {/* */}
-      <section className="bg-white flex flex-col h-1/4 rounded-2xl">
-        <div className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl">
+
+      <section className="bg-white flex flex-col rounded-2xl">
+        <BoxTitle
+          variant="topDate"
+          className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl "
+        >
           <Title>NOVIEMBRE</Title>
-        </div>
+        </BoxTitle>
 
         <Calendar />
       </section>
-      {/* */}
+
       <DetailView />
 
-      <Button>
-        <span className="flex justify-center items-center   gap-2 ">
-          Nuevo Paquete
-          <AddIcon className="w-4" />
-        </span>
-      </Button>
+      <Link
+        href={"/admin/packages/create"}
+        className="w-full flex justify-center"
+      >
+        <Button className="w-5/6 ">
+          <span className="flex justify-center items-center   gap-2 ">
+            Nuevo Paquete
+            <AddIcon className="w-4" />
+          </span>
+        </Button>
+      </Link>
     </div>
   );
 }
