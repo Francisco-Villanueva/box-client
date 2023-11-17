@@ -1,30 +1,27 @@
 "use client";
-import {
-  ArrowLeft,
-  BodyLayout,
-  BoxLayout,
-  CarrierStatus,
-  ShortArrowIcon,
-  Switch,
-  Title,
-  TitleBox,
-} from "commons";
-import { ShipmentCard, ShipmentView } from "components";
-import useModal from "hooks/useModal";
+import { ArrowLeft, BoxLayout, CarrierStatus, Switch, TitleBox } from "commons";
+import { ShipmentView } from "components";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import Link from "next/link";
+import React from "react";
 
 export default observer(function page() {
   const {
     users: { selectedCarrier, setUserId },
   } = useStore();
-  
 
   return (
     <div className="h-[90%]  flex flex-col gap-2">
-      <TitleBox icon={<ArrowLeft className="w-4" />}>
+      <TitleBox
+        className=""
+        icon={
+          <Link href={"/admin/carriers"}>
+            <ArrowLeft className="w-4" />
+          </Link>
+        }
+      >
         Gestionar pedidos
       </TitleBox>
       <BoxLayout className="bg-white p-4 flex items-center justify-between">

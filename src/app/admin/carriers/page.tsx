@@ -11,6 +11,7 @@ import { CarrierCard } from "components";
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
+import Link from "next/link";
 
 export default observer(function page() {
   const {
@@ -22,7 +23,11 @@ export default observer(function page() {
       <div>
         <TitleBox
           variant="primary"
-          icon={<ArrowLeft />}
+          icon={
+            <Link href={"/admin"}>
+              <ArrowLeft />
+            </Link>
+          }
           className="w-full my-2 pr-6"
         >
           repartidores
@@ -31,7 +36,7 @@ export default observer(function page() {
         <BoxLayout className="h-[75vh] overflow-scroll">
           <BoxTitle
             variant="topDate"
-            className="justify-between p-6 items-center"
+            className="justify-between p-4 items-center"
           >
             <Title>Enero</Title>
             <Title>mie/03</Title>
@@ -39,15 +44,19 @@ export default observer(function page() {
 
           {/* TODO ver el error de Type en PackageCheckboxCard */}
           <div className="flex flex-col m-auto ">
-            {carriers.map((carrier) => (
+            {!carriers.length ? (
+              "loading"
+            ) : (
               <>
-                <CarrierCard carrier={carrier} />
+                {carriers.map((carrier) => (
+                  <CarrierCard carrier={carrier} />
+                ))}
               </>
-            ))}
+            )}
           </div>
 
           <BoxTitle variant="bottom">
-            <ShortArrowIcon className="rotate-[270deg]" />
+            <ShortArrowIcon className="rotate-[270deg] w-6" />
           </BoxTitle>
         </BoxLayout>
       </div>

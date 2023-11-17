@@ -34,26 +34,26 @@ export function TitleBox({
   const [isActive, setIsActive] = useState(true);
 
   return (
-    <div className={`${TITLE_STYLE.variant[variant]} ${className}`}>
-      <div className="flex justify-between">
-        <div className="flex flex-col  ">
-          <h2 className="m-0">{children}</h2>{" "}
-          <span className="text-sm lowercase mt-[-5px]">{subtitle}</span>
-        </div>
-        <div className="font-medium">{date}</div>
-        {variant === "secondary" ? (
-          <button
-            onClick={() => setIsActive(!isActive)}
-            className={`w-5 ${isActive ? "rotate-90" : "rotate-180"}`}
-          >
-            {icon}
-          </button>
-        ) : (
-          <button className={`w-5`} onClick={onClick}>
-            {icon}
-          </button>
-        )}
+    <div
+      className={`flex justify-between ${TITLE_STYLE.variant[variant]} ${className}`}
+    >
+      <div className="flex flex-col  ">
+        <h2 className="m-0">{children}</h2>{" "}
+        <span className="text-sm lowercase mt-[-5px]">{subtitle}</span>
       </div>
+      <div className="font-medium">{date}</div>
+      {variant === "secondary" ? (
+        <button
+          onClick={() => setIsActive(!isActive)}
+          className={`w-5 ${isActive ? "rotate-90" : "rotate-180"}`}
+        >
+          {icon}
+        </button>
+      ) : (
+        <button className={`w-5`} onClick={onClick}>
+          {icon}
+        </button>
+      )}
     </div>
   );
 }
