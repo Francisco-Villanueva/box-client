@@ -30,7 +30,6 @@ export default observer(function packagesPage() {
           <Title>¿Cuántos paquetes repartirás hoy?</Title>
         </BoxTitle>
 
-        {/* TODO ver el error de Type en PackageCheckboxCard */}
         <div className="overflow-scroll max-h-[80%] flex flex-col m-auto ">
           {unassignedPackages.map((packages) => (
             <PackageCheckboxCard pack={packages}></PackageCheckboxCard>
@@ -42,7 +41,6 @@ export default observer(function packagesPage() {
         </BoxTitle>
       </BoxLayout>
 
-      {/* TODO agregarle margin abajo del boton */}
       <Button className="w-[90%] uppercase flex m-auto justify-center ">
         Iniciar Jornada
       </Button>

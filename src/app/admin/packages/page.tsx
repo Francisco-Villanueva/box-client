@@ -24,8 +24,6 @@ export default observer(function adminPackagesPage() {
         Paquetes
       </TitleBox>
 
-      {/* TODO fixear el BoxTitle top y bottom, solo deberia scrollear el mapeo */}
-
       <BoxLayout className="h-[90%]">
         <BoxTitle
           variant="topDate"
