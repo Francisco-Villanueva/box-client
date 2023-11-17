@@ -1,8 +1,8 @@
 import { Button, Graph, UserImg, Title } from "commons";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
+import Link from "next/link";
 import { type } from "os";
-
 
 interface DetailCardProps {
   type: "carrier" | "package";
@@ -37,6 +37,7 @@ export const DetailCard = observer(function DetailCard({
       ? Math.floor((avaliableCarriers.length / carriers.length) * 100)
       : Math.floor((DELIVERD_PACKAGES.length / TOTAL_PACKAGES.length) * 100);
 
+  const navLink = type === "carrier" ? "carriers" : "packages";
   return (
     <div className="flex justify-between items-center text-darkGreen ">
       <div className="flex items-center gap-4">
@@ -65,7 +66,9 @@ export const DetailCard = observer(function DetailCard({
         </div>
       </div>
 
-      <Button>VER</Button>
+      <Link href={`/admin/${navLink}`}>
+        <Button>VER</Button>
+      </Link>
     </div>
   );
 });
