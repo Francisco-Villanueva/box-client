@@ -29,11 +29,13 @@ export const UserStore = types
       return carrier?.packages;
     },
     get delviredPackagesByCarrier() {
+      //RETORNA LOS PACKAGES ENTREGADOS DEL CARRIER SELECCIONADO
       const carrier = store.users.find((user) => user._id === store.userId);
 
       return carrier?.packages.filter((pack) => pack.status === "ENTREGADO");
     },
     get pendingPackagesByCarrier() {
+      //RETORNA LOS PACKAGES PENDIENTES Y EN CURSO DEL CARRIER SELECCIONADO
       const carrier = store.users.find((user) => user._id === store.userId);
 
       return carrier?.packages.filter((pack) => pack.status !== "ENTREGADO");
