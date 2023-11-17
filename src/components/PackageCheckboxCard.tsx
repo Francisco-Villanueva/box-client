@@ -1,18 +1,11 @@
-import { Checkbox, StatusString } from "commons";
+import { Checkbox } from "commons";
+import { Package } from "types";
 
 
 interface PackageCheckboxCardProps {
-  pack: Pack;
+  pack: Package;
 }
 
-interface Pack {
-  _id: string;
-  address: string;
-  clientName: string;
-  weight: number;
-  deliverDate: string;
-  status: StatusString;
-}
 
 export function PackageCheckboxCard({ pack }: PackageCheckboxCardProps) {
 

@@ -10,9 +10,9 @@ type Style = keyof typeof BOX_TITLE_STYLE.variant;
 
 const BOX_TITLE_STYLE = {
   variant: {
-    top: "flex flex-col bg-purple justify-center h-[50px] rounded-t-2xl",
-    topDate: "flex bg-purple justify-center h-[50px] rounded-t-2xl",
-    bottom: "flex  bg-white justify-center h-[50px] rounded-b-2xl",
+    top: "flex flex-col bg-purple justify-center rounded-t-2xl",
+    topDate: "flex bg-purple justify-center rounded-t-2xl",
+    bottom: "flex  bg-white justify-center rounded-b-2xl",
   },
 };
 
