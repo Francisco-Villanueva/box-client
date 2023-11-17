@@ -1,6 +1,7 @@
 import React from "react";
 
 import { CustomLink, IconBoxLogin, Button, Input } from "commons";
+import Link from "next/link";
 
 export function Login() {
   return (
@@ -19,11 +20,13 @@ export function Login() {
             variant="primary"
             className="w-full mb-2"
           />
+          <Link href={"/register"} className="w-full flex justify-center">
           <Button
             children={"CREAR CUENTA"}
             variant="secondary"
             className="w-full"
-          />
+            />
+            </Link>
           <CustomLink href={"asdasd"} children={"Olvidé mi contraseña"} />
         </section>
       </div>

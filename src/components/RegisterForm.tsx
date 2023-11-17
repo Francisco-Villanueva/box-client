@@ -31,7 +31,7 @@ export function RegisterForm() {
             variant="secondary"
             className="w-full"
           />
-          <CustomLink href={"asdasd"} children={"¿Ya tenés una cuenta?"} />
+          <CustomLink href={"/login"} children={"¿Ya tenés una cuenta?"} />
         </section>
       </div>
     </>

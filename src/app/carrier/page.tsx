@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "commons";
 import { ShipmentView } from "components";
+import Link from "next/link";
 import React from "react";
 
 export default function page() {
@@ -12,9 +13,14 @@ export default function page() {
         <ShipmentView variant="history" shipmentTitle="historial de repartos" />
       </div>
 
-      <Button className="w-5/6 " variant="primary">
-        OBTENER PAQUETES
-      </Button>
+      <Link
+        href={"/carrier/packages"}
+        className="w-full flex justify-center"
+      >
+        <Button className="w-5/6 " variant="primary">
+          OBTENER PAQUETES
+        </Button>
+      </Link>
     </div>
   );
 }
