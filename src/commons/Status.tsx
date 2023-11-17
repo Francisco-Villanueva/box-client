@@ -14,12 +14,13 @@ const Colors = {
 type Color = keyof typeof Colors;
 
 //If you need add status, modified this line
-export type StatusString = "EN CURSO" | "PENDIENTE" | "FINALIZADO";
+export type StatusString = "EN CURSO" | "PENDIENTE" | "ENTREGADO" | "unassigned";
 
 const STATUSCOLOR: Record<StatusString, Color> = {
   "EN CURSO": "green",
   PENDIENTE: "grey",
-  FINALIZADO: "grey",
+  ENTREGADO: "grey",
+  unassigned: "grey",
 } as const;
 
 export function Status({ status }: StatusProps) {

@@ -2,12 +2,13 @@
 import { UserImg, Title, Graph, Status } from "commons";
 import { User } from "types";
 
-
 interface CarrierCardProps {
   carrier: User;
 }
 
 export function CarrierCard({ carrier }: CarrierCardProps) {
+  console.log("carrier--->", carrier);
+
   const packagesDelivered = carrier.packages.filter(
     (pack) => pack.status === "ENTREGADO"
   );
@@ -18,16 +19,19 @@ export function CarrierCard({ carrier }: CarrierCardProps) {
 
   const status = carrier.packages.some((pack) => pack.status === "EN CURSO")
     ? "EN CURSO"
+    : percentage === 100
+    ? "ENTREGADO"
     : "PENDIENTE";
+
   return (
     <div
-      className="flex items-center justify-between py-4 border-t border-black"
+      className="flex items-center justify-between p-4 border-t border-black bg-white"
       key={carrier._id}
     >
       <div className="flex items-center gap-4">
         <Graph value={percentage} size="md" />
         <div className="flex flex-col">
-          <Title>{carrier.name}</Title>
+          <div className="font-medium text-start text-darkGreen text-md">{carrier.name}</div>
           <Status status={status} />
         </div>
       </div>

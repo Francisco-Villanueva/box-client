@@ -10,6 +10,7 @@ export default function Providers({ children }: ProvidersProps) {
   const store = RootStore.create({
     users: {},
     packages: {},
+    date: { date: new Date() },
   });
 
   const setData = useCallback(async () => {

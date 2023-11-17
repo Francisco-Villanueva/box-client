@@ -1,6 +1,6 @@
 import React from "react";
 interface StatusProps {
-  status: string;
+  status?: string;
 }
 export function CarrierStatus({ status }: StatusProps) {
   return (

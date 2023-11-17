@@ -20,6 +20,10 @@ export const PackageStore = types
         (pack) => pack.status === "EN CURSO" || pack.status === "PENDIENTE"
       );
     },
+    packagesByDate(packages: Package[], date: string) {
+      // TODO: Ver si hacer el filtro con un date string y en el formato YYYY-MM-DD
+      return packages.filter((pack) => pack.deliverDate === date);
+    },
   }))
   .actions((store) => ({
     //TODO este any tiene que ser Package[]
