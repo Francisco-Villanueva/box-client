@@ -17,6 +17,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 
   const {
     packages: { setPackageId },
+    users: { addPackage, deletePendingPackage, deleteHistoryPackages },
   } = useStore();
 
   const router = useRouter();
@@ -24,6 +25,11 @@ export const ShipmentCard = observer(function ShipmentCard({
     setPackageId(pack._id);
 
     router.push("/carrier/map");
+  };
+  const handleDeletePackage = () => {
+    pack.status === "EN CURSO" && deletePendingPackage(pack._id);
+    pack.status === "ENTREGADO" && deleteHistoryPackages(pack._id);
+    message.success("Paquete eliminado!");
   };
   return (
     <div className="font-roboto bg-white text-darkGreen w-full p-2 flex items-center">
@@ -51,7 +57,7 @@ export const ShipmentCard = observer(function ShipmentCard({
           <Button
             variant="secondary"
             className="rounded-md p-0 w-full flex justify-center "
-            onClick={() => message.success("Paquete eliminado")}
+            onClick={handleDeletePackage}
           >
             {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
               <div>
