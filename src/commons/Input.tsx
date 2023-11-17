@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { EyeIcon, NotEyeIcon } from "./Icons";
 
 type InputProps = {
@@ -9,6 +9,7 @@ type InputProps = {
   className?: string;
   value?: string;
   required?: boolean;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export function Input({
@@ -18,25 +19,29 @@ export function Input({
   className = "",
   value,
   required,
+  onChange,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const inputType = showPassword ? "text" : type;
 
   return (
-    <div className={`relative h-16 font-roboto ${className}`}>
+    <div
+      className={` flex  items-center  relative mt-1 font-roboto ${className}`}
+    >
       <input
         value={value}
         type={inputType}
+        onChange={onChange}
         placeholder={placeholder}
         defaultValue={value}
-        className={`w-full h-14 py-2 rounded-none border-b border-darkGreen placeholder-darkGreen text-darkGreen p-4 focus:outline-none bg-transparent placeholder-darkGreen::placeholder`}
+        className={`w-full  px-0   rounded-sm border-b border-darkGreen placeholder-darkGreen text-darkGreen   focus:outline-none bg-transparent placeholder-darkGreen::placeholder`}
       />
 
       {type === "password" && (
         <button
           type="button"
-          className="absolute pb-3 right-5 h-full mr-2"
+          className="absolute  right-5 h-full mr-2"
           onClick={() => {
             setShowPassword(!showPassword);
           }}

@@ -5,6 +5,7 @@ export const UserStore = types
   .model({
     users: types.array(UserModel),
     userId: types.maybe(types.string),
+    userLoggedId: types.maybe(types.string),
   })
   .views((store) => ({
     get carriers() {
@@ -23,6 +24,10 @@ export const UserStore = types
       //RETORNA EL CARRIER SELECCIONADO
       return store.users.find((user) => user._id === store.userId);
     },
+    get loggedUser() {
+      //RETORNA EL CARRIER SELECCIONADO
+      return store.users.find((user) => user._id === store.userLoggedId);
+    },
     get selectedCarrierPackages() {
       //RETORNA LOS PACKAGES DE EL CARRIER SELECCIONADO
       const carrier = store.users.find((user) => user._id === store.userId);
@@ -40,6 +45,13 @@ export const UserStore = types
 
       return carrier?.packages.filter((pack) => pack.status !== "ENTREGADO");
     },
+
+    findUserByEmail(email: string) {
+      return store.users.find((user) => user.email === email);
+    },
+    validatePassword(user: User, password: string) {
+      return user.password === password;
+    },
   }))
   .actions((store) => ({
     //TODO este any tiene que ser User[]
@@ -48,5 +60,8 @@ export const UserStore = types
     },
     setUserId(userId: string) {
       store.userId = userId;
+    },
+    setUserLoggedId(userId: string) {
+      store.userLoggedId = userId;
     },
   }));
