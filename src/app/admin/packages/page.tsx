@@ -19,8 +19,14 @@ import { useState } from "react";
 export default observer(function adminPackagesPage() {
   const [trimmer, setTrimmer] = useState(6);
   const {
-    packages: { deliveredPackages },
+    packages: { deliveredPackages, packagesByDate, packages },
+    date: { date_YMD, mounth, date_DMY },
   } = useStore();
+
+  const TOTAL_PACKAGES = packagesByDate(packages, date_YMD);
+  const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD);
+
+  console.log(date_DMY);
 
   const handleTrimmer = () => {
     if (trimmer === deliveredPackages.length) {
@@ -47,16 +53,16 @@ export default observer(function adminPackagesPage() {
           variant="topDate"
           className="justify-between h-[10%] p-6 items-center"
         >
-          <Title>ENERO</Title>
-          <Title>Fecha</Title>
+          <Title>{mounth.toUpperCase()}</Title>
+          <Title>{date_DMY}</Title>
         </BoxTitle>
 
         <div className="font-roboto text-xs font-medium p-2 bg-white">
-          {deliveredPackages.length} paquetes entregados{" "}
+          {DELIVERD_PACKAGES.length} paquetes entregados{" "}
         </div>
 
         <div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
-          {deliveredPackages.slice(0, trimmer).map((packages) => (
+          {TOTAL_PACKAGES.slice(0, trimmer).map((packages) => (
             <ShipmentCard pack={packages}></ShipmentCard>
           ))}
         </div>

@@ -1,10 +1,15 @@
 "use client";
 import { AddIcon, BoxTitle, Button, Title } from "commons";
 import { Calendar, DetailView } from "components";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function AdminPage() {
+export default observer(function AdminPage() {
+  const {
+    date: { mounth },
+  } = useStore();
   return (
     <div className="flex flex-col justify-between gap-2 h-full">
       <section className="bg-white  flex items-center gap-2  p-4  rounded-2xl">
@@ -27,7 +32,7 @@ export default function AdminPage() {
           variant="topDate"
           className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl "
         >
-          <Title>NOVIEMBRE</Title>
+          <Title>{mounth.toUpperCase()}</Title>
         </BoxTitle>
 
         <Calendar />
@@ -48,4 +53,4 @@ export default function AdminPage() {
       </Link>
     </div>
   );
-}
+});

@@ -2,7 +2,6 @@ import { Button, Graph, UserImg, Title } from "commons";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
 import Link from "next/link";
-import { type } from "os";
 
 interface DetailCardProps {
   type: "carrier" | "package";
@@ -21,14 +20,12 @@ export const DetailCard = observer(function DetailCard({
   type,
 }: DetailCardProps) {
   const {
-    users: { users, avaliableCarriers, carriers },
+    users: { avaliableCarriers, carriers },
     packages: { packages, deliveredPackages, packagesByDate },
     date: { date_YMD },
   } = useStore();
 
   const title = type === "carrier" ? "Repartidores" : "Paquetes";
-
-  console.log(packagesByDate(deliveredPackages, date_YMD));
 
   const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD);
   const TOTAL_PACKAGES = packagesByDate(packages, date_YMD);
@@ -41,7 +38,7 @@ export const DetailCard = observer(function DetailCard({
   return (
     <div className="flex justify-between items-center text-darkGreen ">
       <div className="flex items-center gap-4">
-        <Graph value={percentage} size="lg" />
+        <Graph value={isNaN(percentage) ? 0 : percentage} size="lg" />
         <div className="flex flex-col">
           <Title>{title}</Title>
           <div>
