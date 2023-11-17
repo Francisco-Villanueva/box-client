@@ -1,14 +1,17 @@
+"use client";
 import { DeliveryInProgress } from "components/DeliveryInProgress";
 import React from "react";
-import items from "../../../mocks/items.json";
+import { observer } from "mobx-react-lite";
+import { useStore } from "models/root.store";
 
-// TODO: Las props deben salir de la data real de los paquetes y no del json
+export default observer(function page() {
+  const {
+    packages: { currentPackage },
+  } = useStore();
 
-export default function page() {
-  const Package = items.packages[2];
-  const address = Package.address;
-  const receiver = Package.clientName;
-  const packNumber = Package._id.slice(0, 5);
+  const address = currentPackage?.address;
+  const receiver = currentPackage?.clientName;
+  const packNumber = currentPackage?._id.slice(0, 5);
 
   return (
     <DeliveryInProgress
@@ -17,4 +20,4 @@ export default function page() {
       packNumber={packNumber}
     ></DeliveryInProgress>
   );
-}
+});
