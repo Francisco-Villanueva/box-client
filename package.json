@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install && lint-staged",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "lint-staged": {
     ".{js,ts,jsx,tsx}": [
@@ -37,9 +38,10 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^15.1.0",
     "postcss": "^8",
+    "prettier": "^3.1.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

@@ -36,8 +36,7 @@ export function Status({ status }: StatusProps) {
       <div
         className={`${
           status === "ENTREGADO" ? "bg-[#ace366]" : "bg-lightGrey"
-        } bg-lightGrey py-[.5] px-2 flex items-center rounded-md gap-2`}
-      >
+        } bg-lightGrey py-[.5] px-2 flex items-center rounded-md gap-2`}>
         <div>
           <CircleIcon fill={`${Colors[color]}`} />
         </div>

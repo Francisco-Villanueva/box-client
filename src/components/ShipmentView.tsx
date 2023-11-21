@@ -36,8 +36,7 @@ export const ShipmentView = observer(function ({
               isModalOpen ? "rotate-[270deg]" : "rotate-180"
             }`}
           />
-        }
-      >
+        }>
         {shipmentTitle}
       </TitleBox>
 
@@ -51,9 +50,7 @@ export const ShipmentView = observer(function ({
               <hr></hr>
             </div>
           ) : null}
-          {packs?.map((pack) => (
-            <ShipmentCard pack={pack} />
-          ))}
+          {packs?.map((pack) => <ShipmentCard pack={pack} />)}
         </section>
       ) : null}
     </BoxLayout>

@@ -28,8 +28,8 @@ export const CarrierCard = observer(function CarrierCard({
   const status = carrier.packages.some((pack) => pack.status === "EN CURSO")
     ? "EN CURSO"
     : percentage === 100
-    ? "ENTREGADO"
-    : "PENDIENTE";
+      ? "ENTREGADO"
+      : "PENDIENTE";
 
   const handleSelectCarrier = () => {
     setUserId(carrier._id);
@@ -40,8 +40,7 @@ export const CarrierCard = observer(function CarrierCard({
     <div
       className="flex items-center justify-between p-4 border-t border-black bg-white"
       key={carrier._id}
-      onClick={handleSelectCarrier}
-    >
+      onClick={handleSelectCarrier}>
       <div className="flex items-center gap-4">
         <Graph value={percentage} size="md" />
         <div className="flex flex-col">

@@ -16,8 +16,7 @@ export const DetailView = observer(function () {
         variant="primary"
         icon={<ArrowLeft />}
         date={date_DMY}
-        className="w-full rounded-b-none "
-      >
+        className="w-full rounded-b-none ">
         Detalles
       </TitleBox>
       <section className="flex flex-col justify-around   gap-2 p-2">

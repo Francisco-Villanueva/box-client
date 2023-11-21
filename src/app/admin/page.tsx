@@ -30,8 +30,7 @@ export default observer(function AdminPage() {
       <section className="bg-white flex flex-col rounded-2xl">
         <BoxTitle
           variant="topDate"
-          className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl "
-        >
+          className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl ">
           <Title>{mounth.toUpperCase()}</Title>
         </BoxTitle>
 
@@ -42,8 +41,7 @@ export default observer(function AdminPage() {
 
       <Link
         href={"/admin/packages/create"}
-        className="w-full flex justify-center"
-      >
+        className="w-full flex justify-center">
         <Button className="w-5/6 ">
           <span className="flex justify-center items-center   gap-2 ">
             Nuevo Paquete

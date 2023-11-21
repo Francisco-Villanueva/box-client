@@ -17,7 +17,6 @@ export default observer(function page() {
     <DeliveryInProgress
       address={address}
       receiver={receiver}
-      packNumber={packNumber}
-    ></DeliveryInProgress>
+      packNumber={packNumber}></DeliveryInProgress>
   );
 });

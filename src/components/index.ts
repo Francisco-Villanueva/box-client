@@ -9,5 +9,4 @@ export * from "./DetailCard";
 
 export * from "./Calendar";
 
-export * from "./PackageCheckboxCard"
-
+export * from "./PackageCheckboxCard";

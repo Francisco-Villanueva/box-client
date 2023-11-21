@@ -43,16 +43,14 @@ export default observer(function adminPackagesPage() {
           <Link href={"/admin"}>
             <ArrowLeft />
           </Link>
-        }
-      >
+        }>
         Paquetes
       </TitleBox>
 
       <BoxLayout className="h-[90%]">
         <BoxTitle
           variant="topDate"
-          className="justify-between h-[10%] p-6 items-center"
-        >
+          className="justify-between h-[10%] p-6 items-center">
           <Title>{mounth.toUpperCase()}</Title>
           <Title>{date_DMY}</Title>
         </BoxTitle>
@@ -71,8 +69,7 @@ export default observer(function adminPackagesPage() {
           <Button
             className="border-none"
             variant="secondary"
-            onClick={handleTrimmer}
-          >
+            onClick={handleTrimmer}>
             <ShortArrowIcon
               className={`transition-all duration-300 ${
                 trimmer === deliveredPackages.length

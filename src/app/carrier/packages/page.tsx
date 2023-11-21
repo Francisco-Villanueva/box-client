@@ -38,8 +38,7 @@ export default observer(function packagesPage() {
           <Link href={"/carrier"}>
             <ArrowLeft />
           </Link>
-        }
-      >
+        }>
         Obtener Paquetes
       </TitleBox>
 
@@ -63,8 +62,7 @@ export default observer(function packagesPage() {
           <Button
             className="border-none"
             variant="secondary"
-            onClick={handleTrimmer}
-          >
+            onClick={handleTrimmer}>
             <ShortArrowIcon
               className={`transition-all duration-300 ${
                 trimmer === unassignedPackages.length
