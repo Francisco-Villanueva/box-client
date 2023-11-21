@@ -4,6 +4,7 @@ import { Button, TitleBox, GoogleMap, MapDescription } from "commons";
 import { ArrowLeft } from "commons/Icons";
 import Link from "next/link";
 import { message } from "antd";
+import { useRouter } from "next/navigation";
 
 interface DeliveryProps {
   address: any;
@@ -16,23 +17,18 @@ export function DeliveryInProgress({
   receiver,
   packNumber,
 }: DeliveryProps) {
+  const router = useRouter();
   return (
     <>
       <TitleBox
         variant="primary"
-        icon={
-          <Link href={"/carrier"}>
-            <ArrowLeft />
-          </Link>
-        }
+        icon={<ArrowLeft onClick={() => router.back()} />}
         className="w-full my-2 pr-6">
         reparto en curso
       </TitleBox>
 
       <div className="w-full h-[45vh] rounded-2xl overflow-hidden my-2">
-        <GoogleMap
-          origin="Av Santa Fe 2545, CABA" //Esta dirección deberia salir de la geolocalización
-          destination={address}></GoogleMap>
+        <GoogleMap destination={address}></GoogleMap>
       </div>
       <MapDescription
         destiny={address}
