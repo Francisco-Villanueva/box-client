@@ -68,7 +68,11 @@ export const Login = observer(function () {
               className="w-full"
             />
           </Link>
-          <CustomLink href={"asdasd"} children={"Olvidé mi contraseña"} className="mb-4" />
+          <CustomLink
+            href={"asdasd"}
+            children={"Olvidé mi contraseña"}
+            className="mb-4"
+          />
         </section>
       </div>
     </div>

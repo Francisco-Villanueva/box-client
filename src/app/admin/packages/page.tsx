@@ -26,7 +26,6 @@ export default observer(function adminPackagesPage() {
   const TOTAL_PACKAGES = packagesByDate(packages, date_YMD);
   const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD);
 
-
   const handleTrimmer = () => {
     if (trimmer === deliveredPackages.length) {
       setTrimmer(6);

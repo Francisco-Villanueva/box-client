@@ -7,8 +7,6 @@ interface LayoutProps {
 
 export function BoxLayout({ children, className }: LayoutProps) {
   return (
-    <div className={`  rounded-2xl shadow-sm  ${className}`}>
-      {children}
-    </div>
+    <div className={`  rounded-2xl shadow-sm  ${className}`}>{children}</div>
   );
 }
