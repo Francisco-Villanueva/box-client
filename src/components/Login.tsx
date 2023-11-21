@@ -1,6 +1,5 @@
 import React from "react";
 import { message } from "antd";
-
 import { CustomLink, IconBoxLogin, Button, Input } from "commons";
 import Link from "next/link";
 import useInput from "hooks/useInput";
@@ -46,7 +45,7 @@ export const Login = observer(function () {
     }
   };
   return (
-    <div className="w-full h-[60%] rounded-3xl bg-lightGreen flex flex-col justify-center gap-10 pt-8 relative   ">
+    <div className="w-full h-[60%] rounded-3xl bg-lightGreen flex flex-col justify-center gap-10 pt-8 relative">
       <div className=" absolute w-full  top-[-30px]">
         <IconBoxLogin />
       </div>
@@ -69,7 +68,7 @@ export const Login = observer(function () {
               className="w-full"
             />
           </Link>
-          <CustomLink href={"asdasd"} children={"Olvidé mi contraseña"} />
+          <CustomLink href={"asdasd"} children={"Olvidé mi contraseña"} className="mb-4" />
         </section>
       </div>
     </div>

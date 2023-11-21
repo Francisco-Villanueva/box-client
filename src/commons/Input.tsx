@@ -35,7 +35,7 @@ export function Input({
         onChange={onChange}
         placeholder={placeholder}
         defaultValue={value}
-        className={`w-full  px-0   rounded-sm border-b border-darkGreen placeholder-darkGreen text-darkGreen   focus:outline-none bg-transparent placeholder-darkGreen::placeholder`}
+        className={`w-full  px-0 pt-6  rounded-sm border-b border-darkGreen placeholder-darkGreen text-darkGreen   focus:outline-none bg-transparent placeholder-darkGreen::placeholder`}
       />
 
       {type === "password" && (
