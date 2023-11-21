@@ -11,8 +11,7 @@ export function ArrowLeft({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -29,8 +28,7 @@ export function ChcekIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={3}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -47,8 +45,7 @@ export function ShortArrowIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -63,8 +60,7 @@ export function CameraIcon({ className }: IconProps) {
       viewBox="0 0 33 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         d="M22 16H12"
         stroke="#24424D"
@@ -98,8 +94,7 @@ export function BoxIcon({ className }: IconProps) {
       viewBox="0 0 36 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         d="M29.9812 15.6C29.9368 14.0267 29.7872 13.0237 29.2831 12.1677C28.5662 10.9503 27.2752 10.2728 24.6932 8.91782L22.2933 7.65836C20.1865 6.55279 19.1331 6 18 6C16.8669 6 15.8135 6.55279 13.7067 7.65836L11.3068 8.91782C8.72475 10.2728 7.43375 10.9503 6.71688 12.1677C6 13.3851 6 14.9 6 17.9298V18.0702C6 21.1 6 22.6149 6.71688 23.8323C7.43375 25.0497 8.72475 25.7272 11.3068 27.0822L13.7067 28.3416C15.8135 29.4472 16.8669 30 18 30C19.1331 30 20.1865 29.4472 22.2933 28.3416L24.6932 27.0822C27.2752 25.7272 28.5662 25.0497 29.2831 23.8323C29.7872 22.9763 29.9368 21.9733 29.9812 20.4"
         stroke="#24424D"
@@ -124,8 +119,7 @@ export function TrashIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -142,8 +136,7 @@ export function EyeIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -165,8 +158,7 @@ export function NotEyeIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -184,8 +176,7 @@ export function PenIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}
-    >
+      className={`${className} ${iconStyle}`}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -202,8 +193,7 @@ export function CircleIcon({ fill }: IconProps) {
       viewBox="0 0 24 24"
       fill={fill}
       width="12px"
-      height="12px"
-    >
+      height="12px">
       <circle cx="12" cy="12" r="10" />
     </svg>
   );
@@ -217,8 +207,7 @@ export function AddIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={className}
-    >
+      className={className}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -235,8 +224,7 @@ export function MapIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={className}
-    >
+      className={className}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -37,16 +37,14 @@ export default observer(function page() {
             <ArrowLeft />
           </Link>
         }
-        className="w-full"
-      >
+        className="w-full">
         repartidores
       </TitleBox>
 
       <BoxLayout className="h-[90%]">
         <BoxTitle
           variant="topDate"
-          className="justify-between h-[10%] p-6 items-center"
-        >
+          className="justify-between h-[10%] p-6 items-center">
           <Title>ENERO</Title>
           <Title>Fecha</Title>
         </BoxTitle>
@@ -64,7 +62,10 @@ export default observer(function page() {
           )}
         </div>
         <BoxTitle variant="bottom" className="h-[10%]">
-          <Button className="border-none" variant="secondary"  onClick={handleTrimmer}>
+          <Button
+            className="border-none"
+            variant="secondary"
+            onClick={handleTrimmer}>
             <ShortArrowIcon
               className={`transition-all duration-300 ${
                 trimmer === carriers.length

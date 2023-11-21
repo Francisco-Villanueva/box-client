@@ -11,8 +11,7 @@ export function Checkbox() {
       onClick={() => setCheck(!check)}
       className={` transition-colors duration-200  grid place-items-center w-6 h-6 rounded-full ${
         check ? CHECKED_STYLE : UNCHECKED_STYLE
-      }`}
-    >
+      }`}>
       {check ? <ChcekIcon className="w-2/3" /> : null}
     </div>
   );

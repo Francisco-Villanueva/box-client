@@ -35,8 +35,7 @@ export function TitleBox({
 
   return (
     <div
-      className={`flex justify-between ${TITLE_STYLE.variant[variant]} ${className}`}
-    >
+      className={`flex justify-between ${TITLE_STYLE.variant[variant]} ${className}`}>
       <div className="flex flex-col  ">
         <h2 className="m-0">{children}</h2>{" "}
         <span className="text-sm lowercase mt-[-5px]">{subtitle}</span>
@@ -45,8 +44,7 @@ export function TitleBox({
       {variant === "secondary" ? (
         <button
           onClick={() => setIsActive(!isActive)}
-          className={`w-5 ${isActive ? "rotate-90" : "rotate-180"}`}
-        >
+          className={`w-5 ${isActive ? "rotate-90" : "rotate-180"}`}>
           {icon}
         </button>
       ) : (

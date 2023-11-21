@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { BoxIcon, CameraIcon } from "./Icons";
 
-const Icons = ["package", "userPic"] as const
+const Icons = ["package", "userPic"] as const;
 
 interface IconBoxProps {
   body?: ReactNode;
-  variant?: typeof Icons[number];
+  variant?: (typeof Icons)[number];
   icon?: JSX.Element;
   className?: string;
   onClick?: (event: MouseEvent) => void;
@@ -17,7 +17,6 @@ export function IconBox({
   children,
   className,
 }: IconBoxProps) {
-
   const ICON_COMPONENTS = {
     package: <BoxIcon className="m-1" />,
     userPic: <CameraIcon className="m-8" />,
@@ -36,8 +35,7 @@ export function IconBox({
     <button
       className={`flex items-center justify-center font-bold ${
         ICONBOX_STYLE.variant[variant]
-      } ${className || ""}`}
-    >
+      } ${className || ""}`}>
       {selectedIcon}
       {children}
     </button>

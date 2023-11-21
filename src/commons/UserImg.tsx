@@ -11,8 +11,7 @@ interface UserImgProps {
 export function UserImg({ src, alt, className, children }: UserImgProps) {
   return (
     <div
-      className={`flex items-center justify-center font-bold w-10 h-10 border-solid  border-2 border-white bg-cover ${className}`}
-    >
+      className={`flex items-center justify-center font-bold w-10 h-10 border-solid  border-2 border-white bg-cover ${className}`}>
       <Image
         src={src}
         alt={alt}

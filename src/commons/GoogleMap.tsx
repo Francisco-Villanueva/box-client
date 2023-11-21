@@ -15,8 +15,7 @@ export const GoogleMap = ({ origin, destination }: GoogleMapProps) => {
       title="Google Maps Directions"
       id="gmap_canvas"
       src={mapSrc}
-      className="h-full w-full"
-    ></iframe>
+      className="h-full w-full"></iframe>
   );
 };
 

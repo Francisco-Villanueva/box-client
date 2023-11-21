@@ -27,8 +27,7 @@ export function Input({
 
   return (
     <div
-      className={` flex  items-center  relative mt-1 font-roboto ${className}`}
-    >
+      className={` flex  items-center  relative mt-1 font-roboto ${className}`}>
       <input
         value={value}
         type={inputType}
@@ -44,8 +43,7 @@ export function Input({
           className="absolute  right-5 h-full mr-2"
           onClick={() => {
             setShowPassword(!showPassword);
-          }}
-        >
+          }}>
           {showPassword ? (
             <EyeIcon className="h-5 w-5 text-grey" />
           ) : (

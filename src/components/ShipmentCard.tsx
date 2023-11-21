@@ -49,16 +49,14 @@ export const ShipmentCard = observer(function ShipmentCard({
             <Button
               variant="secondary"
               className="rounded-md p-0 w-full flex justify-center "
-              onClick={viewMap}
-            >
+              onClick={viewMap}>
               <MapIcon className="w-[1rem]" />
             </Button>
           )}
           <Button
             variant="secondary"
             className="rounded-md p-0 w-full flex justify-center "
-            onClick={handleDeletePackage}
-          >
+            onClick={handleDeletePackage}>
             {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
               <div>
                 <TrashIcon className="w-[1rem]" />

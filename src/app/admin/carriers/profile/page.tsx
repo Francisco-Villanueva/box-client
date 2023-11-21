@@ -20,8 +20,7 @@ export default observer(function page() {
           <Link href={"/admin/carriers"}>
             <ArrowLeft className="w-4" />
           </Link>
-        }
-      >
+        }>
         Gestionar pedidos
       </TitleBox>
       <BoxLayout className="bg-white p-4 flex items-center justify-between">

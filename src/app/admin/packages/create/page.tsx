@@ -15,8 +15,7 @@ export default function page() {
             <ArrowLeft />
           </Link>
         }
-        className="mb-3 w-full"
-      ></TitleBox>
+        className="mb-3 w-full"></TitleBox>
       <BoxLayout className="bg-white h-full px-8 pt-8">
         <Input placeholder="Dirección" />
         <Input placeholder="Nombre de quien recibe" />

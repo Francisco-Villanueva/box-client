@@ -25,29 +25,25 @@ export function DeliveryInProgress({
             <ArrowLeft />
           </Link>
         }
-        className="w-full my-2 pr-6"
-      >
+        className="w-full my-2 pr-6">
         reparto en curso
       </TitleBox>
 
       <div className="w-full h-[45vh] rounded-2xl overflow-hidden my-2">
         <GoogleMap
           origin="Av Santa Fe 2545, CABA" //Esta dirección deberia salir de la geolocalización
-          destination={address}
-        ></GoogleMap>
+          destination={address}></GoogleMap>
       </div>
       <MapDescription
         destiny={address}
         packageNumber={packNumber}
-        receiver={receiver}
-      ></MapDescription>
+        receiver={receiver}></MapDescription>
       <div className="flex flex-col items-center justify-center">
         <Link href={"/carrier"} className="w-5/6 mt-4">
           <Button
             className="w-full"
             variant="primary"
-            onClick={() => message.success("Entrega completada")}
-          >
+            onClick={() => message.success("Entrega completada")}>
             FINALIZAR
           </Button>
         </Link>
@@ -55,8 +51,7 @@ export function DeliveryInProgress({
           <Button
             className="w-full"
             variant="secondary"
-            onClick={() => message.success("Entrega cancelada")}
-          >
+            onClick={() => message.success("Entrega cancelada")}>
             CANCELAR ENTREGA
           </Button>
         </Link>
