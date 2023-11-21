@@ -113,25 +113,9 @@ This project is not yet deployed, but you can try it in your local. Follow the i
 
 <p align="right"><a href="#home">⬆ Back to top</a></p>
 
-#### 💡 GIT FLOW
+#### 💡 GITFLOW AND SEMVER
 
-<h3>Commits</h3>
-
-- fix: description of the fix
-- feat: description of the feat
-- chore: description of the chore
-
-<h3>Branches</h3>
-
-- fix/name-of-fix-branch
-- feat/name-of-feat-branch
-- chore/name-of-chore-branch
-
-<h3>Pull Request</h3>
-
-- fix(context): description of the fix branch
-- feat(context): description of the fix feat
-- chore(context): description of the fix chore
+Check the Gitflow and Semver Documentation in the <a href="">gitflow-semver.md</a> file
 
 <!-- CONTACT -->
 
