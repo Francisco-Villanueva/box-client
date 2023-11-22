@@ -3,8 +3,8 @@ import { RootStore, RootStoreContext } from "models/root.store";
 import { ReactNode, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
-import { UserServices } from "services/user.services";
-import { PackageServices } from "services/package.services";
+import { PackageServices, UserServices } from "services";
+
 type ProvidersProps = {
   children: ReactNode;
 };
