@@ -30,7 +30,6 @@ export const Login = observer(function () {
       event.preventDefault();
       const userToCheck = findUserByEmail(userData.mail);
 
-
       if (!userToCheck) {
         return message.error("Credenciales inválidas");
       }

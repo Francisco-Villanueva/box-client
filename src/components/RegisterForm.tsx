@@ -7,7 +7,6 @@ import { FormInput } from "./FormInput";
 import Link from "next/link";
 import { message } from "antd";
 
-
 export function RegisterForm() {
   const [userData, setUserData] = useState({
     name: "",
