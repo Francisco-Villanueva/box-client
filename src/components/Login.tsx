@@ -16,8 +16,8 @@ export const Login = observer(function () {
   const router = useRouter();
 
   const handleLogin = useCallback(
-    (event:any) => {
-      event.preventDefault(); 
+    (event: any) => {
+      event.preventDefault();
       const userToCheck = findUserByEmail(mailInput.value);
 
       if (!userToCheck) {
@@ -33,7 +33,11 @@ export const Login = observer(function () {
         return message.error("Credenciales inválidas");
       }
 
-      if (userToCheck.role === "Admin") {
+      if (userToCheck.status === "DESHABILITADO") {
+        message.error(
+          `Lo sentimos ${userToCheck.name}. Tu usuario se encuentra deshabilitado`
+        );
+      } else if (userToCheck.role === "Admin") {
         message.success(`Bienvenido ${userToCheck.name}`);
         router.push("/admin");
         localStorage.setItem("USER_LOGGED_ID", userToCheck._id);
@@ -47,7 +51,15 @@ export const Login = observer(function () {
         setUserId(userToCheck._id);
       }
     },
-    [mailInput.value, passwordInput.value, router, setUserLoggedId, setUserId, validatePassword, findUserByEmail]
+    [
+      mailInput.value,
+      passwordInput.value,
+      router,
+      setUserLoggedId,
+      setUserId,
+      validatePassword,
+      findUserByEmail,
+    ]
   );
 
   return (
