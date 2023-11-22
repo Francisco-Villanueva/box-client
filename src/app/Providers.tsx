@@ -1,10 +1,10 @@
 "use client";
 import { RootStore, RootStoreContext } from "models/root.store";
 import { ReactNode, useCallback, useEffect } from "react";
-import { user } from "../mocks/users.json";
-import { packages } from "../mocks/items.json";
 import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
+import { UserServices } from "services/user.services";
+import { PackageServices } from "services/package.services";
 type ProvidersProps = {
   children: ReactNode;
 };
@@ -18,7 +18,12 @@ export default observer(function Providers({ children }: ProvidersProps) {
   const setData = useCallback(async () => {
     // PUNTO DE 'HIDRATACION': aca es donde hidratamos al root store (store) con los services. Se carga con el backend.
 
-    store.users.setUsers(user);
+    const users = await UserServices.getAllUsers();
+    // console.log(users)
+    store.users.setUsers(users);
+
+    const packages = await PackageServices.getAllPackages();
+    // console.log(packages)
     store.packages.setPackages(packages);
   }, [store]);
 

@@ -31,8 +31,7 @@ export const PackageStore = types
     },
   }))
   .actions((store) => ({
-    //TODO este any tiene que ser Package[]
-    setPackages(packages: any) {
+    setPackages(packages: Package[]) {
       store.packages.push(...packages);
     },
     setPackageId(packId: string) {

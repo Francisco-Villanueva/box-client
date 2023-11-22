@@ -2,7 +2,7 @@
 import { createContext, useContext } from "react";
 import { types, Instance, SnapshotOut } from "mobx-state-tree";
 import { UserStore } from "./user.store";
-import { PackageStore } from "./pacakages.store";
+import { PackageStore } from "./packages.store";
 import { DateStore } from "./date.store";
 
 export const RootStore = types.model({
