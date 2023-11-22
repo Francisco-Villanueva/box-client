@@ -31,9 +31,9 @@ export default observer(function packagesPage() {
     }
   };
 
-  const handlePackagesAssignment = () =>{
-    message.success("Paquetes asignados correctamente")
-  }
+  const handlePackagesAssignment = () => {
+    message.success("Paquetes asignados correctamente");
+  };
 
   return (
     <div className="h-[95%] flex flex-col gap-4 justify-between">
@@ -80,7 +80,9 @@ export default observer(function packagesPage() {
       </BoxLayout>
 
       <Link href={"/carrier"} className="w-full flex justify-center">
-        <Button className="w-[90%] uppercase flex m-auto justify-center" onClick={handlePackagesAssignment}>
+        <Button
+          className="w-[90%] uppercase flex m-auto justify-center"
+          onClick={handlePackagesAssignment}>
           Iniciar Jornada
         </Button>
       </Link>

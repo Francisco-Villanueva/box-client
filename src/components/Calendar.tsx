@@ -21,6 +21,7 @@ export const Calendar = () => {
         <ShortArrowIcon className="w-4     " />
       </Button>
       <Week currentWeek={currentWeek} />
+
       <Button variant="secondary" onClick={nextWeek}>
         <ShortArrowIcon className="w-4  rotate-180  " />
       </Button>
