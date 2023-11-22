@@ -5,6 +5,7 @@ import { Button, BodyLayout } from "commons";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
 import { useRouter } from "next/navigation";
+import { message } from "antd";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -21,6 +22,7 @@ export const AppLayout = observer(function ({
   const router = useRouter();
   const handleLogOut = () => {
     localStorage.setItem("USER_LOGGED_ID", "");
+    message.success("Has cerrado sesión");
     setUserLoggedId("");
     router.push("/login");
   };

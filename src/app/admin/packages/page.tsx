@@ -58,7 +58,7 @@ export default observer(function adminPackagesPage() {
         </div>
 
         <div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
-          {TOTAL_PACKAGES.slice(0, trimmer).map((packages) => (
+          {DELIVERD_PACKAGES.slice(0, trimmer).map((packages) => (
             <ShipmentCard pack={packages}></ShipmentCard>
           ))}
         </div>

@@ -5,7 +5,16 @@ import { ArrowLeft } from "commons/Icons";
 import { Input, Button, BoxLayout, InputCalendar } from "commons";
 import Link from "next/link";
 import { message } from "antd";
+import { useRouter } from "next/navigation";
+
 export default function page() {
+  const router = useRouter();
+
+  const handleCreatePackage = () => {
+    router.push("/admin");
+    message.success("Paquete creado");
+  };
+
   return (
     <div>
       <TitleBox
@@ -28,7 +37,7 @@ export default function page() {
         <Button
           children={"AGREGAR"}
           className="w-11/12 mt-5"
-          onClick={() => message.success("Paquete creado")}
+          onClick={handleCreatePackage}
         />
       </div>
     </div>
