@@ -1,3 +1,4 @@
+import { type } from "os";
 import { MouseEvent, ReactNode } from "react";
 
 interface ButtonProps {
@@ -8,6 +9,7 @@ interface ButtonProps {
   disabled?: boolean;
   onClick?: (event: MouseEvent) => void;
   children?: ReactNode;
+  type?: "button" | "submit";
 }
 
 export function Button({
