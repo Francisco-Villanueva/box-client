@@ -20,6 +20,7 @@ module.exports = {
         lightGrey: "#EBECEF",
         white: "#FEFEFE",
         orange: "#EF7709",
+        error: "#FA1048",
         // light mode tremor
         tremor: {
           brand: {

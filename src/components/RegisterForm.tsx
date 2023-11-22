@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { CustomLink, CameraIcon, Button, Input } from "commons";
+
+import { FormInput } from "./FormInput";
+
 import Link from "next/link";
 import { message } from "antd";
 
+
 export function RegisterForm() {
+  const [userData, setUserData] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const handleInput = (key: string, value: string) => {
+    setUserData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
   return (
     <>
       <div className="bg-white rounded-2xl h-auto">
@@ -15,11 +32,35 @@ export function RegisterForm() {
         </div>
         <section>
           <div className="pl-5 pr-5">
-            <Input placeholder="Nombre" />
-            <Input placeholder="Apellido" />
-            <Input placeholder="Email" />
-            <Input placeholder="Contraseña" type="password" />
-            <Input placeholder="Confirmar contraseña" type="password" />
+            <FormInput
+              type="text"
+              placeholder="Name"
+              reference="name"
+              handleInput={handleInput}
+              validation="email"
+            />
+            <FormInput
+              type="text"
+              placeholder="Email"
+              reference="email"
+              handleInput={handleInput}
+              validation="email"
+            />
+
+            <FormInput
+              placeholder="Password"
+              type="password"
+              reference="password"
+              handleInput={handleInput}
+              validation="password"
+            />
+            <FormInput
+              placeholder="Confirm Password"
+              type="password"
+              reference="confirmPassword"
+              handleInput={handleInput}
+              validation="password"
+            />
           </div>
         </section>
         <section className="pt-8 pl-3.5 pr-3.5 flex flex-col items-center pb-6">

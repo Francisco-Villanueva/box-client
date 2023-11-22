@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { message } from "antd";
 import { CustomLink, IconBoxLogin, Button, Input } from "commons";
 import Link from "next/link";
@@ -6,19 +6,30 @@ import useInput from "hooks/useInput";
 import { observer } from "mobx-react-lite";
 import { useStore } from "models/root.store";
 import { useRouter } from "next/navigation";
+import { FormInput } from "./FormInput";
 
 export const Login = observer(function () {
   const {
     users: { findUserByEmail, validatePassword, setUserLoggedId, setUserId },
   } = useStore();
-  const mailInput = useInput("");
-  const passwordInput = useInput("");
+
+  const [userData, setUserData] = useState({
+    mail: "",
+    password: "",
+  });
+  const handleInput = (key: string, value: string) => {
+    setUserData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
   const router = useRouter();
 
   const handleLogin = useCallback(
     (event: any) => {
       event.preventDefault();
-      const userToCheck = findUserByEmail(mailInput.value);
+      const userToCheck = findUserByEmail(userData.mail);
+
 
       if (!userToCheck) {
         return message.error("Credenciales inválidas");
@@ -26,7 +37,7 @@ export const Login = observer(function () {
 
       const isCorrectPassword = validatePassword(
         userToCheck,
-        passwordInput.value
+        userData.password
       );
 
       if (!isCorrectPassword) {
@@ -52,8 +63,8 @@ export const Login = observer(function () {
       }
     },
     [
-      mailInput.value,
-      passwordInput.value,
+      userData.mail,
+      userData.password,
       router,
       setUserLoggedId,
       setUserId,
@@ -70,8 +81,20 @@ export const Login = observer(function () {
         </div>
         <div className="p-4  flex flex-col items-center gap-10 ">
           <section className="flex flex-col gap-2 w-full">
-            <Input placeholder="Email@contraseña.com" {...mailInput} />
-            <Input placeholder="Password" type="password" {...passwordInput} />
+            <FormInput
+              type="text"
+              placeholder="Email@contraseña.com"
+              reference="mail"
+              handleInput={handleInput}
+              validation="email"
+            />
+            <FormInput
+              placeholder="Password"
+              type="password"
+              reference="password"
+              handleInput={handleInput}
+              validation="password"
+            />
           </section>
           <section className="flex flex-col items-center w-5/6">
             <Button
