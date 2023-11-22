@@ -1,9 +1,10 @@
 interface IconProps {
   className?: string;
   fill?: string;
+  onClick?: () => void;
 }
 const iconStyle = "text-darkGreen";
-export function ArrowLeft({ className }: IconProps) {
+export function ArrowLeft({ className, onClick }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +12,8 @@ export function ArrowLeft({ className }: IconProps) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`${className} ${iconStyle}`}>
+      className={`${className} ${iconStyle}`}
+      onClick={onClick}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
