@@ -23,9 +23,7 @@ export function RegisterForm() {
           </div>
         </section>
         <section className="pt-8 pl-3.5 pr-3.5 flex flex-col items-center pb-6">
-          <Link
-            href={"/login"}
-            className="w-full flex justify-center">
+          <Link href={"/login"} className="w-full flex justify-center">
             <Button
               children={"CREAR"}
               variant="primary"
