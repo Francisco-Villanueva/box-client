@@ -1,5 +1,6 @@
 "use client";
 
+import { message } from "antd";
 import {
   ArrowLeft,
   BoxLayout,
@@ -28,6 +29,10 @@ export default observer(function packagesPage() {
     } else {
       setTrimmer(unassignedPackages.length);
     }
+  };
+
+  const handlePackagesAssignment = () => {
+    message.success("Paquetes asignados correctamente");
   };
 
   return (
@@ -75,7 +80,9 @@ export default observer(function packagesPage() {
       </BoxLayout>
 
       <Link href={"/carrier"} className="w-full flex justify-center">
-        <Button className="w-[90%] uppercase flex m-auto justify-center ">
+        <Button
+          className="w-[90%] uppercase flex m-auto justify-center"
+          onClick={handlePackagesAssignment}>
           Iniciar Jornada
         </Button>
       </Link>

@@ -6,14 +6,24 @@ import { Button, BoxLayout, InputCalendar } from "commons";
 import Link from "next/link";
 import { message } from "antd";
 import { FormInput } from "components";
+import { useRouter } from "next/navigation";
 export default function page() {
+  const router = useRouter();
   const [state, setState] = useState({});
+  
   const handleInput = (key: string, value: string) => {
     setState((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
+
+  const handleCreatePackage = () => {
+    router.push("/admin");
+    message.success("Paquete creado");
+  };
+
+
   return (
     <div>
       <TitleBox
@@ -51,7 +61,7 @@ export default function page() {
         <Button
           children={"AGREGAR"}
           className="w-11/12 mt-5"
-          onClick={() => message.success("Paquete creado")}
+          onClick={handleCreatePackage}
         />
       </div>
     </div>

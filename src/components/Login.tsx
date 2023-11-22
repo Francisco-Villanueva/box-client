@@ -30,6 +30,7 @@ export const Login = observer(function () {
       event.preventDefault();
       const userToCheck = findUserByEmail(userData.mail);
 
+
       if (!userToCheck) {
         return message.error("Credenciales inválidas");
       }
@@ -43,7 +44,11 @@ export const Login = observer(function () {
         return message.error("Credenciales inválidas");
       }
 
-      if (userToCheck.role === "Admin") {
+      if (userToCheck.status === "DESHABILITADO") {
+        message.error(
+          `Lo sentimos ${userToCheck.name}. Tu usuario se encuentra deshabilitado`
+        );
+      } else if (userToCheck.role === "Admin") {
         message.success(`Bienvenido ${userToCheck.name}`);
         router.push("/admin");
         localStorage.setItem("USER_LOGGED_ID", userToCheck._id);
