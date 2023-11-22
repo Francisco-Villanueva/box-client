@@ -31,6 +31,11 @@ export const ShipmentCard = observer(function ShipmentCard({
     pack.status === "ENTREGADO" && deleteHistoryPackages(pack._id);
     message.success("Paquete eliminado!");
   };
+
+  const handleStartDelivery = () => {
+    message.success("Entrega inicializada");
+  }
+
   return (
     <div className="font-roboto bg-white text-darkGreen w-full p-2 flex items-center">
       <div>{<IconBox />}</div>
@@ -53,7 +58,24 @@ export const ShipmentCard = observer(function ShipmentCard({
               <MapIcon className="w-[1rem]" />
             </Button>
           )}
-          <Button
+
+          {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
+            <Button
+              variant="secondary"
+              className="rounded-md p-0 w-full flex justify-center "
+              onClick={handleDeletePackage}>
+              <TrashIcon className="w-[1rem]" />
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              className="rounded-md p-0 w-full flex justify-center "
+              onClick={handleStartDelivery}>
+              <span className="text-[10px]">INICIAR</span>
+            </Button>
+          )}
+
+          {/* <Button
             variant="secondary"
             className="rounded-md p-0 w-full flex justify-center "
             onClick={handleDeletePackage}>
@@ -64,7 +86,7 @@ export const ShipmentCard = observer(function ShipmentCard({
             ) : (
               <span className="text-[10px]">INICIAR</span>
             )}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
