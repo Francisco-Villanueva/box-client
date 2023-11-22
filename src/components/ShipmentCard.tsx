@@ -34,7 +34,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 
   const handleStartDelivery = () => {
     message.success("Entrega inicializada");
-  }
+  };
 
   return (
     <div className="font-roboto bg-white text-darkGreen w-full p-2 flex items-center">
