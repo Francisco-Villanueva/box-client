@@ -19,7 +19,7 @@ export const ERROR_MESSAGES = {
 export type ErrorType = keyof typeof ERROR_MESSAGES;
 export type ErrorMessage = (typeof ERROR_MESSAGES)[keyof typeof ERROR_MESSAGES];
 
-function validator(type: InputValidatorType) {
+export function validator(type: InputValidatorType) {
   const emailValidator = (value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!value.match(emailRegex)) {
