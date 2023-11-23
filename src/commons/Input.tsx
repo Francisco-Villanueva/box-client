@@ -60,8 +60,8 @@ export function Input({
         </button>
       )}
       {error ? (
-        <p className=" bg-[rgba(255,255,255,.5)] p-1 rounded-md  text-error text-xs  absolute right-0 top-[-3px] transition-all duration-150  ">
-          {error}
+        <p className="bg-[rgba(255,255,255,.5)] p-1 rounded-md border border-red-600  text-error text-xs  absolute left-0 top-[60px] transition-all duration-150  ">
+          {"⬆️" + " " + error}
         </p>
       ) : null}
     </div>

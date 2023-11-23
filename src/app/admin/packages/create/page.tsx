@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export default function page() {
   const router = useRouter();
   const [state, setState] = useState({});
-  
+
   const handleInput = (key: string, value: string) => {
     setState((prev) => ({
       ...prev,
@@ -22,7 +22,6 @@ export default function page() {
     router.push("/admin");
     message.success("Paquete creado");
   };
-
 
   return (
     <div>

@@ -4,15 +4,16 @@ export type InputValidatorType =
   | "required"
   | "password"
   | "email"
+  | "name"
   | "no required";
 
 export const ERROR_MESSAGES = {
   noRequired: null,
-  required: "This field is required",
-  email: "Enter a valid email address.",
-  passwordLength: "Must be at least 6 characters long.",
-  passwordRegex:
-    "Must contain at least one uppercase letter, one lowercase letter, and one number.",
+  required: "Campo requerido",
+  email: "Ingresar un correo electrónico válido",
+  name: "Ingresar un nombre válido",
+  passwordLength: "Debe contener mínimo 6 caracteres",
+  passwordRegex: "Mínimo 1 minúscula, 1 mayúscula y 1 número.",
 };
 
 export type ErrorType = keyof typeof ERROR_MESSAGES;
@@ -23,6 +24,14 @@ function validator(type: InputValidatorType) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!value.match(emailRegex)) {
       return ERROR_MESSAGES.email;
+    }
+    return null;
+  };
+
+  const nameValidator = (value: string) => {
+    const nameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    if (!value.match(nameRegex)) {
+      return ERROR_MESSAGES.name;
     }
     return null;
   };
@@ -57,6 +66,9 @@ function validator(type: InputValidatorType) {
     }
     case "email": {
       return emailValidator;
+    }
+    case "name": {
+      return nameValidator;
     }
     case "no required":
       return ERROR_MESSAGES.noRequired;

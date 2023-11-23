@@ -7,7 +7,6 @@ import { FormInput } from "./FormInput";
 import Link from "next/link";
 import { message } from "antd";
 
-
 export function RegisterForm() {
   const [userData, setUserData] = useState({
     name: "",
@@ -34,10 +33,11 @@ export function RegisterForm() {
           <div className="pl-5 pr-5">
             <FormInput
               type="text"
-              placeholder="Name"
+              placeholder="Nombre"
               reference="name"
               handleInput={handleInput}
-              validation="email"
+              validation="name"
+              className="pb-6"
             />
             <FormInput
               type="text"
@@ -45,21 +45,24 @@ export function RegisterForm() {
               reference="email"
               handleInput={handleInput}
               validation="email"
+              className="pb-6"
             />
 
             <FormInput
-              placeholder="Password"
+              placeholder="Contraseña"
               type="password"
               reference="password"
               handleInput={handleInput}
               validation="password"
+              className="pb-6"
             />
             <FormInput
-              placeholder="Confirm Password"
+              placeholder="Confirmar Contraseña"
               type="password"
               reference="confirmPassword"
               handleInput={handleInput}
               validation="password"
+              className="pb-6"
             />
           </div>
         </section>

@@ -30,7 +30,6 @@ export const Login = observer(function () {
       event.preventDefault();
       const userToCheck = findUserByEmail(userData.mail);
 
-
       if (!userToCheck) {
         return message.error("Credenciales inválidas");
       }
@@ -83,17 +82,19 @@ export const Login = observer(function () {
           <section className="flex flex-col gap-2 w-full">
             <FormInput
               type="text"
-              placeholder="Email@contraseña.com"
+              placeholder="Email"
               reference="mail"
               handleInput={handleInput}
               validation="email"
+              className="pb-5"
             />
             <FormInput
-              placeholder="Password"
+              placeholder="Contraseña"
               type="password"
               reference="password"
               handleInput={handleInput}
               validation="password"
+              className="pb-5"
             />
           </section>
           <section className="flex flex-col items-center w-5/6">
