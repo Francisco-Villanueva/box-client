@@ -1,3 +1,4 @@
+[![Deployment pipeline](https://github.com/BrianBts/box-client/actions/workflows/pipeline.yml/badge.svg?branch=develop)](https://github.com/BrianBts/box-client/actions/workflows/pipeline.yml)
 <a name="home"></a>
 
 <!-- INTRODUCTION -->
