@@ -1,3 +1,4 @@
+
 'use client'
 import { TitleBox } from 'commons'
 import React, { useState } from 'react'
@@ -10,6 +11,7 @@ import { useRouter } from 'next/navigation'
 export default function CreatePackage() {
 	const router = useRouter()
 	const [state, setState] = useState({})
+
 
 	const handleInput = (key: string, value: string) => {
 		setState((prev) => ({
@@ -65,4 +67,5 @@ export default function CreatePackage() {
 			</div>
 		</div>
 	)
+
 }

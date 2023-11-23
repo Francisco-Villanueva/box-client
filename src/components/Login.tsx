@@ -24,6 +24,7 @@ export const Login = observer(function () {
 	}
 	const router = useRouter()
 
+
 	const handleLogin = useCallback(
 		(event: any) => {
 			event.preventDefault()
@@ -34,6 +35,7 @@ export const Login = observer(function () {
 			}
 
 			const isCorrectPassword = validatePassword(userToCheck, userData.password)
+
 
 			if (!isCorrectPassword) {
 				return message.error('Credenciales inválidas')
@@ -109,3 +111,4 @@ export const Login = observer(function () {
 		</form>
 	)
 })
+

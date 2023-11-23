@@ -79,4 +79,5 @@ export function RegisterForm() {
 			</div>
 		</>
 	)
+
 }
