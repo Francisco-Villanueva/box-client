@@ -16,7 +16,6 @@ export const AppLayout = observer(function ({
 	children,
 	className,
 }: AppLayoutProps) {
-
 	const {
 		users: { setUserLoggedId },
 	} = useStore()
@@ -49,4 +48,3 @@ export const AppLayout = observer(function ({
 		</div>
 	)
 })
-
