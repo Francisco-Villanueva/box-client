@@ -4,3 +4,4 @@
 npx lint-staged
 npm run format
 git add .
+npm run build

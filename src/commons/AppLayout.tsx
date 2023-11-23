@@ -26,6 +26,7 @@ export const AppLayout = observer(function ({
     setUserLoggedId("");
     router.push("/login");
   };
+
   return (
     <div className=" flex flex-col gap-4 bg-lightGreen w-full min-h-screen overflow-auto p-3">
       <div className="flex justify-between items-center">
