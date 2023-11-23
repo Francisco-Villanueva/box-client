@@ -25,18 +25,14 @@ export function Button({
       secondary: "bg-none text-darkGreen border border-darkGreen",
     },
     disabled: {
-      primary: "bg-light-grey text-grey",
-      delete: "bg-light-grey text-grey ",
-
-      secondary: "bg-white text-grey ",
-      text: "bg-white text-grey ",
-      alert: "bg-white text-grey ",
+      primary:
+        "bg-darkGreen opacity-40  text-yellow border-darkGreen font-roboto",
     },
   };
 
   const buttonClassName = `rounded-lg px-2 py-1 ${
     disabled
-      ? `${BUTTON_STYLE.disabled[variant]} `
+      ? `${BUTTON_STYLE.disabled.primary} `
       : `${BUTTON_STYLE.variant[variant]} `
   } ${additionalClassName}`;
 

@@ -18,6 +18,7 @@ module.exports = {
         yellow: "#CEF169",
         purple: "#CEC4F4",
         lightGrey: "#EBECEF",
+        darkGrey: "#E3E3E3",
         white: "#FEFEFE",
         orange: "#EF7709",
         error: "#FA1048",

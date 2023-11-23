@@ -25,6 +25,9 @@ export const Login = observer(function () {
   };
   const router = useRouter();
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const nameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+
   const handleLogin = useCallback(
     (event: any) => {
       event.preventDefault();
@@ -93,7 +96,6 @@ export const Login = observer(function () {
               type="password"
               reference="password"
               handleInput={handleInput}
-              validation="password"
               className="pb-5"
             />
           </section>
@@ -103,6 +105,7 @@ export const Login = observer(function () {
               variant="primary"
               className="w-full mb-2"
               type="submit"
+              disabled={!userData.mail || !userData.password}
             />
             <Link href={"/register"} className="w-full flex justify-center">
               <Button

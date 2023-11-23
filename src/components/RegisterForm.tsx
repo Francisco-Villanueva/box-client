@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-
 import { CustomLink, CameraIcon, Button, Input } from "commons";
-
 import { FormInput } from "./FormInput";
-
 import Link from "next/link";
 import { message } from "antd";
 
@@ -15,12 +12,17 @@ export function RegisterForm() {
     password: "",
     confirmPassword: "",
   });
+
   const handleInput = (key: string, value: string) => {
     setUserData((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const nameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+
   return (
     <>
       <div className="bg-white rounded-2xl h-auto">
@@ -73,13 +75,14 @@ export function RegisterForm() {
               variant="primary"
               className="w-full mb-3"
               onClick={() => message.success("Cuenta creada exitosamente")}
+              disabled={
+                !emailRegex.test(userData.email) ||
+                !nameRegex.test(userData.name) ||
+                userData.password.length < 6 ||
+                userData.password !== userData.confirmPassword
+              }
             />
           </Link>
-          {/* <Button
-            children={"INICIAR SESIÓN"}
-            variant="secondary"
-            className="w-full"
-          /> */}
           <CustomLink href={"/login"} children={"¿Ya tenés una cuenta?"} />
         </section>
       </div>
