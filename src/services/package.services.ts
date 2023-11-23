@@ -1,10 +1,7 @@
-import { Package } from "types/packages.types";
-import axios, { AxiosResponse } from "axios";
-
+import { Package } from 'types/packages.types'
+import { packages } from '../mocks/items.json'
 export class PackageServices {
-  static getAllPackages(): Promise<Package[]> {
-    return Promise.resolve(
-      require("../mocks/items.json").packages as Package[]
-    );
-  }
+	static getAllPackages(): Promise<Package[]> {
+		return Promise.resolve(packages as Package[])
+	}
 }
