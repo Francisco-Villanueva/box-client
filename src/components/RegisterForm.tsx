@@ -26,6 +26,11 @@ export function RegisterForm() {
 		if (Object.values(userData).some((value) => value === '')) {
 			return message.error('Completar todos los campos')
 		}
+
+		if (userData.password !== userData.confirmPassword) {
+			return message.error('Las contraseñas no coinciden')
+		}
+
 		router.push('/login')
 	}
 	return (
