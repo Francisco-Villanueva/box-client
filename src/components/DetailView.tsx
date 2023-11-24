@@ -1,5 +1,5 @@
 'use client'
-import { ArrowLeft, TitleBox, BoxLayout } from 'commons'
+import { TitleBox, BoxLayout } from 'commons'
 import React from 'react'
 import { DetailCard } from './index'
 import { useStore } from 'models/root.store'
@@ -14,7 +14,6 @@ export const DetailView = observer(function () {
 		<BoxLayout className=" bg-white   ">
 			<TitleBox
 				variant="primary"
-				icon={<ArrowLeft />}
 				date={date_DMY}
 				className="w-full rounded-b-none ">
 				Detalles

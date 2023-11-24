@@ -15,13 +15,17 @@ import { PackageCheckboxCard } from 'components'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default observer(function PackagesPage() {
-	const [trimmer, setTrimmer] = useState(7)
 	const {
 		packages: { unassignedPackages },
+		users: { loggedUser },
 	} = useStore()
+	const router = useRouter()
+	const [trimmer, setTrimmer] = useState(7)
+	const [selectedPackages, setSelectedPackages] = useState<string[]>([])
 
 	const handleTrimmer = () => {
 		if (trimmer === unassignedPackages.length) {
@@ -32,7 +36,16 @@ export default observer(function PackagesPage() {
 	}
 
 	const handlePackagesAssignment = () => {
+		selectedPackages.forEach((packId) => {
+			console.log(`Se agrega al ${loggedUser?.name} el paquete: \n  ${packId}`)
+		})
 		message.success('Paquetes asignados correctamente')
+
+		//TODO: Si el servicio falla, que no haga el push a /carrier, que tire un mensaje de errror
+		router.push('/carrier')
+	}
+	const handleAddPackages = (packId: string) => {
+		setSelectedPackages((prev) => [...prev, packId])
 	}
 
 	return (
@@ -52,17 +65,16 @@ export default observer(function PackagesPage() {
 					<Title>¿Cuántos paquetes repartirás hoy?</Title>
 				</BoxTitle>
 
-				{/* //TODO Aplicar Trimmer */}
-
 				<div className="overflow-scroll max-h-[80%] flex flex-col m-auto ">
 					{unassignedPackages.slice(0, trimmer).map((packages) => (
-						<PackageCheckboxCard pack={packages} key={packages._id} />
+						<PackageCheckboxCard
+							pack={packages}
+							key={packages._id}
+							handleAddPackages={handleAddPackages}
+						/>
 					))}
 				</div>
 
-				{/* <BoxTitle variant="bottom" className="h-[10%] border-t">
-          <ShortArrowIcon className="rotate-[270deg]" />
-        </BoxTitle> */}
 				<BoxTitle variant="bottom" className="h-[10%]">
 					<Button
 						className="border-none"
@@ -79,13 +91,11 @@ export default observer(function PackagesPage() {
 				</BoxTitle>
 			</BoxLayout>
 
-			<Link href={'/carrier'} className="w-full flex justify-center">
-				<Button
-					className="w-[90%] uppercase flex m-auto justify-center"
-					onClick={handlePackagesAssignment}>
-					Iniciar Jornada
-				</Button>
-			</Link>
+			<Button
+				className="w-[90%] uppercase flex m-auto justify-center"
+				onClick={handlePackagesAssignment}>
+				Iniciar Jornada
+			</Button>
 		</div>
 	)
 })

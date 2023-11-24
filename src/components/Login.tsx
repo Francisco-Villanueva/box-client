@@ -88,7 +88,6 @@ export const Login = observer(function () {
 							type="password"
 							reference="password"
 							handleInput={handleInput}
-							validation="password"
 						/>
 					</section>
 					<section className="flex flex-col items-center w-5/6 pt-3 gap-1">

@@ -3,15 +3,22 @@ import { Package } from 'types'
 
 interface PackageCheckboxCardProps {
 	pack: Package
+	handleAddPackages: (param: string) => void
 }
 
-export function PackageCheckboxCard({ pack }: PackageCheckboxCardProps) {
+export function PackageCheckboxCard({
+	pack,
+	handleAddPackages,
+}: PackageCheckboxCardProps) {
 	const splitAddress = pack.address.split(',')
 	const shortAddress = `${splitAddress[0]}, ${splitAddress[1]}`
 
+	const setPackId = () => {
+		handleAddPackages(pack._id)
+	}
 	return (
 		<div className="font-roboto bg-white text-darkGreen w-full p-3 flex items-center border">
-			<div>{<Checkbox />}</div>
+			<Checkbox handleCheck={setPackId} />
 			<div className="font-roboto text-xs pl-2">
 				<div>{shortAddress}</div>
 			</div>
