@@ -1,0 +1,28 @@
+name: Deployment pipeline
+
+on:
+ push:
+  branches: [develop]
+ pull_request:
+  branches: [develop]
+  types: [opened, synchronize]
+
+jobs:
+ deploy:
+  runs-on: ubuntu-20.04
+  steps:
+   - name: Checkout code
+     uses: actions/checkout@v4
+     with:
+      fetch-depth: 0
+   - uses: actions/setup-node@v4
+     with:
+      node-version: 18
+   - name: Instal Dependencies
+     run: npm install
+   - name: Prettier Format
+     run: npm run format
+   - name: Lint
+     run: npm run lint
+   - name: Build
+     run: npm run build
