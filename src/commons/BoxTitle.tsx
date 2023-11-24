@@ -19,6 +19,7 @@ const BOX_TITLE_STYLE = {
 export function BoxTitle({
 	className,
 	children,
+
 	variant = 'top',
 }: BoxTitleProps) {
 	return (
