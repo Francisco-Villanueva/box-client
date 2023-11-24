@@ -63,7 +63,6 @@ export const UserStore = types
 		},
 	}))
 	.actions((store) => ({
-		//TODO este any tiene que ser User[]
 		setUsers(users: User[]) {
 			store.users.push(...users)
 		},

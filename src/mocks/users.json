@@ -101,7 +101,7 @@
 			"password": "brai123",
 			"image": "https://media.licdn.com/dms/image/D4D35AQG3kgUoRCAu2g/profile-framedphoto-shrink_200_200/0/1698695092663?e=1700593200&v=beta&t=VLpwrZDojRDomy946K5JMlvAsZZgJoRruFGKRBt-M0E",
 			"role": "Carrier",
-			"status": "DESHABILITADO",
+			"status": "HABILITADO",
 			"packages": [
 				{
 					"address": "Avenida de Mayo 900, Buenos Aires, Argentina",

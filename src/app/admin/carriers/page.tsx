@@ -18,6 +18,7 @@ export default observer(function CarriersPage() {
 	const [trimmer, setTrimmer] = useState(4)
 	const {
 		users: { carriers },
+		date: { month, date_DMY },
 	} = useStore()
 
 	const handleTrimmer = () => {
@@ -45,8 +46,8 @@ export default observer(function CarriersPage() {
 				<BoxTitle
 					variant="topDate"
 					className="justify-between h-[10%] p-6 items-center">
-					<Title>ENERO</Title>
-					<Title>Fecha</Title>
+					<Title>{month.toUpperCase()}</Title>
+					<Title>{date_DMY}</Title>
 				</BoxTitle>
 
 				{/* TODO ver el error de Type en PackageCheckboxCard */}

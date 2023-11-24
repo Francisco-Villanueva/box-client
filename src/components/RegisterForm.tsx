@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
-
 import { CustomLink, CameraIcon, Button } from 'commons'
-
 import { FormInput } from './FormInput'
-
 import Link from 'next/link'
 import { message } from 'antd'
 
@@ -15,18 +12,20 @@ export function RegisterForm() {
 		password: '',
 		confirmPassword: '',
 	})
-	const handleInput = (key: string, value: string) => {
+	const handleInput = (key: string, value: string, error: string) => {
 		setUserData((prev) => ({
 			...prev,
 			[key]: value,
+			[`${key}Error`]: error,
 		}))
 
+		console.log(error)
 		console.log(userData)
 	}
 	return (
 		<>
 			<div className="bg-white rounded-2xl h-auto">
-				<div className="flex justify-center items-center pt-4">
+				<div className="flex justify-center items-center pt-7">
 					<div className="bg-lightGrey flex justify-center items-center rounded-3xl w-24 h-24 ">
 						<CameraIcon className="h-8" />
 					</div>
@@ -35,10 +34,11 @@ export function RegisterForm() {
 					<div className="pl-5 pr-5">
 						<FormInput
 							type="text"
-							placeholder="Name"
+							placeholder="Nombre"
 							reference="name"
 							handleInput={handleInput}
-							validation="email"
+							validation="name"
+							className="my-5"
 						/>
 						<FormInput
 							type="text"
@@ -46,21 +46,24 @@ export function RegisterForm() {
 							reference="email"
 							handleInput={handleInput}
 							validation="email"
+							className="my-5"
 						/>
 
 						<FormInput
-							placeholder="Password"
+							placeholder="Contraseña"
 							type="password"
 							reference="password"
 							handleInput={handleInput}
 							validation="password"
+							className="my-5"
 						/>
 						<FormInput
-							placeholder="Confirm Password"
+							placeholder="Confirmar Contraseña"
 							type="password"
 							reference="confirmPassword"
 							handleInput={handleInput}
 							validation="password"
+							className="my-5"
 						/>
 					</div>
 				</section>
@@ -69,11 +72,11 @@ export function RegisterForm() {
 						<Button
 							variant="primary"
 							className="w-full mb-3"
+							// disabled={}
 							onClick={() => message.success('Cuenta creada exitosamente')}>
 							CREAR
 						</Button>
 					</Link>
-
 					<CustomLink href={'/login'}> ¿Ya tenés una cuenta? </CustomLink>
 				</section>
 			</div>

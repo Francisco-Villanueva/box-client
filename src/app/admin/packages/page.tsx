@@ -20,7 +20,7 @@ export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
 	const {
 		packages: { deliveredPackages, packagesByDate },
-		date: { date_YMD, mounth, date_DMY },
+		date: { date_YMD, month, date_DMY },
 	} = useStore()
 
 	const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD)
@@ -48,7 +48,7 @@ export default observer(function AdminPackagesPage() {
 				<BoxTitle
 					variant="topDate"
 					className="justify-between h-[10%] p-6 items-center">
-					<Title>{mounth.toUpperCase()}</Title>
+					<Title>{month.toUpperCase()}</Title>
 					<Title>{date_DMY}</Title>
 				</BoxTitle>
 
