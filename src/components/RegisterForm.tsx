@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { CustomLink, CameraIcon, Button } from 'commons'
 import { FormInput } from './FormInput'
-import Link from 'next/link'
 import { message } from 'antd'
+import { useRouter } from 'next/navigation'
 
 export function RegisterForm() {
 	const [userData, setUserData] = useState({
@@ -12,15 +12,21 @@ export function RegisterForm() {
 		password: '',
 		confirmPassword: '',
 	})
-	const handleInput = (key: string, value: string, error: string) => {
+	const router = useRouter()
+	const handleInput = (key: string, value: string) => {
 		setUserData((prev) => ({
 			...prev,
 			[key]: value,
-			[`${key}Error`]: error,
 		}))
 
-		console.log(error)
 		console.log(userData)
+	}
+
+	const handleRegisterForm = () => {
+		if (Object.values(userData).some((value) => value === '')) {
+			return message.error('Completar todos los campos')
+		}
+		router.push('/login')
 	}
 	return (
 		<>
@@ -36,6 +42,14 @@ export function RegisterForm() {
 							type="text"
 							placeholder="Nombre"
 							reference="name"
+							handleInput={handleInput}
+							validation="name"
+							className="my-5"
+						/>
+						<FormInput
+							type="text"
+							placeholder="Apellido"
+							reference="lastName"
 							handleInput={handleInput}
 							validation="name"
 							className="my-5"
@@ -68,15 +82,14 @@ export function RegisterForm() {
 					</div>
 				</section>
 				<section className="pt-8 pl-3.5 pr-3.5 flex flex-col items-center pb-6">
-					<Link href={'/login'} className="w-full flex justify-center">
-						<Button
-							variant="primary"
-							className="w-full mb-3"
-							// disabled={}
-							onClick={() => message.success('Cuenta creada exitosamente')}>
-							CREAR
-						</Button>
-					</Link>
+					<Button
+						variant="primary"
+						className="w-full mb-3"
+						disabled={Object.values(userData).some((value) => value === '')}
+						onClick={handleRegisterForm}>
+						CREAR
+					</Button>
+
 					<CustomLink href={'/login'}> ¿Ya tenés una cuenta? </CustomLink>
 				</section>
 			</div>
