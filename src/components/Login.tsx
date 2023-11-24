@@ -91,7 +91,11 @@ export const Login = observer(function () {
 						/>
 					</section>
 					<section className="flex flex-col items-center w-5/6 pt-3 gap-1">
-						<Button variant="primary" className="w-full mb-2" type="submit">
+						<Button
+							disabled={Object.values(userData).some((value) => value === '')}
+							variant="primary"
+							className="w-full mb-2"
+							type="submit">
 							INGRESAR
 						</Button>
 						<Link href={'/register'} className="w-full flex justify-center">

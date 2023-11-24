@@ -1,6 +1,7 @@
 'use client'
 import { Input } from 'commons'
 import useInput, { InputValidatorType } from 'hooks/useInput'
+import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 
 interface FormInputProps {
@@ -13,7 +14,7 @@ interface FormInputProps {
 	isFinish?: boolean
 }
 
-export function FormInput({
+export const FormInput = observer(function ({
 	placeholder,
 	type,
 	className = '',
@@ -43,4 +44,4 @@ export function FormInput({
 			error={input.error}
 		/>
 	)
-}
+})
