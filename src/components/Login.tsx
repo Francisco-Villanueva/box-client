@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { FormEvent, useCallback, useState } from 'react'
 import { message } from 'antd'
 import { CustomLink, IconBoxLogin, Button } from 'commons'
 import Link from 'next/link'
@@ -25,7 +25,7 @@ export const Login = observer(function () {
 	const router = useRouter()
 
 	const handleLogin = useCallback(
-		(event: any) => {
+		(event: FormEvent) => {
 			event.preventDefault()
 			const userToCheck = findUserByEmail(userData.mail)
 
@@ -75,23 +75,23 @@ export const Login = observer(function () {
 					<IconBoxLogin />
 				</div>
 				<div className="p-4  flex flex-col items-center gap-10 ">
-					<section className="flex flex-col gap-2 w-full">
+					<section className="flex flex-col gap-5 w-full">
 						<FormInput
 							type="text"
-							placeholder="Email@contraseña.com"
+							placeholder="Email@ejemplo.com"
 							reference="mail"
 							handleInput={handleInput}
 							validation="email"
 						/>
 						<FormInput
-							placeholder="Password"
+							placeholder="Contraseña"
 							type="password"
 							reference="password"
 							handleInput={handleInput}
 							validation="password"
 						/>
 					</section>
-					<section className="flex flex-col items-center w-5/6">
+					<section className="flex flex-col items-center w-5/6 pt-3 gap-1">
 						<Button variant="primary" className="w-full mb-2" type="submit">
 							INGRESAR
 						</Button>

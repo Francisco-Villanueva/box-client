@@ -1,5 +1,4 @@
 'use client'
-
 import { Input } from 'commons'
 import useInput, { InputValidatorType } from 'hooks/useInput'
 import React, { useEffect } from 'react'
@@ -9,7 +8,7 @@ interface FormInputProps {
 	type: string
 	className?: string
 	reference: string
-	handleInput: (prop: string, value: string) => void
+	handleInput: (prop: string, value: string, error: any) => void
 	validation?: InputValidatorType
 	isFinish?: boolean
 }
@@ -30,9 +29,10 @@ export function FormInput({
 			input.clearInput()
 		} else {
 			const value = input.value
-			handleInput(reference, value)
+			const error = input.error
+			handleInput(reference, value, error)
 		}
-	}, [input.value, isFinish])
+	}, [input.value, input.error, isFinish])
 
 	return (
 		<Input
@@ -40,6 +40,7 @@ export function FormInput({
 			className={` w-full ${className}`}
 			placeholder={placeholder}
 			{...input}
+			error={input.error}
 		/>
 	)
 }

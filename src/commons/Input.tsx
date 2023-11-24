@@ -48,7 +48,7 @@ export function Input({
 			{type === 'password' && (
 				<button
 					type="button"
-					className="absolute  right-5 h-full mr-2"
+					className="absolute right-5 h-full mr-2"
 					onClick={() => {
 						setShowPassword(!showPassword)
 					}}>
@@ -60,8 +60,8 @@ export function Input({
 				</button>
 			)}
 			{error ? (
-				<p className=" bg-[rgba(255,255,255,.5)] p-1 rounded-md  text-error text-xs  absolute right-0 top-[-3px] transition-all duration-150  ">
-					{error}
+				<p className="bg-[rgba(255,255,255,.5)] animate-pulse p-1 rounded-md border border-red-600  text-error text-xs  absolute left-0 top-[60px] ">
+					{'⬆️' + ' ' + error}
 				</p>
 			) : null}
 		</div>

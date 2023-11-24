@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 export default observer(function AdminPage() {
 	const {
-		date: { mounth },
+		date: { month },
 	} = useStore()
 	return (
 		<div className="flex flex-col justify-between gap-2 h-full">
@@ -31,7 +31,7 @@ export default observer(function AdminPage() {
 				<BoxTitle
 					variant="topDate"
 					className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl ">
-					<Title>{mounth.toUpperCase()}</Title>
+					<Title>{month.toUpperCase()}</Title>
 				</BoxTitle>
 
 				<Calendar />

@@ -17,8 +17,8 @@ export const DateStore = types
 			const year = store.date.getFullYear().toString()
 			return `${year}-${month}-${day}`
 		},
-		get mounth() {
-			const MOUNTHS = [
+		get month() {
+			const MONTHS = [
 				'Enero',
 				'Febrero',
 				'Marzo',
@@ -34,7 +34,7 @@ export const DateStore = types
 			]
 			const month = store.date.getMonth() // Los meses comienzan desde 0
 
-			return MOUNTHS[month]
+			return MONTHS[month]
 		},
 	}))
 	.actions((store) => ({
