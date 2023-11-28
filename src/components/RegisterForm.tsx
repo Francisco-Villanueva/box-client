@@ -13,10 +13,12 @@ export function RegisterForm() {
 		confirmPassword: '',
 	})
 	const router = useRouter()
+
 	const handleInput = (key: string, value: string) => {
+		const trimmedValue = value.trim()
 		setUserData((prev) => ({
 			...prev,
-			[key]: value,
+			[key]: trimmedValue,
 		}))
 
 		console.log(userData)

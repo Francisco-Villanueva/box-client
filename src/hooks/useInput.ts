@@ -29,7 +29,7 @@ export function validator(type: InputValidatorType) {
 	}
 
 	const nameValidator = (value: string) => {
-		const nameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/
+		const nameRegex = /^\s*[a-zA-Z]+(?: [a-zA-Z]+)*\s*$/
 		if (!value.match(nameRegex)) {
 			return ERROR_MESSAGES.name
 		}
