@@ -6,6 +6,8 @@ export type InputValidatorType =
 	| 'email'
 	| 'name'
 	| 'no required'
+	| 'weight'
+	| 'address'
 
 export const ERROR_MESSAGES = {
 	noRequired: null,
@@ -14,6 +16,8 @@ export const ERROR_MESSAGES = {
 	name: 'Ingresar un nombre válido',
 	passwordLength: 'Debe contener mínimo 6 caracteres',
 	passwordRegex: 'Mínimo 1 minúscula, 1 mayúscula y 1 número.',
+	weight: 'Ingresar un peso válido',
+	address: 'Ingresar una dirección válida',
 }
 
 export type ErrorType = keyof typeof ERROR_MESSAGES
@@ -57,6 +61,22 @@ export function validator(type: InputValidatorType) {
 		return null
 	}
 
+	const weightValidator = (value: string) => {
+		const numberRegex = /^[0-9]+$/
+		if (!value.match(numberRegex)) {
+			return ERROR_MESSAGES.weight
+		}
+		return null
+	}
+
+	const addressValidator = (value: string) => {
+		const addressRegex = /^[a-zA-Z0-9\s.,#-]+$/
+		if (!value.match(addressRegex)) {
+			return ERROR_MESSAGES.address
+		}
+		return null
+	}
+
 	switch (type) {
 		case 'required': {
 			return requiredField
@@ -69,6 +89,12 @@ export function validator(type: InputValidatorType) {
 		}
 		case 'name': {
 			return nameValidator
+		}
+		case 'weight': {
+			return weightValidator
+		}
+		case 'address': {
+			return addressValidator
 		}
 		case 'no required':
 			return ERROR_MESSAGES.noRequired

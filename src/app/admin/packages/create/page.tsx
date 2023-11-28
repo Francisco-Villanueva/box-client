@@ -39,20 +39,26 @@ export default function CreatePackage() {
 				<FormInput
 					placeholder="Dirección"
 					type="text"
-					reference="adress"
+					reference="address"
 					handleInput={handleInput}
+					validation="address"
+					className="my-5"
 				/>
 				<FormInput
 					type="text"
-					reference="adress"
+					reference="name"
 					handleInput={handleInput}
 					placeholder="Nombre de quien recibe"
+					validation="name"
+					className="my-5"
 				/>
 				<FormInput
 					type="text"
-					reference="adress"
+					reference="weight"
 					handleInput={handleInput}
 					placeholder="Peso del paquete (Kg)"
+					validation="weight"
+					className="my-5"
 				/>
 				<div className="pt-12 pb-28">
 					<InputCalendar title="Seleccione una fecha" />
