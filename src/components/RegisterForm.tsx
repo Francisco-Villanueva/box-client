@@ -9,6 +9,7 @@ export function RegisterForm() {
 	const [userData, setUserData] = useState({
 		name: '',
 		lastName: '',
+		userName: '',
 		email: '',
 		password: '',
 		confirmPassword: '',
@@ -29,6 +30,7 @@ export function RegisterForm() {
 		const userToRegister = {
 			name: userData.name,
 			lastName: userData.lastName,
+			userName: userData.userName,
 			email: userData.email,
 			password: userData.password,
 		}
@@ -78,6 +80,14 @@ export function RegisterForm() {
 							reference="lastName"
 							handleInput={handleInput}
 							validation="name"
+							className="my-5"
+						/>
+						<FormInput
+							type="text"
+							placeholder="Usuario"
+							reference="userName"
+							handleInput={handleInput}
+							validation="userName"
 							className="my-5"
 						/>
 						<FormInput
