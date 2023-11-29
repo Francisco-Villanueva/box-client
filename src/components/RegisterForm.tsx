@@ -91,6 +91,7 @@ export function RegisterForm() {
 							placeholder="URL de la imagen de perfil"
 							value={profileImageUrl}
 							onChange={handleImageUrlChange}
+							onPressEnter={handleImageInput}
 							className="my-5"
 						/>
 					)}
