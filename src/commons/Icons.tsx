@@ -56,13 +56,14 @@ export function ShortArrowIcon({ className }: IconProps) {
 		</svg>
 	)
 }
-export function CameraIcon({ className }: IconProps) {
+export function CameraIcon({ className, onClick }: IconProps) {
 	return (
 		<svg
 			viewBox="0 0 33 30"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			className={`${className} ${iconStyle}`}>
+			className={`${className} ${iconStyle}`}
+			onClick={onClick}>
 			<path d="M22 16H12" stroke="#24424D" strokeWidth="2" strokeLinecap="round" />
 			<path
 				d="M17 11L17 21"
