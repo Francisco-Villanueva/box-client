@@ -8,6 +8,7 @@ export type InputValidatorType =
 	| 'no required'
 	| 'weight'
 	| 'address'
+	| 'userName'
 
 export const ERROR_MESSAGES = {
 	noRequired: null,
@@ -18,6 +19,7 @@ export const ERROR_MESSAGES = {
 	passwordRegex: 'Mínimo 1 minúscula, 1 mayúscula y 1 número.',
 	weight: 'Ingresar un peso válido',
 	address: 'Ingresar una dirección válida',
+	userName: 'El usuario solo puede contener letras y números',
 }
 
 export type ErrorType = keyof typeof ERROR_MESSAGES
@@ -26,7 +28,7 @@ export type ErrorMessage = (typeof ERROR_MESSAGES)[keyof typeof ERROR_MESSAGES]
 export function validator(type: InputValidatorType) {
 	const emailValidator = (value: string) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-		if (!value.match(emailRegex)) {
+		if (!value.match(emailRegex) && value) {
 			return ERROR_MESSAGES.email
 		}
 		return null
@@ -34,20 +36,20 @@ export function validator(type: InputValidatorType) {
 
 	const nameValidator = (value: string) => {
 		const nameRegex = /^\s*[a-zA-Z]+(?: [a-zA-Z]+)*\s*$/
-		if (!value.match(nameRegex)) {
+		if (!value.match(nameRegex) && value) {
 			return ERROR_MESSAGES.name
 		}
 		return null
 	}
 
 	const passwordValidator = (value: string) => {
-		if (value.length < 6) {
+		if (value.length < 6 && value) {
 			return ERROR_MESSAGES.passwordLength
 		}
 
 		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/
 
-		if (!regex.test(value)) {
+		if (!regex.test(value) && value) {
 			return ERROR_MESSAGES.passwordRegex
 		}
 
@@ -63,7 +65,7 @@ export function validator(type: InputValidatorType) {
 
 	const weightValidator = (value: string) => {
 		const numberRegex = /^[0-9]+$/
-		if (!value.match(numberRegex)) {
+		if (!value.match(numberRegex) && value) {
 			return ERROR_MESSAGES.weight
 		}
 		return null
@@ -71,8 +73,17 @@ export function validator(type: InputValidatorType) {
 
 	const addressValidator = (value: string) => {
 		const addressRegex = /^[a-zA-Z0-9\s.,#-]+$/
-		if (!value.match(addressRegex)) {
+		if (!value.match(addressRegex) && value) {
 			return ERROR_MESSAGES.address
+		}
+		return null
+	}
+
+	const userNameValidator = (value: string) => {
+		const trimmedUserName = value.trim()
+		const userNameRegex = /^[a-zA-Z0-9]+$/
+		if (!trimmedUserName.match(userNameRegex) && value) {
+			return ERROR_MESSAGES.userName
 		}
 		return null
 	}
@@ -95,6 +106,9 @@ export function validator(type: InputValidatorType) {
 		}
 		case 'address': {
 			return addressValidator
+		}
+		case 'userName': {
+			return userNameValidator
 		}
 		case 'no required':
 			return ERROR_MESSAGES.noRequired

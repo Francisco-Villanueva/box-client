@@ -9,14 +9,14 @@ import { FormInput } from 'components'
 import { useRouter } from 'next/navigation'
 export default function CreatePackage() {
 	const router = useRouter()
-	const [state, setState] = useState({})
+	const [packageData, setPackageData] = useState({})
 
 	const handleInput = (key: string, value: string) => {
-		setState((prev) => ({
+		setPackageData((prev) => ({
 			...prev,
 			[key]: value,
 		}))
-		console.log(state)
+		console.log(packageData)
 	}
 
 	const handleCreatePackage = () => {
@@ -65,7 +65,10 @@ export default function CreatePackage() {
 				</div>
 			</BoxLayout>
 			<div className="flex justify-center">
-				<Button className="w-11/12 mt-5" onClick={handleCreatePackage}>
+				<Button
+					className="w-11/12 mt-5"
+					onClick={handleCreatePackage}
+					disabled={Object.values(packageData).some((value) => value === '')}>
 					AGREGAR
 				</Button>
 			</div>
