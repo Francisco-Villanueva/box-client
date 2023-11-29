@@ -44,7 +44,7 @@ export function RegisterForm() {
 			userName: userData.userName,
 			email: userData.email,
 			password: userData.password,
-			profileImageUrl: profileImageUrl,
+			image: profileImageUrl,
 		}
 		if (Object.values(userData).some((value) => value === '')) {
 			return message.error('Completar todos los campos')
@@ -53,7 +53,7 @@ export function RegisterForm() {
 		if (userData.password !== userData.confirmPassword) {
 			return message.error('Las contraseñas no coinciden')
 		}
-		console.log('User------', userToRegister)
+		//console.log('User------', userToRegister)
 		try {
 			const response = await axiosInstance.post(
 				//TODO: Migrar a Services
