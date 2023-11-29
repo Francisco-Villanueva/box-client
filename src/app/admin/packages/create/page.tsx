@@ -2,7 +2,7 @@
 import { TitleBox } from 'commons'
 import React, { useState } from 'react'
 import { ArrowLeft } from 'commons/Icons'
-import { Button, BoxLayout, InputCalendar } from 'commons'
+import { Button, BoxLayout } from 'commons'
 import Link from 'next/link'
 import { message } from 'antd'
 import { FormInput } from 'components'
@@ -12,15 +12,17 @@ export default function CreatePackage() {
 	const [packageData, setPackageData] = useState({})
 
 	const handleInput = (key: string, value: string) => {
+		const trimmedValue = value.trim()
 		setPackageData((prev) => ({
 			...prev,
-			[key]: value,
+			[key]: trimmedValue,
 		}))
 		console.log(packageData)
 	}
 
 	const handleCreatePackage = () => {
 		router.push('/admin')
+		console.log('packageData--->', packageData)
 		message.success('Paquete creado')
 	}
 
@@ -61,7 +63,17 @@ export default function CreatePackage() {
 					className="my-5"
 				/>
 				<div className="pt-12 pb-28">
-					<InputCalendar title="Seleccione una fecha" />
+					{/* <InputCalendar title="Seleccione una fecha" /> */}
+					<div className="flex flex-col">
+						<span className="text-darkGreen ">Seleccione una fecha</span>
+						<FormInput
+							type="date"
+							reference="date"
+							handleInput={handleInput}
+							placeholder=""
+							className="my-5"
+						/>
+					</div>
 				</div>
 			</BoxLayout>
 			<div className="flex justify-center">
