@@ -31,6 +31,8 @@ export function Input({
 	const STYLE_INPUT = `w-full  px-0 pt-6  rounded-sm border-b border-darkGreen placeholder-darkGreen text-darkGreen   focus:outline-none bg-transparent placeholder-darkGreen::placeholder ${
 		error ? 'border-error' : ''
 	} `
+	const DATE_STYLE_INPUT =
+		'w-full py-2 pl-8 pr-3 border uppercase border-darkGreen rounded-lg focus:outline-none placeholder-darkGreen bg-transparent'
 	return (
 		<div
 			className={` flex  items-center   relative mx-1 font-roboto ${className}`}>
@@ -42,7 +44,7 @@ export function Input({
 				onFocus={onFocus}
 				placeholder={placeholder}
 				defaultValue={value}
-				className={STYLE_INPUT}
+				className={type === 'date' ? DATE_STYLE_INPUT : STYLE_INPUT}
 			/>
 
 			{type === 'password' && (
