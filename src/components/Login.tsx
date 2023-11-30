@@ -123,7 +123,7 @@ export const Login = observer(function () {
 								CREAR CUENTA
 							</Button>
 						</Link>
-						<CustomLink href={'asdasd'} className="mb-4">
+						<CustomLink href={'/reset-password'} className="mb-4">
 							Olvidé mi contraseña
 						</CustomLink>
 					</section>
