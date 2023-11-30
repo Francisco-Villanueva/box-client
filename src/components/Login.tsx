@@ -10,11 +10,11 @@ import { AuthServices } from 'services'
 
 export const Login = observer(function () {
 	const {
-		users: { setUserLoggedId, setUserId, findUserByUserName },
+		users: { setUserLoggedId, setUserId, findUserByUserName, findUserByEmail },
 	} = useStore()
 
 	const [userData, setUserData] = useState({
-		mail: '',
+		user: '',
 		password: '',
 	})
 
@@ -33,12 +33,19 @@ export const Login = observer(function () {
 
 			try {
 				await AuthServices.login({
-					email: userData.mail,
+					user: userData.user,
 					password: userData.password,
 				})
-				router.push('/admin')
+				// router.push('/admin')
 
-				const userToCheck = findUserByUserName(userData.mail)
+				let userToCheck
+				const userToCheckUserName = findUserByUserName(userData.user)
+
+				if (!userToCheckUserName) {
+					userToCheck = findUserByEmail(userData.user)
+				} else {
+					userToCheck = findUserByUserName(userData.user)
+				}
 
 				if (userToCheck) {
 					const { status, role, name, _id } = userToCheck
@@ -73,7 +80,7 @@ export const Login = observer(function () {
 			}
 		},
 		[
-			userData.mail,
+			userData.user,
 			userData.password,
 			router,
 			setUserLoggedId,
@@ -93,8 +100,8 @@ export const Login = observer(function () {
 						<Input
 							placeholder="Usuario"
 							type="text"
-							value={userData.mail}
-							onChange={(e) => handleInput('mail', e.target.value)}
+							value={userData.user}
+							onChange={(e) => handleInput('user', e.target.value)}
 						/>
 						<Input
 							placeholder="Contraseña"
