@@ -1,7 +1,7 @@
 import { Instance, types } from 'mobx-state-tree'
 import { PackageModel } from './packages.types'
 
-export const ROLES_TYPES = ['Admin', 'Carrier'] as const
+export const ROLES_TYPES = ['ADMIN', 'CARRIER'] as const
 export type Role = (typeof ROLES_TYPES)[number]
 
 export const USER_STATUSES = ['HABILITADO', 'DESHABILITADO'] as const
@@ -11,9 +11,10 @@ export const UserModel = types.model({
 	_id: types.string,
 	name: types.string,
 	lastName: types.string,
+	userName: types.string,
 	email: types.string,
 	password: types.string,
-	image: types.string,
+	image: types.maybe(types.string),
 	role: types.enumeration(ROLES_TYPES),
 	status: types.enumeration(USER_STATUSES),
 	packages: types.array(PackageModel),

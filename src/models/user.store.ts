@@ -11,14 +11,14 @@ export const UserStore = types
 	})
 	.views((store) => ({
 		get carriers() {
-			return store.users.filter((user) => user.role === 'Carrier')
+			return store.users.filter((user) => user.role === 'CARRIER')
 		},
 		get admins() {
-			return store.users.filter((user) => user.role === 'Admin')
+			return store.users.filter((user) => user.role === 'ADMIN')
 		},
 		get avaliableCarriers() {
 			return store.users.filter(
-				(carrier) => carrier.role === 'Carrier' && carrier.status === 'HABILITADO'
+				(carrier) => carrier.role === 'CARRIER' && carrier.status === 'HABILITADO'
 			)
 		},
 		get selectedCarrier() {
@@ -58,6 +58,11 @@ export const UserStore = types
 		findUserByEmail(email: string) {
 			return store.users.find((user) => user.email === email)
 		},
+
+		findUserByUserName(userName: string) {
+			return store.users.find((user) => user.userName === userName)
+		},
+
 		validatePassword(user: User, password: string) {
 			return user.password === password
 		},

@@ -1,7 +1,12 @@
 import { Package } from 'types/packages.types'
-import { packages } from '../mocks/items.json'
+import axios, { AxiosResponse } from 'axios'
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 export class PackageServices {
-	static getAllPackages(): Promise<Package[]> {
-		return Promise.resolve(packages as Package[])
+	static async getAllPackages(): Promise<Package[]> {
+		const response: AxiosResponse = await axios.get(`${BASE_URL}/api/packages`)
+		//info repetida, check this
+		console.log(response.data)
+		return response.data
 	}
 }
