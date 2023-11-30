@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CustomLink, CameraIcon, Button } from 'commons'
 import { FormInput } from './FormInput'
-import { message } from 'antd'
+import { message, Input } from 'antd'
 import { useRouter } from 'next/navigation'
 import axiosInstance from '../../axiosConfig'
 
@@ -14,6 +14,10 @@ export function RegisterForm() {
 		password: '',
 		confirmPassword: '',
 	})
+
+	const [imageInputVisible, setImageInputVisible] = useState(false)
+	const [profileImageUrl, setProfileImageUrl] = useState('')
+
 	const router = useRouter()
 
 	const handleInput = (key: string, value: string) => {
@@ -22,8 +26,15 @@ export function RegisterForm() {
 			...prev,
 			[key]: trimmedValue,
 		}))
-
 		//console.log(userData)
+	}
+
+	const handleImageInput = () => {
+		setImageInputVisible(!imageInputVisible)
+	}
+
+	const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setProfileImageUrl(e.target.value)
 	}
 
 	const handleRegisterForm = async () => {
@@ -33,6 +44,7 @@ export function RegisterForm() {
 			userName: userData.userName,
 			email: userData.email,
 			password: userData.password,
+			image: profileImageUrl,
 		}
 		if (Object.values(userData).some((value) => value === '')) {
 			return message.error('Completar todos los campos')
@@ -41,7 +53,7 @@ export function RegisterForm() {
 		if (userData.password !== userData.confirmPassword) {
 			return message.error('Las contraseñas no coinciden')
 		}
-		console.log('User------', userToRegister)
+		//console.log('User------', userToRegister)
 		try {
 			const response = await axiosInstance.post(
 				//TODO: Migrar a Services
@@ -60,9 +72,29 @@ export function RegisterForm() {
 		<>
 			<div className="bg-white rounded-2xl h-auto">
 				<div className="flex justify-center items-center pt-7">
-					<div className="bg-lightGrey flex justify-center items-center rounded-3xl w-24 h-24 ">
-						<CameraIcon className="h-8" />
-					</div>
+					{profileImageUrl ? (
+						<img
+							src={profileImageUrl}
+							alt="Profile"
+							className="h-28 cursor-pointer"
+							onClick={handleImageInput}
+						/>
+					) : (
+						<div className="bg-lightGrey flex justify-center items-center rounded-3xl w-24 h-24 ">
+							<CameraIcon className="h-8" onClick={handleImageInput} />
+						</div>
+					)}
+				</div>
+				<div className="pl-5 pr-5">
+					{imageInputVisible && (
+						<Input
+							placeholder="URL de la imagen de perfil"
+							value={profileImageUrl}
+							onChange={handleImageUrlChange}
+							onPressEnter={handleImageInput}
+							className="my-5"
+						/>
+					)}
 				</div>
 				<section>
 					<div className="pl-5 pr-5">
