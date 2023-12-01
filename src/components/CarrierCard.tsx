@@ -30,6 +30,8 @@ export const CarrierCard = observer(function CarrierCard({
 		router.push('/admin/carriers/profile')
 	}
 
+	const userImage = carrier?.image
+
 	return (
 		<div
 			className="flex items-center justify-between p-4 border-t border-black bg-white"
@@ -49,7 +51,11 @@ export const CarrierCard = observer(function CarrierCard({
 			</div>
 
 			<div className="relative">
-				<UserImg src="/users/user1.jpeg" alt="s" className="w-14 h-14" />
+				<UserImg
+					src={userImage ? userImage : '/users/user1.jpeg'}
+					alt="s"
+					className="w-14 h-14"
+				/>
 			</div>
 		</div>
 	)

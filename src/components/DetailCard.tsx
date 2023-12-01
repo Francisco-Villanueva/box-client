@@ -1,6 +1,7 @@
 import { Button, Graph, Title } from 'commons'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
+import Image from 'next/image'
 import Link from 'next/link'
 
 interface DetailCardProps {
@@ -49,7 +50,15 @@ export const DetailCard = observer(function DetailCard({
 							{avaliableCarriers.map((carrier) => (
 								<div
 									key={carrier._id}
-									className="ml-[-1rem] border rounded-full bg-green-700  w-[2rem] h-[2rem]"></div>
+									className="ml-[-1rem] border rounded-full  w-[2rem] h-[2rem] relative">
+									<Image
+										src={carrier.image ? carrier.image : '/users/user1.jpeg'}
+										alt="Image"
+										fill
+										objectFit="cover"
+										className="rounded-full"
+									/>
+								</div>
 							))}
 						</div>
 					)}
