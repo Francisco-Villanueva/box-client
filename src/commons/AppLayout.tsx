@@ -17,7 +17,7 @@ export const AppLayout = observer(function ({
 	className,
 }: AppLayoutProps) {
 	const {
-		users: { setUserLoggedId },
+		users: { setUserLoggedId, loggedUser },
 	} = useStore()
 	const router = useRouter()
 	const handleLogOut = () => {
@@ -26,23 +26,36 @@ export const AppLayout = observer(function ({
 		setUserLoggedId('')
 		router.push('/login')
 	}
+
+	const userRole = loggedUser ? loggedUser.role.toLocaleLowerCase() : 'login'
+	console.log('USER ROLE:', userRole)
+
+	const handleBoxClick = () => {
+		router.push(`/${userRole}`)
+	}
+
 	return (
 		<div
 			className={` flex flex-col gap-4 bg-lightGreen w-full min-h-screen overflow-auto p-3 ${className}`}>
 			<div className="flex justify-between items-center">
 				<div>
-					<Button variant="secondary" className="border-none">
+					<Button
+						variant="secondary"
+						className="border-none"
+						onClick={handleBoxClick}>
 						<Image src={BoxLogo} alt="boxLogo" width={100} />
 					</Button>
 				</div>
-				<div>
-					<Button
-						onClick={handleLogOut}
-						variant="secondary"
-						className="w-30 h-8 text-xs">
-						CERRAR SESION
-					</Button>
-				</div>
+				{loggedUser && (
+					<div>
+						<Button
+							onClick={handleLogOut}
+							variant="secondary"
+							className="w-30 h-8 text-xs">
+							CERRAR SESION
+						</Button>
+					</div>
+				)}
 			</div>
 			<BodyLayout>{children}</BodyLayout>
 		</div>

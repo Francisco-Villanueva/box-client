@@ -9,12 +9,15 @@ import Link from 'next/link'
 export default observer(function AdminPage() {
 	const {
 		date: { month },
+		users: { loggedUser },
 	} = useStore()
 	return (
 		<div className="flex flex-col justify-between gap-2 h-full">
 			<section className="bg-white  flex items-center gap-2  p-4  rounded-2xl">
 				<Image
-					src="/users/user1.jpeg"
+					src={
+						loggedUser && loggedUser.image ? loggedUser.image : '/users/user1.jpeg'
+					}
 					alt="s"
 					width={100}
 					height={100}

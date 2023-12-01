@@ -12,6 +12,8 @@ export default observer(function CarrierProfile() {
 		users: { selectedCarrier },
 	} = useStore()
 
+	const userImage = selectedCarrier?.image
+
 	return (
 		<div className="h-[90%]  flex flex-col gap-2">
 			<TitleBox
@@ -26,7 +28,7 @@ export default observer(function CarrierProfile() {
 			<BoxLayout className="bg-white p-4 flex items-center justify-between">
 				<section className="flex items-center gap-4">
 					<Image
-						src="/users/user1.jpeg"
+						src={userImage ? userImage : '/users/user1.jpeg'}
 						alt="a"
 						width={90}
 						height={1}
