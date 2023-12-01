@@ -17,18 +17,18 @@ export const AppLayout = observer(function ({
 	className,
 }: AppLayoutProps) {
 	const {
-		users: { setUserLoggedId },
+		users: { setUserLoggedId, loggedUser },
 	} = useStore()
 	const router = useRouter()
 	const handleLogOut = () => {
 		localStorage.setItem('USER_LOGGED_ID', '')
-		localStorage.setItem('USER_LOGGED_ROLE', '')
 		message.success('Has cerrado sesión')
 		setUserLoggedId('')
 		router.push('/login')
 	}
 
-	const userRole = localStorage.getItem('USER_LOGGED_ROLE')?.toLocaleLowerCase()
+	const userRole = loggedUser ? loggedUser.role.toLocaleLowerCase() : 'login'
+	console.log('USER ROLE:', userRole)
 
 	const handleBoxClick = () => {
 		router.push(`/${userRole}`)
@@ -46,7 +46,7 @@ export const AppLayout = observer(function ({
 						<Image src={BoxLogo} alt="boxLogo" width={100} />
 					</Button>
 				</div>
-				{userRole && (
+				{loggedUser && (
 					<div>
 						<Button
 							onClick={handleLogOut}
