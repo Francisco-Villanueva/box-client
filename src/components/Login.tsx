@@ -58,6 +58,7 @@ export const Login = observer(function () {
 						const welcomeMessage = `Bienvenido ${name}`
 						const redirect = () => {
 							localStorage.setItem('USER_LOGGED_ID', _id)
+							localStorage.setItem('USER_LOGGED_ROLE', role) //Se usa para el AppLayout
 							setUserLoggedId(_id)
 							setUserId(_id)
 						}

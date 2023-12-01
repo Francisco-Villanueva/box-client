@@ -26,6 +26,7 @@ export default observer(function PackagesPage() {
 	const router = useRouter()
 	const [trimmer, setTrimmer] = useState(7)
 	const [selectedPackages, setSelectedPackages] = useState<string[]>([])
+	const [disableButton, setDisableButton] = useState<boolean>(true)
 
 	const handleTrimmer = () => {
 		if (trimmer === unassignedPackages.length) {
@@ -46,6 +47,7 @@ export default observer(function PackagesPage() {
 	}
 	const handleAddPackages = (packId: string) => {
 		setSelectedPackages((prev) => [...prev, packId])
+		setDisableButton(false)
 	}
 
 	return (
@@ -93,7 +95,8 @@ export default observer(function PackagesPage() {
 
 			<Button
 				className="w-[90%] uppercase flex m-auto justify-center"
-				onClick={handlePackagesAssignment}>
+				onClick={handlePackagesAssignment}
+				disabled={disableButton}>
 				Iniciar Jornada
 			</Button>
 		</div>

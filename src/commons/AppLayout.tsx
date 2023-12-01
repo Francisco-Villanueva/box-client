@@ -22,27 +22,40 @@ export const AppLayout = observer(function ({
 	const router = useRouter()
 	const handleLogOut = () => {
 		localStorage.setItem('USER_LOGGED_ID', '')
+		localStorage.setItem('USER_LOGGED_ROLE', '')
 		message.success('Has cerrado sesión')
 		setUserLoggedId('')
 		router.push('/login')
 	}
+
+	const userRole = localStorage.getItem('USER_LOGGED_ROLE')?.toLocaleLowerCase()
+
+	const handleBoxClick = () => {
+		router.push(`/${userRole}`)
+	}
+
 	return (
 		<div
 			className={` flex flex-col gap-4 bg-lightGreen w-full min-h-screen overflow-auto p-3 ${className}`}>
 			<div className="flex justify-between items-center">
 				<div>
-					<Button variant="secondary" className="border-none">
+					<Button
+						variant="secondary"
+						className="border-none"
+						onClick={handleBoxClick}>
 						<Image src={BoxLogo} alt="boxLogo" width={100} />
 					</Button>
 				</div>
-				<div>
-					<Button
-						onClick={handleLogOut}
-						variant="secondary"
-						className="w-30 h-8 text-xs">
-						CERRAR SESION
-					</Button>
-				</div>
+				{userRole && (
+					<div>
+						<Button
+							onClick={handleLogOut}
+							variant="secondary"
+							className="w-30 h-8 text-xs">
+							CERRAR SESION
+						</Button>
+					</div>
+				)}
 			</div>
 			<BodyLayout>{children}</BodyLayout>
 		</div>
