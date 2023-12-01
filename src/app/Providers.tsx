@@ -1,7 +1,7 @@
 'use client'
 import { RootStore, RootStoreContext } from 'models/root.store'
 import { ReactNode, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { observer } from 'mobx-react-lite'
 import { PackageServices, UserServices } from 'services'
 
@@ -27,15 +27,16 @@ export default observer(function Providers({ children }: ProvidersProps) {
 		store.packages.setPackages(packages)
 	}, [store])
 
-	const router = useRouter()
+	// const router = useRouter()
 
 	const loginValidations = () => {
 		const USER_ID = localStorage.getItem('USER_LOGGED_ID') || ''
 		store.users.setUserLoggedId(USER_ID)
 		store.users.setUserId(USER_ID)
-		if (!store.users.loggedUser) {
-			router.push('/login')
-		}
+		//TODO REVISAR ESTO:
+		// if (!USER_ID || !store.users.loggedUser) {
+		// 	router.push('/login')
+		// }
 	}
 	useEffect(() => {
 		if (!store.users.users.length) {
