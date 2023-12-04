@@ -64,7 +64,7 @@ export function validator(type: InputValidatorType) {
 	}
 
 	const weightValidator = (value: string) => {
-		const numberRegex = /^[0-9]+$/
+		const numberRegex = /^[0-9.]+$/
 		if (!value.match(numberRegex) && value) {
 			return ERROR_MESSAGES.weight
 		}
