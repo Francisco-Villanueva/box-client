@@ -11,6 +11,7 @@ export default observer(function AdminPage() {
 		date: { month },
 		users: { loggedUser },
 	} = useStore()
+
 	return (
 		<div className="flex flex-col justify-between gap-2 h-full">
 			<section className="bg-white  flex items-center gap-2  p-4  rounded-2xl">

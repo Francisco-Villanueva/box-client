@@ -17,13 +17,12 @@ export const AppLayout = observer(function ({
 	className,
 }: AppLayoutProps) {
 	const {
-		users: { setUserLoggedId, loggedUser },
+		users: { loggedUser },
 	} = useStore()
 	const router = useRouter()
 	const handleLogOut = () => {
-		localStorage.setItem('USER_LOGGED_ID', '')
+		localStorage.clear()
 		message.success('Has cerrado sesión')
-		setUserLoggedId('')
 		router.push('/login')
 	}
 
