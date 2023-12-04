@@ -32,7 +32,7 @@ export const ResetPasswordView = observer(function () {
 			try {
 				const userToCheck = findUserByEmail(userData.email)
 				if (!userToCheck) {
-					return message.error('Credenciales inválidas')
+					return message.error('Email no encontrado')
 				} else {
 					message.success('Email enviado')
 					router.push('/login')
@@ -43,7 +43,7 @@ export const ResetPasswordView = observer(function () {
 				})
 			} catch (error) {
 				console.error('Error al enviar', error)
-				message.error('Credenciales inválidas')
+				message.error('Error al enviar email')
 			}
 		},
 		[userData.email, router, findUserByEmail]
