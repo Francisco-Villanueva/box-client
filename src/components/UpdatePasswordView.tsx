@@ -41,7 +41,7 @@ export default function UpdatePasswordView({ resetToken }: any) {
 				router.push('/login')
 			} catch (error) {
 				console.error('Error al enviar', error)
-				message.error('Credenciales inválidas')
+				message.error('Error al actualizar contraseña')
 			}
 		},
 		[userData.password, userData.confirmPassword]
