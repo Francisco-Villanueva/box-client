@@ -4,6 +4,7 @@ import { FormInput } from './FormInput'
 import { message, Input } from 'antd'
 import { useRouter } from 'next/navigation'
 import axiosInstance from '../../axiosConfig'
+import Image from 'next/image'
 
 export function RegisterForm() {
 	const [userData, setUserData] = useState({
@@ -73,7 +74,7 @@ export function RegisterForm() {
 			<div className="bg-white rounded-2xl h-auto">
 				<div className="flex justify-center items-center pt-7">
 					{profileImageUrl ? (
-						<img
+						<Image
 							src={profileImageUrl}
 							alt="Profile"
 							className="h-28 cursor-pointer"

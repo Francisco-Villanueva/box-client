@@ -1,9 +1,10 @@
 import { types } from 'mobx-state-tree'
-import { UserModel, User, Package } from '../types'
+import { UserModel, User, SingleUser, SingleUserModel } from '../types'
 
 export const UserStore = types
 	.model({
 		users: types.array(UserModel),
+		loggedUser: types.maybe(SingleUserModel),
 		userId: types.maybe(types.string),
 		userLoggedId: types.maybe(types.string),
 		pendingPack_ID: types.array(types.string),
@@ -25,10 +26,7 @@ export const UserStore = types
 			//RETORNA EL CARRIER SELECCIONADO
 			return store.users.find((user) => user._id === store.userId)
 		},
-		get loggedUser() {
-			//RETORNA EL CARRIER SELECCIONADO
-			return store.users.find((user) => user._id === store.userLoggedId)
-		},
+
 		get selectedCarrierPackages() {
 			//RETORNA LOS PACKAGES DE EL CARRIER SELECCIONADO
 			const carrier = store.users.find((user) => user._id === store.userId)
@@ -71,6 +69,9 @@ export const UserStore = types
 		setUsers(users: User[]) {
 			store.users.push(...users)
 		},
+		setUserLogged(user: SingleUser) {
+			store.loggedUser = user
+		},
 		setUserId(userId: string) {
 			store.userId = userId
 		},
@@ -82,9 +83,5 @@ export const UserStore = types
 		},
 		deleteHistoryPackages(packId: string) {
 			store.historyPack_ID.push(packId)
-		},
-		addPackage(pack: Package) {
-			const user = store.loggedUser
-			user?.packages.push(pack)
 		},
 	}))

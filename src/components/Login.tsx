@@ -10,7 +10,7 @@ import { AuthServices } from 'services'
 
 export const Login = observer(function () {
 	const {
-		users: { setUserLoggedId, setUserId, findUserByUserName, findUserByEmail },
+		users: { setUserLoggedId, setUserId, findUserByUserName, setUserLogged },
 	} = useStore()
 
 	const [userData, setUserData] = useState({
@@ -32,37 +32,26 @@ export const Login = observer(function () {
 			event.preventDefault()
 
 			try {
-				await AuthServices.login({
+				const userToCheck = await AuthServices.login({
 					user: userData.user,
 					password: userData.password,
 				})
-				// router.push('/admin')
-
-				let userToCheck
-				const userToCheckUserName = findUserByUserName(userData.user)
-
-				if (!userToCheckUserName) {
-					userToCheck = findUserByEmail(userData.user)
-				} else {
-					userToCheck = findUserByUserName(userData.user)
-				}
 
 				if (userToCheck) {
-					const { status, role, name, _id } = userToCheck
+					const { user, accessToken } = userToCheck
 
-					if (status === 'DESHABILITADO') {
+					if (user.status === 'DESHABILITADO') {
 						message.error(
-							`Lo sentimos ${name}. Tu usuario se encuentra deshabilitado`
+							`Lo sentimos ${user.name}. Tu usuario se encuentra deshabilitado`
 						)
 					} else {
-						const welcomeMessage = `Bienvenido ${name}`
+						const welcomeMessage = `Bienvenido ${user.name}`
 						const redirect = () => {
-							localStorage.setItem('USER_LOGGED_ID', _id)
-							setUserLoggedId(_id)
-							setUserId(_id)
+							localStorage.setItem('USER_TOKEN', accessToken)
+							setUserLogged(user)
 						}
 
-						if (role === 'ADMIN') {
+						if (user.role === 'ADMIN') {
 							message.success(welcomeMessage)
 							router.push('/admin')
 							redirect()
