@@ -21,9 +21,10 @@ export const CarrierCard = observer(function CarrierCard({
 		(pack) => pack.status === 'ENTREGADO'
 	)
 
-	const percentage = Math.floor(
-		(packagesDelivered.length / carrier.packages.length) * 100
-	)
+	const percentage =
+		carrier.packages.length > 0
+			? Math.floor((packagesDelivered.length / carrier.packages.length) * 100)
+			: 0
 
 	const handleSelectCarrier = () => {
 		setUserId(carrier._id)
