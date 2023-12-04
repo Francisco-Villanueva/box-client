@@ -55,7 +55,7 @@ export default function CreatePackage() {
 					className="my-5"
 				/>
 				<FormInput
-					type="text"
+					type="number"
 					reference="weight"
 					handleInput={handleInput}
 					placeholder="Peso del paquete (Kg)"
