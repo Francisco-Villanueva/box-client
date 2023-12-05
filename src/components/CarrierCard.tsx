@@ -28,6 +28,7 @@ export const CarrierCard = observer(function CarrierCard({
 
 	const handleSelectCarrier = () => {
 		setUserId(carrier._id)
+		localStorage.setItem('SELECTED_CARRIER_ID', carrier._id)
 		router.push('/admin/carriers/profile')
 	}
 

@@ -10,4 +10,8 @@ export class UserServices {
 		console.log(response.data)
 		return response.data
 	}
+
+	static async updateUser(id: string, newState: string) {
+		return axios.patch(`${BASE_URL}/users/${id}`, { status: newState })
+	}
 }
