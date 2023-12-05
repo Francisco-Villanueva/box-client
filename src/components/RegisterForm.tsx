@@ -5,6 +5,9 @@ import { message, Input } from 'antd'
 import { useRouter } from 'next/navigation'
 import axiosInstance from '../../axiosConfig'
 import AWS from 'aws-sdk'
+import { AxiosError } from 'axios'
+import { AuthServices } from 'services'
+
 
 export function RegisterForm() {
 	AWS.config.update({
@@ -114,17 +117,20 @@ export function RegisterForm() {
 		}
 
 		try {
-			const response = await axiosInstance.post(
-				//TODO: Migrar a Services
-				'/api/auth/register',
-				userToRegister
-			)
+			const response = await AuthServices.register(userToRegister)
 			console.log('RESPONSE----', response)
 			router.push('/login')
 			message.success('Usuario creado correctamente')
-		} catch (error: any) {
-			console.log('ERROR: ', error)
-			message.error(`Error al Registrar el usuario: ${error}`)
+		} catch (error: unknown) {
+			console.log(
+				error instanceof AxiosError ? 'ERROR: ' : 'Error inesperado',
+				error
+			)
+			message.error(
+				`Error al registar el usuario: ${
+					error instanceof AxiosError ? error : 'Error desconocido'
+				}`
+			)
 		}
 	}
 	return (

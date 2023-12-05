@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import { useRouter } from 'next/navigation'
-//import { FormInput } from './FormInput'
 import { AuthServices } from 'services'
 
 export const Login = observer(function () {
