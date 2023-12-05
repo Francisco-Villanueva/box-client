@@ -18,11 +18,13 @@ export class AuthServices {
 		const email = await axios.post(`${BASE_URL}/auth/reset-password`, data)
 		return email.data
 	}
+
 	static async updatePassword(data: IUpdateData) {
 		const updateData = await axios.patch(
-			`${BASE_URL}/api/auth/update-password`,
+			`${BASE_URL}/auth/update-password`,
 			data
 		)
+
 		return updateData.data
 	}
 	static async me(token: string) {
