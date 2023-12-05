@@ -12,10 +12,7 @@ export class AuthServices {
 		return email.data
 	}
 	static async updatePassword(data: any) {
-		const updateData = await axios.patch(
-			`${BASE_URL}/api/auth/update-password`,
-			data
-		)
+		const updateData = await axios.patch(`${BASE_URL}/auth/update-password`, data)
 		return updateData.data
 	}
 	static async me(token: string) {

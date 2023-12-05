@@ -1,7 +1,7 @@
 'use client'
 import { RootStore, RootStoreContext } from 'models/root.store'
 import { ReactNode, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { observer } from 'mobx-react-lite'
 import { AuthServices, PackageServices, UserServices } from 'services'
 
@@ -28,9 +28,19 @@ export default observer(function Providers({ children }: ProvidersProps) {
 	}, [store])
 
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const loginValidations = () => {
 		const USER_TOKEN = localStorage.getItem('USER_TOKEN') || ''
+		const excludedRoutes = [
+			'/register',
+			'/reset-password',
+			'/reset-password/[resetToken]',
+		]
+
+		if (excludedRoutes.some((route) => pathname.startsWith(route))) {
+			return
+		}
 
 		//TODO REVISAR ESTO:
 		if (!USER_TOKEN) {
