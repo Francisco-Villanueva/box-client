@@ -3,8 +3,9 @@ import { CustomLink, CameraIcon, Button } from 'commons'
 import { FormInput } from './FormInput'
 import { message, Input } from 'antd'
 import { useRouter } from 'next/navigation'
-import axiosInstance from '../../axiosConfig'
 import Image from 'next/image'
+import { AxiosError } from 'axios'
+import { AuthServices } from 'services'
 
 export function RegisterForm() {
 	const [userData, setUserData] = useState({
@@ -27,7 +28,6 @@ export function RegisterForm() {
 			...prev,
 			[key]: trimmedValue,
 		}))
-		//console.log(userData)
 	}
 
 	const handleImageInput = () => {
@@ -54,19 +54,21 @@ export function RegisterForm() {
 		if (userData.password !== userData.confirmPassword) {
 			return message.error('Las contraseñas no coinciden')
 		}
-		//console.log('User------', userToRegister)
 		try {
-			const response = await axiosInstance.post(
-				//TODO: Migrar a Services
-				'/api/auth/register',
-				userToRegister
-			)
+			const response = await AuthServices.register(userToRegister)
 			console.log('RESPONSE----', response)
 			router.push('/login')
 			message.success('Usuario creado correctamente')
-		} catch (error: any) {
-			console.log('ERROR: ', error)
-			message.error(`Error al Registrar el usuario: ${error}`)
+		} catch (error: unknown) {
+			console.log(
+				error instanceof AxiosError ? 'ERROR: ' : 'Error inesperado',
+				error
+			)
+			message.error(
+				`Error al registar el usuario: ${
+					error instanceof AxiosError ? error : 'Error desconocido'
+				}`
+			)
 		}
 	}
 	return (
