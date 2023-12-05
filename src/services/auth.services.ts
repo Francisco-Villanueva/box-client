@@ -32,7 +32,7 @@ export class AuthServices {
 	}
 
 	static async register(data: RegisterData) {
-		const user = await axios.post(`${BASE_URL}/auth/login`, data)
+		const user = await axios.post(`${BASE_URL}/auth/register`, data)
 		return user.data
 	}
 
