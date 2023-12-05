@@ -5,7 +5,11 @@ import { message } from 'antd'
 import { AuthServices } from 'services'
 import { useRouter } from 'next/navigation'
 
-export default function UpdatePasswordView({ resetToken }: any) {
+interface ResetTokenType {
+	resetToken: string | string[]
+}
+
+export default function UpdatePasswordView({ resetToken }: ResetTokenType) {
 	const [userData, setUserData] = useState({
 		password: '',
 		confirmPassword: '',
