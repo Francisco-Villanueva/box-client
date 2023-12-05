@@ -4,9 +4,15 @@ import { FormInput } from './FormInput'
 import { message, Input } from 'antd'
 import { useRouter } from 'next/navigation'
 import axiosInstance from '../../axiosConfig'
-import Image from 'next/image'
+import AWS from 'aws-sdk'
 
 export function RegisterForm() {
+	AWS.config.update({
+		accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY,
+		secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
+		region: process.env.NEXT_PUBLIC_AWS_REGION,
+	})
+
 	const [userData, setUserData] = useState({
 		name: '',
 		lastName: '',
@@ -27,15 +33,67 @@ export function RegisterForm() {
 			...prev,
 			[key]: trimmedValue,
 		}))
-		//console.log(userData)
 	}
 
-	const handleImageInput = () => {
-		setImageInputVisible(!imageInputVisible)
+	const handleImageInput = async () => {
+		const inputElement = document.createElement('input')
+		inputElement.type = 'file'
+
+		// Simula el clic en el nuevo input para abrir el selector de archivos. Sin esto salta error en el handleInput
+		inputElement.click()
+
+		inputElement.addEventListener('change', async (e) => {
+			const file = (e.target as HTMLInputElement)?.files?.[0]
+
+			if (file) {
+				try {
+					const bucket = process.env.NEXT_PUBLIC_AWS_BUCKET
+					if (!bucket) {
+						console.error(
+							'Variable de entorno NEXT_PUBLIC_AWS_BUCKET no está definida.'
+						)
+						return
+					}
+					const s3 = new AWS.S3()
+					const params = {
+						Bucket: bucket,
+						Key: `images/${file.name}`,
+						Body: file,
+					}
+
+					const result = await s3.upload(params).promise()
+
+					setProfileImageUrl(result.Location)
+					setImageInputVisible(false)
+				} catch (error) {
+					console.error('Error al cargar la imagen en S3:', error)
+				}
+			}
+		})
 	}
 
-	const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setProfileImageUrl(e.target.value)
+	const handleImageClick = async () => {
+		// Cuando se hace clic en la imagen, muestra nuevamente el input de archivo
+		setProfileImageUrl('')
+		//TODO: Hay que revisar la función que permite eliminar el archivo de AWS: En consola muestra 'Imagen eliminada correctamente del bucket.' pero en AWS no se elimina
+		/* if (profileImageUrl) {
+			try {
+					const bucket = process.env.NEXT_PUBLIC_AWS_BUCKET;
+					if (!bucket) {
+							console.error('Variable de entorno NEXT_PUBLIC_AWS_BUCKET no está definida.');
+							return;
+					}
+
+					const s3 = new AWS.S3();
+					const key = decodeURIComponent(profileImageUrl.split(`/${bucket}/`)[1]); // Extraer la clave del URL y decodificarla
+
+					await s3.deleteObject({ Bucket: bucket, Key: key }).promise();
+
+					console.log('Imagen eliminada correctamente del bucket.');
+			} catch (error) {
+					console.error('Error al eliminar la imagen del bucket:', error);
+			}
+	}		 */
 	}
 
 	const handleRegisterForm = async () => {
@@ -54,7 +112,7 @@ export function RegisterForm() {
 		if (userData.password !== userData.confirmPassword) {
 			return message.error('Las contraseñas no coinciden')
 		}
-		//console.log('User------', userToRegister)
+
 		try {
 			const response = await axiosInstance.post(
 				//TODO: Migrar a Services
@@ -72,16 +130,17 @@ export function RegisterForm() {
 	return (
 		<>
 			<div className="bg-white rounded-2xl h-auto">
-				<div className="flex justify-center items-center pt-7">
+				<div
+					className="flex justify-center items-center pt-7"
+					onClick={handleImageClick}>
 					{profileImageUrl ? (
-						<Image
+						<img
 							src={profileImageUrl}
 							alt="Profile"
 							className="h-28 cursor-pointer"
-							onClick={handleImageInput}
 						/>
 					) : (
-						<div className="bg-lightGrey flex justify-center items-center rounded-3xl w-24 h-24 ">
+						<div className="bg-lightGrey flex justify-center items-center rounded-3xl w-24 h-24">
 							<CameraIcon className="h-8" onClick={handleImageInput} />
 						</div>
 					)}
@@ -89,10 +148,9 @@ export function RegisterForm() {
 				<div className="pl-5 pr-5">
 					{imageInputVisible && (
 						<Input
-							placeholder="URL de la imagen de perfil"
-							value={profileImageUrl}
-							onChange={handleImageUrlChange}
-							onPressEnter={handleImageInput}
+							type="file"
+							accept="image/*"
+							onChange={handleImageInput}
 							className="my-5"
 						/>
 					)}
