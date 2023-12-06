@@ -2,6 +2,7 @@
 import { CarrierStatus, Switch, BoxLayout } from 'commons'
 
 import Image from 'next/image'
+import { useState } from 'react'
 import { UserServices } from 'services'
 import { User } from 'types'
 
@@ -10,6 +11,11 @@ interface CarrierProps {
 }
 
 export function CarrierStatusCard({ carrier }: CarrierProps) {
+	console.log('carrier--->', carrier.status)
+
+	const [updatedUserData, setUpdatedUserData] = useState(carrier)
+	console.log('updatedUserData--->', updatedUserData)
+
 	return (
 		<BoxLayout className="bg-white p-4 flex items-center justify-between">
 			<section className="flex items-center gap-4">
@@ -22,18 +28,18 @@ export function CarrierStatusCard({ carrier }: CarrierProps) {
 				/>
 				<div>
 					<h2 className="font-bold"> {carrier?.name} </h2>
-					<CarrierStatus status={carrier?.status} />
+					<CarrierStatus status={updatedUserData?.status} />
 				</div>
 			</section>
 			<Switch
-				status={carrier.status}
-				//TODO Funcionalidad de toggle en switch
+				status={updatedUserData.status}
 				onChange={async () => {
 					try {
 						const newState =
-							carrier.status === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO'
+							updatedUserData.status === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO'
 						const response = await UserServices.updateUser(carrier._id, newState)
-						console.log('SWITCH STATE OF CARRIER', response)
+						setUpdatedUserData(response.data)
+						console.log('SWITCH STATE OF CARRIER', response.data)
 					} catch (error) {
 						console.log(error)
 					}
