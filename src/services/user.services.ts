@@ -8,4 +8,8 @@ export class UserServices {
 		const response: AxiosResponse = await axios.get(`${BASE_URL}/users`)
 		return response.data
 	}
+
+	static async updateUser(id: string, newState: string) {
+		return axios.patch(`${BASE_URL}/users/${id}`, { status: newState })
+	}
 }

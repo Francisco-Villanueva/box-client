@@ -2,6 +2,7 @@
 import { CarrierStatus, Switch, BoxLayout } from 'commons'
 
 import Image from 'next/image'
+import { UserServices } from 'services'
 import { User } from 'types'
 
 interface CarrierProps {
@@ -27,8 +28,15 @@ export function CarrierStatusCard({ carrier }: CarrierProps) {
 			<Switch
 				status={carrier.status}
 				//TODO Funcionalidad de toggle en switch
-				onChange={() => {
-					console.log('SWITCH STATE OF CARRIER')
+				onChange={async () => {
+					try {
+						const newState =
+							carrier.status === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO'
+						const response = UserServices.updateUser(carrier._id, newState)
+						console.log('SWITCH STATE OF CARRIER', response)
+					} catch (error) {
+						console.log(error)
+					}
 				}}
 			/>
 		</BoxLayout>

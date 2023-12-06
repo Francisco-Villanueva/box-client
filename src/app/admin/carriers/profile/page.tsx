@@ -8,8 +8,18 @@ import React from 'react'
 
 export default observer(function CarrierProfile() {
 	const {
-		users: { selectedCarrier },
+		users: { selectedCarrier, setUserId },
 	} = useStore()
+
+	//TODO La consola tira un error de localStorage
+
+	if (typeof window !== 'undefined') {
+		const selectedUserId = localStorage.getItem('SELECTED_CARRIER_ID')
+
+		if (!selectedCarrier && selectedUserId) {
+			setUserId(selectedUserId)
+		}
+	}
 
 	return (
 		<div className="h-[90%]  flex flex-col gap-2">
