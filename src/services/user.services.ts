@@ -10,6 +10,6 @@ export class UserServices {
 	}
 
 	static async updateUser(id: string, newState: string) {
-		return axios.patch(`${BASE_URL}/users/${id}`, { status: newState })
+		return axios.put(`${BASE_URL}/users/${id}`, { status: newState })
 	}
 }
