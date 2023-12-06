@@ -32,7 +32,7 @@ export function CarrierStatusCard({ carrier }: CarrierProps) {
 					try {
 						const newState =
 							carrier.status === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO'
-						const response = UserServices.updateUser(carrier._id, newState)
+						const response = await UserServices.updateUser(carrier._id, newState)
 						console.log('SWITCH STATE OF CARRIER', response)
 					} catch (error) {
 						console.log(error)

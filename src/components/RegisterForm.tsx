@@ -7,7 +7,6 @@ import AWS from 'aws-sdk'
 import { AxiosError } from 'axios'
 import { AuthServices } from 'services'
 
-
 export function RegisterForm() {
 	AWS.config.update({
 		accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY,

@@ -20,10 +20,7 @@ export class AuthServices {
 	}
 
 	static async updatePassword(data: IUpdateData) {
-		const updateData = await axios.patch(
-			`${BASE_URL}/auth/update-password`,
-			data
-		)
+		const updateData = await axios.patch(`${BASE_URL}/auth/update-password`, data)
 
 		return updateData.data
 	}
