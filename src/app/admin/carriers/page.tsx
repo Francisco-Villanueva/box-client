@@ -13,6 +13,7 @@ import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
+import Loading from 'app/loading'
 
 export default observer(function CarriersPage() {
 	const [trimmer, setTrimmer] = useState(4)
@@ -53,7 +54,7 @@ export default observer(function CarriersPage() {
 				{/* TODO ver el error de Type en PackageCheckboxCard */}
 				<div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
 					{!carriers.length ? (
-						'loading'
+						<Loading />
 					) : (
 						<>
 							{carriers.slice(0, trimmer).map((carrier) => (
