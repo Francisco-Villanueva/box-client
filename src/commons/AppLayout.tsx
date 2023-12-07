@@ -27,7 +27,6 @@ export const AppLayout = observer(function ({
 	}
 
 	const userRole = loggedUser ? loggedUser.role.toLocaleLowerCase() : 'login'
-	console.log('USER ROLE:', userRole)
 
 	const handleBoxClick = () => {
 		router.push(`/${userRole}`)

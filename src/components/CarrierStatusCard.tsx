@@ -11,10 +11,7 @@ interface CarrierProps {
 }
 
 export function CarrierStatusCard({ carrier }: CarrierProps) {
-	console.log('carrier--->', carrier.status)
-
 	const [updatedUserData, setUpdatedUserData] = useState(carrier)
-	console.log('updatedUserData--->', updatedUserData)
 
 	return (
 		<BoxLayout className="bg-white p-4 flex items-center justify-between">
@@ -39,7 +36,6 @@ export function CarrierStatusCard({ carrier }: CarrierProps) {
 							updatedUserData.status === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO'
 						const response = await UserServices.updateUser(carrier._id, newState)
 						setUpdatedUserData(response.data)
-						console.log('SWITCH STATE OF CARRIER', response.data)
 					} catch (error) {
 						console.log(error)
 					}

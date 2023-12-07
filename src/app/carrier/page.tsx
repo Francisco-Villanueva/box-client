@@ -12,6 +12,7 @@ export default observer(function CarrierHomePage() {
 	const {
 		users: { loggedUser },
 	} = useStore()
+
 	return (
 		<div className="flex flex-col justify-between items-center gap-2 h-full">
 			<div className="flex flex-col gap-3 w-full h-max-[50%]">

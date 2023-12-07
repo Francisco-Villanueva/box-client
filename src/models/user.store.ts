@@ -1,14 +1,12 @@
 import { types } from 'mobx-state-tree'
-import { UserModel, User, SingleUser, SingleUserModel } from '../types'
+import { UserModel, User } from '../types'
 
 export const UserStore = types
 	.model({
 		users: types.array(UserModel),
-		loggedUser: types.maybe(SingleUserModel),
+		loggedUser: types.maybe(UserModel),
 		userId: types.maybe(types.string),
 		userLoggedId: types.maybe(types.string),
-		pendingPack_ID: types.array(types.string),
-		historyPack_ID: types.array(types.string),
 	})
 	.views((store) => ({
 		get carriers() {
@@ -29,27 +27,20 @@ export const UserStore = types
 
 		get selectedCarrierPackages() {
 			//RETORNA LOS PACKAGES DE EL CARRIER SELECCIONADO
-			const carrier = store.users.find((user) => user._id === store.userId)
-			return carrier?.packages
+			return store.loggedUser?.packages
 		},
 		get delviredPackagesByCarrier() {
 			//RETORNA LOS PACKAGES ENTREGADOS DEL CARRIER SELECCIONADO
-			const carrier = store.users.find((user) => user._id === store.userId)
 
-			return carrier?.packages.filter(
-				(pack) =>
-					pack.status === 'ENTREGADO' &&
-					!store.historyPack_ID.some((id) => id === pack._id)
+			return store.loggedUser?.packages.filter(
+				(pack) => pack.status === 'ENTREGADO'
 			)
 		},
 		get pendingPackagesByCarrier() {
 			//RETORNA LOS PACKAGES PENDIENTES Y EN CURSO DEL CARRIER SELECCIONADO
-			const carrier = store.users.find((user) => user._id === store.userId)
 
-			return carrier?.packages.filter(
-				(pack) =>
-					pack.status !== 'ENTREGADO' &&
-					!store.pendingPack_ID.some((id) => id === pack._id)
+			return store.loggedUser?.packages.filter(
+				(pack) => pack.status !== 'ENTREGADO'
 			)
 		},
 
@@ -60,16 +51,12 @@ export const UserStore = types
 		findUserByUserName(userName: string) {
 			return store.users.find((user) => user.userName === userName)
 		},
-
-		validatePassword(user: User, password: string) {
-			return user.password === password
-		},
 	}))
 	.actions((store) => ({
 		setUsers(users: User[]) {
-			store.users.push(...users)
+			store.users.replace(users)
 		},
-		setUserLogged(user: SingleUser) {
+		setUserLogged(user: User) {
 			store.loggedUser = user
 		},
 		setUserId(userId: string) {
@@ -77,11 +64,5 @@ export const UserStore = types
 		},
 		setUserLoggedId(userId: string) {
 			store.userLoggedId = userId
-		},
-		deletePendingPackage(packId: string) {
-			store.pendingPack_ID.push(packId)
-		},
-		deleteHistoryPackages(packId: string) {
-			store.historyPack_ID.push(packId)
 		},
 	}))

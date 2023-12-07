@@ -34,8 +34,6 @@ export default function UpdatePasswordView({ resetToken }: ResetTokenType) {
 					resetToken,
 				}
 
-				console.log('userData ---> ', updateData)
-
 				if (userData.password !== userData.confirmPassword) {
 					return message.error('Las contraseñas no coinciden')
 				}

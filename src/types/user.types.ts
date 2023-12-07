@@ -13,7 +13,6 @@ export const UserModel = types.model({
 	lastName: types.string,
 	userName: types.string,
 	email: types.string,
-	password: types.maybe(types.string),
 	image: types.maybe(types.string),
 	role: types.enumeration(ROLES_TYPES),
 	status: types.enumeration(USER_STATUSES),
@@ -28,6 +27,7 @@ export const SingleUserModel = types.model({
 	userName: types.string,
 	role: types.enumeration(ROLES_TYPES),
 	status: types.enumeration(USER_STATUSES),
+	packages: types.array(PackageModel),
 })
 
 export type SingleUser = Instance<typeof SingleUserModel>

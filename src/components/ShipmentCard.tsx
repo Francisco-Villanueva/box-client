@@ -5,6 +5,7 @@ import { message } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import { useRouter } from 'next/navigation'
+import { PackageServices } from 'services'
 
 interface ShipmentCardProps {
 	pack: Package
@@ -17,23 +18,24 @@ export const ShipmentCard = observer(function ShipmentCard({
 
 	const {
 		packages: { setPackageId },
-		users: { deletePendingPackage, deleteHistoryPackages },
 	} = useStore()
 
 	const router = useRouter()
 	const viewMap = () => {
 		setPackageId(pack._id)
-
 		router.push('/carrier/map')
 	}
 	const handleDeletePackage = () => {
-		pack.status === 'EN CURSO' && deletePendingPackage(pack._id)
-		pack.status === 'ENTREGADO' && deleteHistoryPackages(pack._id)
 		message.success('Paquete eliminado!')
 	}
 
 	const handleStartDelivery = () => {
-		message.success('Entrega inicializada')
+		PackageServices.udapatePackage(pack._id, {
+			...pack,
+			status: 'EN CURSO',
+		}).then(() => {
+			message.success('Entrega inicializada')
+		})
 	}
 
 	return (

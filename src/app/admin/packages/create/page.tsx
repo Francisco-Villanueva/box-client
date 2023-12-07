@@ -17,12 +17,10 @@ export default function CreatePackage() {
 			...prev,
 			[key]: trimmedValue,
 		}))
-		console.log(packageData)
 	}
 
 	const handleCreatePackage = () => {
 		router.push('/admin')
-		console.log('packageData--->', packageData)
 		message.success('Paquete creado')
 	}
 
