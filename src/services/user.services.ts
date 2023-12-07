@@ -8,8 +8,16 @@ export class UserServices {
 		const response: AxiosResponse = await axios.get(`${BASE_URL}/users`)
 		return response.data
 	}
-
+	static async getUserById(id: string) {
+		return await axios.get(`${BASE_URL}/users/${id}`)
+	}
 	static async updateUser(id: string, newState: string) {
-		return axios.put(`${BASE_URL}/users/${id}`, { status: newState })
+		return await axios.put(`${BASE_URL}/users/${id}`, { status: newState })
+	}
+	static async addPackage(userId: string, packageId: string) {
+		return await axios.post(`${BASE_URL}/users/add-package`, {
+			userId,
+			packageId,
+		})
 	}
 }

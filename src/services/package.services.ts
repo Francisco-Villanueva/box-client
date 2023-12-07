@@ -5,8 +5,15 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 export class PackageServices {
 	static async getAllPackages(): Promise<Package[]> {
 		const response: AxiosResponse = await axios.get(`${BASE_URL}/packages`)
-		//info repetida, check this
-		console.log(response.data)
 		return response.data
+	}
+	static async getPackageById(id: string) {
+		return await axios.get(`${BASE_URL}/packages/${id}`)
+	}
+	static async createPackage(data: Package) {
+		return await axios.post(`${BASE_URL}/packages`, { ...data })
+	}
+	static async udapatePackage(id: string, data: Package) {
+		return await axios.put(`${BASE_URL}/packages/${id}`, { ...data })
 	}
 }

@@ -17,16 +17,16 @@ import { useStore } from 'models/root.store'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { UserServices } from 'services'
 
 export default observer(function PackagesPage() {
 	const {
 		packages: { unassignedPackages },
-		users: { loggedUser },
+		users: { loggedUser, setUserLogged },
 	} = useStore()
 	const router = useRouter()
 	const [trimmer, setTrimmer] = useState(7)
 	const [selectedPackages, setSelectedPackages] = useState<string[]>([])
-	const [disableButton, setDisableButton] = useState<boolean>(true)
 
 	const handleTrimmer = () => {
 		if (trimmer === unassignedPackages.length) {
@@ -37,17 +37,31 @@ export default observer(function PackagesPage() {
 	}
 
 	const handlePackagesAssignment = () => {
-		selectedPackages.forEach((packId) => {
-			console.log(`Se agrega al ${loggedUser?.name} el paquete: \n  ${packId}`)
+		const arrayofPromises = selectedPackages.map((packId) => {
+			if (loggedUser) {
+				return UserServices.addPackage(loggedUser._id, packId)
+			}
 		})
-		message.success('Paquetes asignados correctamente')
 
-		//TODO: Si el servicio falla, que no haga el push a /carrier, que tire un mensaje de errror
-		router.push('/carrier')
+		Promise.all(arrayofPromises)
+			.then(() => {
+				message.success('Paquetes asignados correctamente')
+				loggedUser &&
+					UserServices.getUserById(loggedUser?._id).then((res) => {
+						setUserLogged(res.data)
+					})
+				router.push('/carrier')
+			})
+			.catch(() => {
+				message.error('Error al asignar paquetes!')
+			})
 	}
 	const handleAddPackages = (packId: string) => {
-		setSelectedPackages((prev) => [...prev, packId])
-		setDisableButton(false)
+		if (selectedPackages.includes(packId)) {
+			setSelectedPackages((prev) => prev.filter((e) => e !== packId))
+		} else {
+			setSelectedPackages((prev) => [...prev, packId])
+		}
 	}
 
 	return (
@@ -96,7 +110,7 @@ export default observer(function PackagesPage() {
 			<Button
 				className="w-[90%] uppercase flex m-auto justify-center"
 				onClick={handlePackagesAssignment}
-				disabled={disableButton}>
+				disabled={selectedPackages.length === 0}>
 				Iniciar Jornada
 			</Button>
 		</div>

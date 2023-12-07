@@ -61,7 +61,6 @@ export const Login = observer(function () {
 						}
 					}
 				}
-				console.log('se logueó correcto', userToCheck)
 			} catch (error) {
 				console.error('Error al loguearse', error)
 				message.error('Credenciales inválidas')

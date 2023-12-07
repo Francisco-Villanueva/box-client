@@ -115,8 +115,7 @@ export function RegisterForm() {
 		}
 
 		try {
-			const response = await AuthServices.register(userToRegister)
-			console.log('RESPONSE----', response)
+			await AuthServices.register(userToRegister)
 			router.push('/login')
 			message.success('Usuario creado correctamente')
 		} catch (error: unknown) {

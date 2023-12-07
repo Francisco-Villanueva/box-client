@@ -19,11 +19,9 @@ export default observer(function Providers({ children }: ProvidersProps) {
 		// PUNTO DE 'HIDRATACION': aca es donde hidratamos al root store (store) con los services. Se carga con el backend.
 
 		const users = await UserServices.getAllUsers()
-		//console.log(users)
 		store.users.setUsers(users)
 
 		const packages = await PackageServices.getAllPackages()
-		//console.log(packages)
 		store.packages.setPackages(packages)
 	}, [store])
 
@@ -46,11 +44,11 @@ export default observer(function Providers({ children }: ProvidersProps) {
 		if (!USER_TOKEN) {
 			router.push('/login')
 		} else {
-			console.log(typeof USER_TOKEN, USER_TOKEN)
-
 			AuthServices.me(USER_TOKEN).then((res) => {
 				const user = res.data
-				store.users.setUserLogged({ ...user })
+				UserServices.getUserById(user._id).then((userRes) => {
+					store.users.setUserLogged({ ...userRes.data })
+				})
 			})
 		}
 	}
