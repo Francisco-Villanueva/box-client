@@ -16,15 +16,22 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { UserServices } from 'services'
+import { useEffect, useState } from 'react'
+import { PackageServices, UserServices } from 'services'
+import { Package } from 'types'
 
 export default observer(function PackagesPage() {
 	const {
-		packages: { unassignedPackages },
 		users: { loggedUser, setUserLogged },
 	} = useStore()
 	const router = useRouter()
+	const [unassignedPackages, setUnassignedPackages] = useState<Package[]>([])
+	useEffect(() => {
+		PackageServices.getPackageByStatus('unassigned').then((res) => {
+			setUnassignedPackages(res.data)
+		})
+	}, [])
+
 	const [trimmer, setTrimmer] = useState(7)
 	const [selectedPackages, setSelectedPackages] = useState<string[]>([])
 
@@ -82,13 +89,14 @@ export default observer(function PackagesPage() {
 				</BoxTitle>
 
 				<div className="overflow-scroll max-h-[80%] flex flex-col m-auto ">
-					{unassignedPackages.slice(0, trimmer).map((packages) => (
-						<PackageCheckboxCard
-							pack={packages}
-							key={packages._id}
-							handleAddPackages={handleAddPackages}
-						/>
-					))}
+					{unassignedPackages.length > 0 &&
+						unassignedPackages.map((packages: Package) => (
+							<PackageCheckboxCard
+								pack={packages}
+								key={packages._id}
+								handleAddPackages={handleAddPackages}
+							/>
+						))}
 				</div>
 
 				<BoxTitle variant="bottom" className="h-[10%]">
