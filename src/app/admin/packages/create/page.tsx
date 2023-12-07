@@ -7,9 +7,17 @@ import Link from 'next/link'
 import { message } from 'antd'
 import { FormInput } from 'components'
 import { useRouter } from 'next/navigation'
+import { CreatePackage } from 'types'
+import { PackageServices } from 'services'
 export default function CreatePackage() {
 	const router = useRouter()
-	const [packageData, setPackageData] = useState({})
+	const [packageData, setPackageData] = useState<CreatePackage>({
+		address: '',
+		clientName: '',
+		deliverDate: '',
+		status: 'unassigned',
+		weight: 0,
+	})
 
 	const handleInput = (key: string, value: string) => {
 		const trimmedValue = value.trim()
@@ -20,8 +28,14 @@ export default function CreatePackage() {
 	}
 
 	const handleCreatePackage = () => {
-		router.push('/admin')
-		message.success('Paquete creado')
+		PackageServices.createPackage(packageData)
+			.then(() => {
+				router.push('/admin')
+				message.success('Paquete creado')
+			})
+			.catch(() => {
+				message.error('error al crear el paquete')
+			})
 	}
 
 	return (
@@ -46,7 +60,7 @@ export default function CreatePackage() {
 				/>
 				<FormInput
 					type="text"
-					reference="name"
+					reference="clientName"
 					handleInput={handleInput}
 					placeholder="Nombre de quien recibe"
 					validation="name"
@@ -66,7 +80,7 @@ export default function CreatePackage() {
 						<span className="text-darkGreen ">Seleccione una fecha</span>
 						<FormInput
 							type="date"
-							reference="date"
+							reference="deliverDate"
 							handleInput={handleInput}
 							placeholder=""
 							className="my-5"

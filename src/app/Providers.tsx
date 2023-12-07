@@ -16,7 +16,7 @@ export default observer(function Providers({ children }: ProvidersProps) {
 	})
 
 	const setData = useCallback(async () => {
-		// PUNTO DE 'HIDRATACION': aca es donde hidratamos al root store (store) con los services. Se carga con el backend.
+		// TODD: Determinar estas peticiones solo si es admin el user logged
 
 		const users = await UserServices.getAllUsers()
 		store.users.setUsers(users)

@@ -18,3 +18,12 @@ export const PackageModel = types.model({
 })
 
 export type Package = Instance<typeof PackageModel>
+
+export const CreatePackageModel = types.model({
+	address: types.string,
+	clientName: types.string,
+	weight: types.number,
+	deliverDate: types.string,
+	status: types.enumeration(PACAKGE_STATUES),
+})
+export type CreatePackage = Instance<typeof CreatePackageModel>
