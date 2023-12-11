@@ -3,7 +3,7 @@ import { Instance, types } from 'mobx-state-tree'
 export const PACAKGE_STATUES = [
 	'PENDIENTE',
 	'EN CURSO',
-	'unassigned',
+	'NO ASIGNADO',
 	'ENTREGADO',
 ] as const
 export type PackageStatus = (typeof PACAKGE_STATUES)[number]

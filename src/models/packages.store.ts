@@ -16,8 +16,8 @@ export const PackageStore = types
 			return store.packages.find((pack) => pack._id === store.packageId)
 		},
 		get unassignedPackages() {
-			// RETORNA LOS PACKAGES QUE NO ESTAN ASSIGANADOS (status = "unassigned")
-			return store.packages.filter((pack) => pack.status === 'unassigned')
+			// RETORNA LOS PACKAGES QUE NO ESTAN ASSIGANADOS (status = "NO ASIGNADO")
+			return store.packages.filter((pack) => pack.status === 'NO ASIGNADO')
 		},
 		get onDeliverPackages() {
 			// RETORNA LOS PACKAGES QUE  ESTAN ASSIGANADOS PERO NO ENTREGADOS

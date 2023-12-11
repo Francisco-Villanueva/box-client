@@ -27,7 +27,7 @@ export default observer(function PackagesPage() {
 	const router = useRouter()
 	const [unassignedPackages, setUnassignedPackages] = useState<Package[]>([])
 	useEffect(() => {
-		PackageServices.getPackageByStatus('unassigned').then((res) => {
+		PackageServices.getPackageByStatus('NO ASIGNADO').then((res) => {
 			setUnassignedPackages(res.data)
 		})
 	}, [])
