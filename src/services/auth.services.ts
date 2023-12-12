@@ -28,4 +28,17 @@ export class AuthServices {
 		const payload = await axios.post(`${BASE_URL}/auth/me`, { token })
 		return payload
 	}
+	//Servicio que envía la imagen al back, para que de ahí se suba a aws
+	static async uploadImage(file: File): Promise<string> {
+		const formData = new FormData()
+		formData.append('image', file)
+
+		const response = await axios.post(`${BASE_URL}/auth/upload-image`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		})
+
+		return response.data.imageUrl
+	}
 }

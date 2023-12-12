@@ -3,17 +3,10 @@ import { CustomLink, CameraIcon, Button } from 'commons'
 import { FormInput } from './FormInput'
 import { message, Input } from 'antd'
 import { useRouter } from 'next/navigation'
-import AWS from 'aws-sdk'
 import { AxiosError } from 'axios'
 import { AuthServices } from 'services'
 
 export function RegisterForm() {
-	AWS.config.update({
-		accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY,
-		secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
-		region: process.env.NEXT_PUBLIC_AWS_REGION,
-	})
-
 	const [userData, setUserData] = useState({
 		name: '',
 		lastName: '',
@@ -48,26 +41,11 @@ export function RegisterForm() {
 
 			if (file) {
 				try {
-					const bucket = process.env.NEXT_PUBLIC_AWS_BUCKET
-					if (!bucket) {
-						console.error(
-							'Variable de entorno NEXT_PUBLIC_AWS_BUCKET no está definida.'
-						)
-						return
-					}
-					const s3 = new AWS.S3()
-					const params = {
-						Bucket: bucket,
-						Key: `images/${file.name}`,
-						Body: file,
-					}
-
-					const result = await s3.upload(params).promise()
-
-					setProfileImageUrl(result.Location)
+					const imageUrl = await AuthServices.uploadImage(file)
+					setProfileImageUrl(imageUrl)
 					setImageInputVisible(false)
 				} catch (error) {
-					console.error('Error al cargar la imagen en S3:', error)
+					console.error('Error al cargar la imagen: ', error)
 				}
 			}
 		})
@@ -76,25 +54,6 @@ export function RegisterForm() {
 	const handleImageClick = async () => {
 		// Cuando se hace clic en la imagen, muestra nuevamente el input de archivo
 		setProfileImageUrl('')
-		//TODO: Hay que revisar la función que permite eliminar el archivo de AWS: En consola muestra 'Imagen eliminada correctamente del bucket.' pero en AWS no se elimina
-		/* if (profileImageUrl) {
-			try {
-					const bucket = process.env.NEXT_PUBLIC_AWS_BUCKET;
-					if (!bucket) {
-							console.error('Variable de entorno NEXT_PUBLIC_AWS_BUCKET no está definida.');
-							return;
-					}
-
-					const s3 = new AWS.S3();
-					const key = decodeURIComponent(profileImageUrl.split(`/${bucket}/`)[1]); // Extraer la clave del URL y decodificarla
-
-					await s3.deleteObject({ Bucket: bucket, Key: key }).promise();
-
-					console.log('Imagen eliminada correctamente del bucket.');
-			} catch (error) {
-					console.error('Error al eliminar la imagen del bucket:', error);
-			}
-	}		 */
 	}
 
 	const handleRegisterForm = async () => {
