@@ -32,7 +32,7 @@ export const PackageStore = types
 	}))
 	.actions((store) => ({
 		setPackages(packages: Package[]) {
-			store.packages.push(...packages)
+			store.packages.replace(packages)
 		},
 		setPackageId(packId: string) {
 			store.packageId = packId
