@@ -15,7 +15,7 @@ export class UserServices {
 		return await axios.put(`${BASE_URL}/users/${id}`, { status: newState })
 	}
 	static async addPackage(userId: string, packageId: string) {
-		return await axios.post(`${BASE_URL}/users/add-package`, {
+		return await axios.post(`${BASE_URL}/users/${userId}/package`, {
 			userId,
 			packageId,
 		})
