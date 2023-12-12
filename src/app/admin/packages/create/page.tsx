@@ -15,7 +15,7 @@ export default function CreatePackage() {
 		address: '',
 		clientName: '',
 		deliverDate: '',
-		status: 'unassigned',
+		status: 'NO ASIGNADO',
 		weight: 0,
 	})
 
