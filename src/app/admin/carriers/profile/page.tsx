@@ -11,8 +11,6 @@ export default observer(function CarrierProfile() {
 		users: { selectedCarrier, setUserId },
 	} = useStore()
 
-	//TODO La consola tira un error de localStorage
-
 	if (typeof window !== 'undefined') {
 		const selectedUserId = localStorage.getItem('SELECTED_CARRIER_ID')
 

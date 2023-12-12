@@ -23,7 +23,7 @@ export function CarrierStatusCard({ carrier }: CarrierProps) {
 					height={1}
 					className="rounded-2xl"
 				/>
-				<div>
+				<div className="w-36">
 					<h2 className="font-bold"> {carrier?.name} </h2>
 					<CarrierStatus status={updatedUserData?.status} />
 				</div>
