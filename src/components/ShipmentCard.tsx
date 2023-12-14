@@ -35,6 +35,8 @@ export const ShipmentCard = observer(function ShipmentCard({
 			status: 'EN CURSO',
 		}).then(() => {
 			message.success('Entrega inicializada')
+			// TODO temporal, revisar el refresh del status:
+			router.refresh()
 		})
 	}
 
