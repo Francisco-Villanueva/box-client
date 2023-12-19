@@ -25,19 +25,31 @@ export const UserStore = types
 			return store.users.find((user) => user._id === store.userId)
 		},
 
+		get selectedCarrierDeliveredPackages() {
+			//RETORNA LOS PAQUETES ENTREGADOS DEL CARRIER SELECCIONADO
+			const selectedUser = store.users.find((user) => user._id === store.userId)
+			return selectedUser?.packages.filter((pack) => pack.status === 'ENTREGADO')
+		},
+
+		get selectedCarrierPendingPackages() {
+			//RETORNA LOS PAQUETES PENDIENTES Y EN CURSO DEL CARRIER SELECCIONADO
+			const selectedUser = store.users.find((user) => user._id === store.userId)
+			return selectedUser?.packages.filter((pack) => pack.status !== 'ENTREGADO')
+		},
+
 		get selectedCarrierPackages() {
-			//RETORNA LOS PACKAGES DE EL CARRIER SELECCIONADO
+			//RETORNA LOS PACKAGES DE EL CARRIER LOGUEADO
 			return store.loggedUser?.packages
 		},
-		get delviredPackagesByCarrier() {
-			//RETORNA LOS PACKAGES ENTREGADOS DEL CARRIER SELECCIONADO
+		get loggedUserDeliveredPackages() {
+			//RETORNA LOS PACKAGES ENTREGADOS DEL CARRIER LOGUEADO
 
 			return store.loggedUser?.packages.filter(
 				(pack) => pack.status === 'ENTREGADO'
 			)
 		},
-		get pendingPackagesByCarrier() {
-			//RETORNA LOS PACKAGES PENDIENTES Y EN CURSO DEL CARRIER SELECCIONADO
+		get loggedUserPendingPackages() {
+			//RETORNA LOS PACKAGES PENDIENTES Y EN CURSO DEL CARRIER LOGUEADO
 
 			return store.loggedUser?.packages.filter(
 				(pack) => pack.status !== 'ENTREGADO'

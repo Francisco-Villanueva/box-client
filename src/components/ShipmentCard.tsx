@@ -27,17 +27,22 @@ export const ShipmentCard = observer(function ShipmentCard({
 		localStorage.setItem('CURRENT_PACKAGE_ID', pack._id)
 		router.push('/carrier/map')
 	}
-	const handleDeletePackage = () => {
-		if (loggedUser)
-			UserServices.removePackage(loggedUser._id, pack._id).then(() =>
-				PackageServices.udapatePackage(pack._id, {
+
+	const handleDeletePackage = async () => {
+		try {
+			if (loggedUser) {
+				await UserServices.removePackage(loggedUser._id, pack._id)
+				await PackageServices.udapatePackage(pack._id, {
 					...pack,
 					status: 'NO ASIGNADO',
-				}).then(() => {
-					router.refresh()
-					message.success('Paquete eliminado!')
 				})
-			)
+				router.refresh()
+				message.success('Paquete eliminado!')
+			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
 	}
 
 	const handleStartDelivery = () => {
@@ -63,23 +68,23 @@ export const ShipmentCard = observer(function ShipmentCard({
 				<div>{<Status status={`${pack.status}`}></Status>}</div>
 
 				<div className="flex items-center gap-2 w-full  justify-around">
-					{pack.status === 'EN CURSO' && (
+					{pack.status === 'EN CURSO' && loggedUser?.role === 'CARRIER' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
 							onClick={viewMap}>
 							<MapIcon className="w-[1rem]" />
 						</Button>
-					)}
+					) : null}
 
-					{pack.status === 'EN CURSO' ? (
+					{pack.status === 'EN CURSO' && loggedUser?.role === 'CARRIER' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
 							onClick={handleDeletePackage}>
 							<TrashIcon className="w-[1rem]" />
 						</Button>
-					) : pack.status === 'PENDIENTE' ? (
+					) : pack.status === 'PENDIENTE' && loggedUser?.role === 'CARRIER' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
@@ -87,19 +92,6 @@ export const ShipmentCard = observer(function ShipmentCard({
 							<span className="text-[10px]">INICIAR</span>
 						</Button>
 					) : null}
-
-					{/* <Button
-            variant="secondary"
-            className="rounded-md p-0 w-full flex justify-center "
-            onClick={handleDeletePackage}>
-            {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
-              <div>
-                <TrashIcon className="w-[1rem]" />
-              </div>
-            ) : (
-              <span className="text-[10px]">INICIAR</span>
-            )}
-          </Button> */}
 				</div>
 			</div>
 		</div>

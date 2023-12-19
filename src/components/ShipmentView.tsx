@@ -14,11 +14,30 @@ export const ShipmentView = observer(function ({
 	shipmentTitle,
 }: ShipmentProps) {
 	const {
-		users: { pendingPackagesByCarrier, delviredPackagesByCarrier },
+		users: {
+			loggedUserPendingPackages,
+			loggedUserDeliveredPackages,
+			loggedUser,
+			selectedCarrierDeliveredPackages,
+			selectedCarrierPendingPackages,
+		},
 	} = useStore()
 
-	const packs =
-		variant === 'pending' ? pendingPackagesByCarrier : delviredPackagesByCarrier
+	const isCarrier = loggedUser?.role === 'CARRIER'
+	const isAdmin = loggedUser?.role === 'ADMIN'
+
+	const packs = (() => {
+		switch (true) {
+			case isCarrier && variant === 'pending':
+				return loggedUserPendingPackages
+			case isCarrier && variant !== 'pending':
+				return loggedUserDeliveredPackages
+			case isAdmin && variant === 'pending':
+				return selectedCarrierPendingPackages
+			default:
+				return selectedCarrierDeliveredPackages
+		}
+	})()
 
 	const { isModalOpen, toggleModal } = useModal()
 
