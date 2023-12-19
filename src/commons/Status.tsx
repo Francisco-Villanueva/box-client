@@ -24,7 +24,7 @@ export type StatusString =
 const STATUSCOLOR: Record<StatusString, Color> = {
 	'EN CURSO': 'green',
 	PENDIENTE: 'orange',
-	ENTREGADO: 'green',
+	ENTREGADO: 'grey',
 	'NO ASIGNADO': 'grey',
 } as const
 

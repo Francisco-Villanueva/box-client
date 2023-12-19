@@ -5,7 +5,7 @@ import { message } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import { useRouter } from 'next/navigation'
-import { PackageServices } from 'services'
+import { UserServices, PackageServices } from 'services'
 
 interface ShipmentCardProps {
 	pack: Package
@@ -18,6 +18,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 
 	const {
 		packages: { setPackageId },
+		users: { loggedUser },
 	} = useStore()
 
 	const router = useRouter()
@@ -27,7 +28,16 @@ export const ShipmentCard = observer(function ShipmentCard({
 		router.push('/carrier/map')
 	}
 	const handleDeletePackage = () => {
-		message.success('Paquete eliminado!')
+		if (loggedUser)
+			UserServices.removePackage(loggedUser._id, pack._id).then(() =>
+				PackageServices.udapatePackage(pack._id, {
+					...pack,
+					status: 'NO ASIGNADO',
+				}).then(() => {
+					router.refresh()
+					message.success('Paquete eliminado!')
+				})
+			)
 	}
 
 	const handleStartDelivery = () => {
@@ -62,21 +72,21 @@ export const ShipmentCard = observer(function ShipmentCard({
 						</Button>
 					)}
 
-					{pack.status === 'EN CURSO' || pack.status === 'ENTREGADO' ? (
+					{pack.status === 'EN CURSO' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
 							onClick={handleDeletePackage}>
 							<TrashIcon className="w-[1rem]" />
 						</Button>
-					) : (
+					) : pack.status === 'PENDIENTE' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
 							onClick={handleStartDelivery}>
 							<span className="text-[10px]">INICIAR</span>
 						</Button>
-					)}
+					) : null}
 
 					{/* <Button
             variant="secondary"
