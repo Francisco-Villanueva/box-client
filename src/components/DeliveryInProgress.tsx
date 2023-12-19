@@ -5,6 +5,8 @@ import { ArrowLeft } from 'commons/Icons'
 import Link from 'next/link'
 import { message } from 'antd'
 import { useRouter } from 'next/navigation'
+import { PackageServices } from 'services'
+import { useStore } from 'models/root.store'
 
 interface DeliveryProps {
 	address: string | undefined
@@ -17,7 +19,21 @@ export function DeliveryInProgress({
 	receiver,
 	packNumber,
 }: DeliveryProps) {
+	const {
+		packages: { currentPackage },
+	} = useStore()
 	const router = useRouter()
+
+	const handleCompletedDelivery = () => {
+		if (currentPackage)
+			PackageServices.udapatePackage(currentPackage._id, {
+				...currentPackage,
+				status: 'ENTREGADO',
+			}).then(() => {
+				message.success('Entrega completada')
+			})
+	}
+
 	return (
 		<>
 			<TitleBox
@@ -40,7 +56,7 @@ export function DeliveryInProgress({
 					<Button
 						className="w-full"
 						variant="primary"
-						onClick={() => message.success('Entrega completada')}>
+						onClick={handleCompletedDelivery}>
 						FINALIZAR
 					</Button>
 				</Link>

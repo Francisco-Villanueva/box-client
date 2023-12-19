@@ -23,6 +23,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 	const router = useRouter()
 	const viewMap = () => {
 		setPackageId(pack._id)
+		localStorage.setItem('CURRENT_PACKAGE_ID', pack._id)
 		router.push('/carrier/map')
 	}
 	const handleDeletePackage = () => {
