@@ -13,6 +13,7 @@ const BOX_TITLE_STYLE = {
 		top: 'flex flex-col bg-purple justify-center rounded-t-2xl',
 		topDate: 'flex bg-purple justify-center rounded-t-2xl',
 		bottom: 'flex  bg-white justify-center rounded-b-2xl',
+		required: 'flex bg-purple justify-center rounded-md mt-3 ml-3 h-6 w-[30%]',
 	},
 }
 
