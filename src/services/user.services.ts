@@ -22,11 +22,7 @@ export class UserServices {
 	}
 	static async removePackage(userId: string, packageId: string) {
 		return await axios.patch(
-			`${BASE_URL}/users/${userId}/removepackage/${packageId}`,
-			{
-				userId,
-				packageId,
-			}
+			`${BASE_URL}/users/${userId}/removepackage/${packageId}`
 		)
 	}
 }
