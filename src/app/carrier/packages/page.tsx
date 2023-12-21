@@ -1,6 +1,4 @@
 'use client'
-
-import { message } from 'antd'
 import {
 	ArrowLeft,
 	BoxLayout,
@@ -13,17 +11,13 @@ import {
 import { PackageCheckboxCard } from 'components'
 
 import { observer } from 'mobx-react-lite'
-import { useStore } from 'models/root.store'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { PackageServices, UserServices } from 'services'
+import { PackageServices } from 'services'
 import { Package } from 'types'
 
 export default observer(function PackagesPage() {
-	const {
-		users: { loggedUser, setUserLogged },
-	} = useStore()
 	const router = useRouter()
 	const [unassignedPackages, setUnassignedPackages] = useState<Package[]>([])
 	useEffect(() => {
@@ -44,25 +38,10 @@ export default observer(function PackagesPage() {
 	}
 
 	const handlePackagesAssignment = () => {
-		const arrayofPromises = selectedPackages.map((packId) => {
-			if (loggedUser) {
-				return UserServices.addPackage(loggedUser._id, packId)
-			}
-		})
-
-		Promise.all(arrayofPromises)
-			.then(() => {
-				message.success('Paquetes asignados correctamente')
-				loggedUser &&
-					UserServices.getUserById(loggedUser?._id).then((res) => {
-						setUserLogged(res.data)
-					})
-				router.push('/carrier')
-			})
-			.catch(() => {
-				message.error('Error al asignar paquetes!')
-			})
+		localStorage.setItem('SELECTED_PACKAGES', selectedPackages.join(','))
+		router.push('/carrier/sworn-statement')
 	}
+
 	const handleAddPackages = (packId: string) => {
 		if (selectedPackages.includes(packId)) {
 			setSelectedPackages((prev) => prev.filter((e) => e !== packId))

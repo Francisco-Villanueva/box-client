@@ -4,7 +4,11 @@ import { PackageModel } from './packages.types'
 export const ROLES_TYPES = ['ADMIN', 'CARRIER'] as const
 export type Role = (typeof ROLES_TYPES)[number]
 
-export const USER_STATUSES = ['HABILITADO', 'DESHABILITADO'] as const
+export const USER_STATUSES = [
+	'HABILITADO',
+	'DESHABILITADO',
+	'RECHAZADO',
+] as const
 export type UserStatus = (typeof USER_STATUSES)[number]
 
 export const UserModel = types.model({
