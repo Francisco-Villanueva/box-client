@@ -1,13 +1,23 @@
 'use client'
 import { Button, TitleBox, SwornStatementBox } from 'commons'
+import { useStore } from 'models/root.store'
 import React, { useState } from 'react'
+import { message } from 'antd'
+import { UserServices } from 'services'
+import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/navigation'
 
-export default function SwornStatementPage() {
+export default observer(function SwornStatementPage() {
+	const {
+		users: { loggedUser, setUserLogged },
+	} = useStore()
 	const [alcoholSelected, setAlcoholSelected] = useState<string | null>(null)
 	const [medicationSelected, setMedicationSelected] = useState<string | null>(
 		null
 	)
 	const [issueSelected, setIssueSelected] = useState<string | null>(null)
+
+	const router = useRouter()
 
 	const handleChangeAnswers = () => {
 		setAlcoholSelected(null)
@@ -20,6 +30,42 @@ export default function SwornStatementPage() {
 		console.log('Alcohol', alcoholSelected)
 		console.log('Medicacion', medicationSelected)
 		console.log('Problemas', issueSelected)
+		if (
+			alcoholSelected === 'No' &&
+			medicationSelected === 'No' &&
+			issueSelected === 'No'
+		) {
+			const selectedPackages = localStorage
+				.getItem('SELECTED_PACKAGES')
+				?.split(',')
+			const arrayofPromises = selectedPackages?.map((packId) => {
+				if (loggedUser) {
+					return UserServices.addPackage(loggedUser._id, packId)
+				}
+			})
+
+			if (arrayofPromises) {
+				Promise.all(arrayofPromises)
+					.then(() => {
+						message.success('Paquetes asignados correctamente')
+						loggedUser &&
+							UserServices.getUserById(loggedUser?._id).then((res) => {
+								setUserLogged(res.data)
+							})
+						router.push('/carrier')
+					})
+					.catch(() => {
+						message.error('Error al asignar paquetes!')
+					})
+			}
+		} else {
+			if (loggedUser) {
+				UserServices.updateUser(loggedUser._id, 'RECHAZADO')
+			}
+			localStorage.clear()
+			router.push('/login')
+			message.error('Quedaste inhabilitado por 24 hs para repartir paquetes')
+		}
 	}
 
 	return (
@@ -63,4 +109,4 @@ export default function SwornStatementPage() {
 			</Button>
 		</div>
 	)
-}
+})

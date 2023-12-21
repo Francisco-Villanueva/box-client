@@ -43,6 +43,10 @@ export const Login = observer(function () {
 						message.error(
 							`Lo sentimos ${user.name}. Tu usuario se encuentra deshabilitado`
 						)
+					} else if (user.status === 'RECHAZADO') {
+						message.error(
+							`Lo sentimos ${user.name}. Tu usuario se encuentra bloqueado por incumplimiento de normas`
+						)
 					} else {
 						const welcomeMessage = `Bienvenido ${user.name}`
 						const redirect = () => {
