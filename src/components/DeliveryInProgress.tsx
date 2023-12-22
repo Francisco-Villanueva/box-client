@@ -5,7 +5,7 @@ import { ArrowLeft } from 'commons/Icons'
 import Link from 'next/link'
 import { message } from 'antd'
 import { useRouter } from 'next/navigation'
-import { PackageServices } from 'services'
+import { PackageServices, UserServices } from 'services'
 import { useStore } from 'models/root.store'
 
 interface DeliveryProps {
@@ -21,6 +21,7 @@ export function DeliveryInProgress({
 }: DeliveryProps) {
 	const {
 		packages: { currentPackage },
+		users: { loggedUser },
 	} = useStore()
 	const router = useRouter()
 
@@ -32,6 +33,22 @@ export function DeliveryInProgress({
 			}).then(() => {
 				message.success('Entrega completada')
 			})
+	}
+	const handleCanceledDelivery = async () => {
+		try {
+			if (loggedUser && currentPackage) {
+				await UserServices.removePackage(loggedUser._id, currentPackage._id)
+				await PackageServices.udapatePackage(currentPackage._id, {
+					...currentPackage,
+					status: 'NO ASIGNADO',
+				})
+				message.success('Paquete eliminado!')
+				router.refresh()
+			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
 	}
 
 	return (
@@ -64,7 +81,7 @@ export function DeliveryInProgress({
 					<Button
 						className="w-full"
 						variant="secondary"
-						onClick={() => message.success('Entrega cancelada')}>
+						onClick={handleCanceledDelivery}>
 						CANCELAR ENTREGA
 					</Button>
 				</Link>
