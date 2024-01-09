@@ -7,6 +7,7 @@ import { message } from 'antd'
 import { useRouter } from 'next/navigation'
 import { PackageServices, UserServices } from 'services'
 import { useStore } from 'models/root.store'
+import Loading from 'app/loading'
 
 interface DeliveryProps {
 	address: string | undefined
@@ -55,19 +56,21 @@ export function DeliveryInProgress({
 		<>
 			<TitleBox
 				variant="primary"
-				icon={<ArrowLeft onClick={() => router.back()} />}
+				icon={<ArrowLeft onClick={() => router.push('/carrier')} />}
 				className="w-full my-2 pr-6">
 				reparto en curso
 			</TitleBox>
-			{/* //TODO: check how store's data arrives this component. If we've undefined, ts
-			use "". */}
 			<div className="w-full h-[45vh] rounded-2xl overflow-hidden my-2">
-				<GoogleMap destination={address || ''}></GoogleMap>
+				{address ? (
+					<GoogleMap destination={address || ''}></GoogleMap>
+				) : (
+					<Loading />
+				)}
 			</div>
 			<MapDescription
-				destiny={address || ''}
-				packageNumber={packNumber || ''}
-				receiver={receiver || ''}></MapDescription>
+				destiny={address || 'Cargando...'}
+				packageNumber={packNumber || 'Cargando...'}
+				receiver={receiver || 'Cargando...'}></MapDescription>
 			<div className="flex flex-col items-center justify-center">
 				<Link href={'/carrier'} className="w-5/6 mt-4">
 					<Button

@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { BoxLayout, BoxTitle, Checkbox, Title } from 'commons'
+import { BoxLayout, BoxTitle, Checkbox, Title, Button } from 'commons'
 
 interface SwornStatementBoxProps {
 	question: string
@@ -38,6 +38,11 @@ export function SwornStatementBox({
 		onSelect(value)
 	}
 
+	const handleChangeAnswer = () => {
+		setShowAnswer(false)
+		onSelect('')
+	}
+
 	return (
 		<>
 			<BoxLayout className="bg-white h-[30%]">
@@ -49,7 +54,7 @@ export function SwornStatementBox({
 						{question}
 					</div>
 					<div className="flex flex-row gap-20 pt-3 mb-3">
-						{!showAnswer || !selectedValue ? ( //VER ESTYOOOO
+						{!showAnswer || !selectedValue ? (
 							options.map((option) => (
 								<div key={option} className="flex flex-row gap-2">
 									<Checkbox handleCheck={() => handleCheckboxChange(option)} />
@@ -57,7 +62,15 @@ export function SwornStatementBox({
 								</div>
 							))
 						) : (
-							<p>Respuesta: {selectedValue?.toLocaleUpperCase()}</p>
+							<div className="flex flex-row items-center gap-10">
+								<p>Respuesta: {selectedValue?.toLocaleUpperCase()}</p>
+								<Button
+									onClick={handleChangeAnswer}
+									variant="secondary"
+									className="bg-red-100">
+									CAMBIAR RESPUESTA
+								</Button>
+							</div>
 						)}
 					</div>
 				</div>
