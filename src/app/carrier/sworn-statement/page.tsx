@@ -26,10 +26,6 @@ export default observer(function SwornStatementPage() {
 	}
 
 	const handleSwornStatement = () => {
-		//Acá vá la lógica que se enviará al back
-		console.log('Alcohol', alcoholSelected)
-		console.log('Medicacion', medicationSelected)
-		console.log('Problemas', issueSelected)
 		if (
 			alcoholSelected === 'No' &&
 			medicationSelected === 'No' &&

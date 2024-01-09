@@ -37,7 +37,6 @@ export const ShipmentCard = observer(function ShipmentCard({
 					status: 'NO ASIGNADO',
 				})
 				UserServices.getUserById(loggedUser._id).then((res) => {
-					console.log(res.data)
 					setUserLogged(res.data)
 					message.success('Paquete eliminado!')
 				})
@@ -56,7 +55,6 @@ export const ShipmentCard = observer(function ShipmentCard({
 					status: 'EN CURSO',
 				}).then(() => {
 					UserServices.getUserById(loggedUser._id).then((res) => {
-						console.log(res.data)
 						setUserLogged(res.data)
 						message.success('Entrega inicializada')
 					})
