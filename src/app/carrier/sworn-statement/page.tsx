@@ -94,7 +94,7 @@ export default observer(function SwornStatementPage() {
 				variant="secondary"
 				onClick={handleChangeAnswers}
 				disabled={!alcoholSelected || !medicationSelected || !issueSelected}>
-				Cambiar Respuestas
+				Borrar respuestas
 			</Button>
 
 			<Button
