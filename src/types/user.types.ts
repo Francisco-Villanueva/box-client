@@ -20,6 +20,7 @@ export const UserModel = types.model({
 	image: types.maybe(types.string),
 	role: types.enumeration(ROLES_TYPES),
 	status: types.enumeration(USER_STATUSES),
+	rejectedDeclarationTime: types.maybe(types.string),
 	packages: types.array(PackageModel),
 })
 export const SingleUserModel = types.model({
@@ -31,6 +32,7 @@ export const SingleUserModel = types.model({
 	userName: types.string,
 	role: types.enumeration(ROLES_TYPES),
 	status: types.enumeration(USER_STATUSES),
+	rejectedDeclarationTime: types.maybe(types.string),
 	packages: types.array(PackageModel),
 })
 

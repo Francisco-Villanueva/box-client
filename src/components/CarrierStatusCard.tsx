@@ -34,7 +34,10 @@ export function CarrierStatusCard({ carrier }: CarrierProps) {
 					try {
 						const newState =
 							updatedUserData.status === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO'
-						const response = await UserServices.updateUser(carrier._id, newState)
+						const response = await UserServices.updateUserStatus(
+							carrier._id,
+							newState
+						)
 						setUpdatedUserData(response.data)
 					} catch (error) {
 						console.log(error)
