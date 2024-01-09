@@ -18,7 +18,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 
 	const {
 		packages: { setPackageId },
-		users: { loggedUser },
+		users: { loggedUser, setUserLogged },
 	} = useStore()
 
 	const router = useRouter()
@@ -36,8 +36,11 @@ export const ShipmentCard = observer(function ShipmentCard({
 					...pack,
 					status: 'NO ASIGNADO',
 				})
-				router.refresh()
-				message.success('Paquete eliminado!')
+				UserServices.getUserById(loggedUser._id).then((res) => {
+					console.log(res.data)
+					setUserLogged(res.data)
+					message.success('Paquete eliminado!')
+				})
 			}
 		} catch (error) {
 			console.error('Error al eliminar el paquete:', error)
@@ -45,15 +48,24 @@ export const ShipmentCard = observer(function ShipmentCard({
 		}
 	}
 
-	const handleStartDelivery = () => {
-		PackageServices.udapatePackage(pack._id, {
-			...pack,
-			status: 'EN CURSO',
-		}).then(() => {
-			message.success('Entrega inicializada')
-			// TODO temporal, revisar el refresh del status:
-			router.refresh()
-		})
+	const handleStartDelivery = async () => {
+		try {
+			if (loggedUser) {
+				PackageServices.udapatePackage(pack._id, {
+					...pack,
+					status: 'EN CURSO',
+				}).then(() => {
+					UserServices.getUserById(loggedUser._id).then((res) => {
+						console.log(res.data)
+						setUserLogged(res.data)
+						message.success('Entrega inicializada')
+					})
+				})
+			}
+		} catch (error) {
+			console.error('Error al iniciar paquete:', error)
+			throw error
+		}
 	}
 
 	return (
