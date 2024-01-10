@@ -76,7 +76,7 @@ export const Login = observer(function () {
 							handleLoginSuccess()
 						} else {
 							message.error(
-								`Lo sentimos ${user.name}. Tu usuario se encuentra bloqueado por incumplimiento de normas`
+								`Lo sentimos ${user.name}. Tu usuario se encuentra bloqueado durante 24hs por incumplimiento de normas`
 							)
 						}
 					} else {
