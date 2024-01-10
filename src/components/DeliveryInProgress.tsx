@@ -22,7 +22,7 @@ export function DeliveryInProgress({
 }: DeliveryProps) {
 	const {
 		packages: { currentPackage },
-		users: { loggedUser },
+		users: { loggedUser, setUserLogged },
 	} = useStore()
 	const router = useRouter()
 
@@ -43,8 +43,11 @@ export function DeliveryInProgress({
 					...currentPackage,
 					status: 'NO ASIGNADO',
 				})
+				//TODO Al cambiar a no asignado sigue apareciendo en la lista de pendientes
+				const updatedUser = await UserServices.getUserById(loggedUser._id)
+				setUserLogged(updatedUser.data)
 				message.success('Paquete eliminado!')
-				router.refresh()
+				router.push('/carrier')
 			}
 		} catch (error) {
 			console.error('Error al eliminar el paquete:', error)
