@@ -6,6 +6,7 @@ import { message } from 'antd'
 import { UserServices } from 'services'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
+import { timeZoneSetter } from 'utils'
 
 export default observer(function SwornStatementPage() {
 	const {
@@ -26,6 +27,7 @@ export default observer(function SwornStatementPage() {
 	}
 
 	const handleSwornStatement = () => {
+		const timeOfDeclaration = timeZoneSetter(new Date())
 		if (
 			alcoholSelected === 'No' &&
 			medicationSelected === 'No' &&
@@ -56,7 +58,8 @@ export default observer(function SwornStatementPage() {
 			}
 		} else {
 			if (loggedUser) {
-				UserServices.updateUser(loggedUser._id, 'RECHAZADO')
+				UserServices.updateUserStatus(loggedUser._id, 'RECHAZADO')
+				UserServices.updateUserDeclarationTime(loggedUser._id, timeOfDeclaration)
 			}
 			localStorage.clear()
 			router.push('/login')
