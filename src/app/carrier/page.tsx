@@ -2,16 +2,25 @@
 import { Button, Title } from 'commons'
 import { ShipmentView } from 'components'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Image from 'next/image'
 import Loading from 'app/loading'
+import { UserServices } from 'services'
 
 export default observer(function CarrierHomePage() {
 	const {
-		users: { loggedUser },
+		users: { loggedUser, setUserLogged },
 	} = useStore()
+
+	useEffect(() => {
+		if (loggedUser) {
+			UserServices.getUserById(loggedUser._id).then((res) => {
+				setUserLogged(res.data)
+			})
+		}
+	}, [loggedUser])
 
 	return (
 		<div className="flex flex-col justify-between items-center gap-2 h-full">
