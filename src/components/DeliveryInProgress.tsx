@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { PackageServices, UserServices } from 'services'
 import { useStore } from 'models/root.store'
 import Loading from 'app/loading'
+import { observer } from 'mobx-react-lite'
 
 interface DeliveryProps {
 	address: string | undefined
@@ -15,14 +16,14 @@ interface DeliveryProps {
 	packNumber: string | undefined
 }
 
-export function DeliveryInProgress({
+export const DeliveryInProgress = observer(function ({
 	address,
 	receiver,
 	packNumber,
 }: DeliveryProps) {
 	const {
 		packages: { currentPackage },
-		users: { loggedUser, setUserLogged },
+		users: { loggedUser },
 	} = useStore()
 	const router = useRouter()
 
@@ -43,9 +44,6 @@ export function DeliveryInProgress({
 					...currentPackage,
 					status: 'NO ASIGNADO',
 				})
-				//TODO Al cambiar a no asignado sigue apareciendo en la lista de pendientes
-				const updatedUser = await UserServices.getUserById(loggedUser._id)
-				setUserLogged(updatedUser.data)
 				message.success('Paquete eliminado!')
 				router.push('/carrier')
 			}
@@ -94,4 +92,4 @@ export function DeliveryInProgress({
 			</div>
 		</>
 	)
-}
+})
