@@ -20,10 +20,15 @@ export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
 	const {
 		packages: { deliveredPackages, packagesByDate },
-		date: { date_YMD, month, date_DMY },
+		date: { month },
 	} = useStore()
 
-	const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD)
+	let selectedDate = ''
+	if (typeof localStorage !== 'undefined') {
+		selectedDate = localStorage.getItem('SELECTED_DATE') || ''
+	}
+
+	const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, selectedDate)
 
 	const handleTrimmer = () => {
 		if (trimmer === deliveredPackages.length) {
@@ -49,7 +54,7 @@ export default observer(function AdminPackagesPage() {
 					variant="topDate"
 					className="justify-between h-[10%] p-6 items-center">
 					<Title>{month.toUpperCase()}</Title>
-					<Title>{date_DMY}</Title>
+					<Title>{selectedDate?.split('-').reverse().join('/')}</Title>
 				</BoxTitle>
 
 				<div className="font-roboto text-xs font-medium p-2 bg-white">

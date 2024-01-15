@@ -11,8 +11,13 @@ export const getDayAndDate = (date: Date) => {
 }
 export const Week = observer(function ({ currentWeek }: { currentWeek: Date }) {
 	const {
-		date: { date, setDate },
+		date: { date, setDate, date_YMD },
 	} = useStore()
+
+	if (typeof localStorage !== 'undefined') {
+		localStorage.setItem('SELECTED_DATE', date_YMD)
+	}
+
 	const days = []
 	for (let i = 1; i < 6; i++) {
 		const newDate = addDays(startOfWeek(currentWeek), i)
