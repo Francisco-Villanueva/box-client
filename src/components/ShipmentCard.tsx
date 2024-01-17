@@ -18,7 +18,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 
 	const {
 		packages: { setPackageId },
-		users: { loggedUser, setUserLogged, selectedCarrier },
+		users: { loggedUser, setUserLogged, selectedCarrier, setUsers },
 	} = useStore()
 
 	const router = useRouter()
@@ -55,8 +55,8 @@ export const ShipmentCard = observer(function ShipmentCard({
 					...pack,
 					status: 'NO ASIGNADO',
 				})
-				//TODO SACAR EL REFRESH
-				router.refresh()
+				const users = await UserServices.getAllUsers()
+				setUsers(users)
 				message.success('Paquete eliminado!')
 			}
 		} catch (error) {
