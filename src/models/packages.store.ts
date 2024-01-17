@@ -7,6 +7,10 @@ export const PackageStore = types
 		packageId: types.maybe(types.string),
 	})
 	.views((store) => ({
+		get allPackages() {
+			// RETORNA TODOS LOS PACKAGES
+			return store.packages
+		},
 		get deliveredPackages() {
 			// RETORNA LOS PACKAGES QUE FUERON ENTREGADOS
 			return store.packages.filter((pack) => pack.status === 'ENTREGADO')

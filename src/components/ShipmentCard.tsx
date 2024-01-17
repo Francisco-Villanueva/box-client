@@ -18,7 +18,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 
 	const {
 		packages: { setPackageId },
-		users: { loggedUser, setUserLogged },
+		users: { loggedUser, setUserLogged, selectedCarrier, setUsers },
 	} = useStore()
 
 	const router = useRouter()
@@ -40,6 +40,24 @@ export const ShipmentCard = observer(function ShipmentCard({
 					setUserLogged(res.data)
 					message.success('Paquete eliminado!')
 				})
+			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
+	}
+
+	const handleDeletePackageAdmin = async () => {
+		try {
+			if (selectedCarrier) {
+				await UserServices.removePackage(selectedCarrier._id, pack._id)
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					status: 'NO ASIGNADO',
+				})
+				const users = await UserServices.getAllUsers()
+				setUsers(users)
+				message.success('Paquete eliminado!')
 			}
 		} catch (error) {
 			console.error('Error al eliminar el paquete:', error)
@@ -85,21 +103,25 @@ export const ShipmentCard = observer(function ShipmentCard({
 							onClick={viewMap}>
 							<MapIcon className="w-[1rem]" />
 						</Button>
-					) : null}
-
-					{pack.status === 'EN CURSO' && loggedUser?.role === 'CARRIER' ? (
-						<Button
-							variant="secondary"
-							className="rounded-md p-0 w-full flex justify-center "
-							onClick={handleDeletePackage}>
-							<TrashIcon className="w-[1rem]" />
-						</Button>
 					) : pack.status === 'PENDIENTE' && loggedUser?.role === 'CARRIER' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
 							onClick={handleStartDelivery}>
 							<span className="text-[10px]">INICIAR</span>
+						</Button>
+					) : null}
+
+					{pack.status === 'EN CURSO' || pack.status === 'PENDIENTE' ? (
+						<Button
+							variant="secondary"
+							className="rounded-md p-0 w-full flex justify-center "
+							onClick={
+								loggedUser?.role === 'CARRIER'
+									? handleDeletePackage
+									: handleDeletePackageAdmin
+							}>
+							<TrashIcon className="w-[1rem]" />
 						</Button>
 					) : null}
 				</div>
