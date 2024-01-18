@@ -17,6 +17,8 @@ export default function CreatePackage() {
 		deliverDate: '',
 		status: 'NO ASIGNADO',
 		weight: 0,
+		isShownToAdmin: true,
+		isShownToCarrier: true,
 	})
 
 	const handleInput = (key: string, value: string) => {
