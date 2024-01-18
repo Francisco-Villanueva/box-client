@@ -29,6 +29,9 @@ export default observer(function AdminPackagesPage() {
 	}
 
 	const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, selectedDate)
+	const deliveredPAckagesToShow = DELIVERD_PACKAGES.filter(
+		(pack) => pack.isShownToAdmin
+	)
 
 	const handleTrimmer = () => {
 		if (trimmer === deliveredPackages.length) {
@@ -62,7 +65,7 @@ export default observer(function AdminPackagesPage() {
 				</div>
 
 				<div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
-					{DELIVERD_PACKAGES.slice(0, trimmer).map((packages) => (
+					{deliveredPAckagesToShow.slice(0, trimmer).map((packages) => (
 						<ShipmentCard pack={packages} key={packages._id} />
 					))}
 				</div>
@@ -74,7 +77,7 @@ export default observer(function AdminPackagesPage() {
 						onClick={handleTrimmer}>
 						<ShortArrowIcon
 							className={`transition-all duration-300 ${
-								trimmer === deliveredPackages.length
+								trimmer === deliveredPAckagesToShow.length
 									? ' rotate-[90deg]'
 									: ' rotate-[270deg]'
 							} w-6`}

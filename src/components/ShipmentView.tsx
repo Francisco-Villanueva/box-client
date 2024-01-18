@@ -39,6 +39,10 @@ export const ShipmentView = observer(function ({
 		}
 	})()
 
+	const packsToShow = packs?.filter((pack) =>
+		isCarrier ? pack.isShownToCarrier : pack.isShownToAdmin
+	)
+
 	const { isModalOpen, toggleModal } = useModal()
 
 	return (
@@ -67,7 +71,7 @@ export const ShipmentView = observer(function ({
 							<hr></hr>
 						</div>
 					) : null}
-					{packs?.map((pack) => <ShipmentCard pack={pack} key={pack._id} />)}
+					{packsToShow?.map((pack) => <ShipmentCard pack={pack} key={pack._id} />)}
 				</section>
 			) : null}
 		</BoxLayout>

@@ -17,7 +17,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 	const splitAddress = pack.address.split(',')
 
 	const {
-		packages: { setPackageId },
+		packages: { setPackageId, setPackages },
 		users: { loggedUser, setUserLogged, selectedCarrier, setUsers },
 	} = useStore()
 
@@ -38,7 +38,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 				})
 				UserServices.getUserById(loggedUser._id).then((res) => {
 					setUserLogged(res.data)
-					message.success('Paquete eliminado!')
+					message.success('Paquete desasignado')
 				})
 			}
 		} catch (error) {
@@ -57,8 +57,43 @@ export const ShipmentCard = observer(function ShipmentCard({
 				})
 				const users = await UserServices.getAllUsers()
 				setUsers(users)
-				message.success('Paquete eliminado!')
+				message.success('Paquete desasignado del repartidor')
 			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
+	}
+
+	const handleDeleteDeliveredPackage = async () => {
+		try {
+			if (loggedUser) {
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					isShownToCarrier: false,
+				})
+				UserServices.getUserById(loggedUser._id).then((res) => {
+					setUserLogged(res.data)
+					message.success('Paquete eliminado del historial')
+				})
+			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
+	}
+
+	const handleDeleteDeliveredPackageAdmin = async () => {
+		try {
+			await PackageServices.udapatePackage(pack._id, {
+				...pack,
+				isShownToAdmin: false,
+			})
+			message.success('Paquete eliminado del historial')
+			const users = await UserServices.getAllUsers()
+			setUsers(users)
+			const packages = await PackageServices.getAllPackages()
+			setPackages(packages)
 		} catch (error) {
 			console.error('Error al eliminar el paquete:', error)
 			throw error
@@ -111,7 +146,6 @@ export const ShipmentCard = observer(function ShipmentCard({
 							<span className="text-[10px]">INICIAR</span>
 						</Button>
 					) : null}
-
 					{pack.status === 'EN CURSO' || pack.status === 'PENDIENTE' ? (
 						<Button
 							variant="secondary"
@@ -120,6 +154,18 @@ export const ShipmentCard = observer(function ShipmentCard({
 								loggedUser?.role === 'CARRIER'
 									? handleDeletePackage
 									: handleDeletePackageAdmin
+							}>
+							<TrashIcon className="w-[1rem]" />
+						</Button>
+					) : null}
+					{pack.status === 'ENTREGADO' ? (
+						<Button
+							variant="secondary"
+							className="rounded-md p-0 w-full flex justify-center "
+							onClick={
+								loggedUser?.role === 'CARRIER'
+									? handleDeleteDeliveredPackage
+									: handleDeleteDeliveredPackageAdmin
 							}>
 							<TrashIcon className="w-[1rem]" />
 						</Button>
