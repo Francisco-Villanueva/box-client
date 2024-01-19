@@ -28,9 +28,9 @@ export const ShipmentCard = observer(function ShipmentCard({
 		router.push('/carrier/map')
 	}
 
-	const handleDeletePackage = async () => {
+	const handleDeletePendingPackage = async () => {
 		try {
-			if (loggedUser) {
+			if (loggedUser?.role === 'CARRIER') {
 				await UserServices.removePackage(loggedUser._id, pack._id)
 				await PackageServices.udapatePackage(pack._id, {
 					...pack,
@@ -40,16 +40,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 					setUserLogged(res.data)
 					message.success('Paquete desasignado')
 				})
-			}
-		} catch (error) {
-			console.error('Error al eliminar el paquete:', error)
-			throw error
-		}
-	}
-
-	const handleDeletePackageAdmin = async () => {
-		try {
-			if (selectedCarrier) {
+			} else if (selectedCarrier) {
 				await UserServices.removePackage(selectedCarrier._id, pack._id)
 				await PackageServices.udapatePackage(pack._id, {
 					...pack,
@@ -67,7 +58,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 
 	const handleDeleteDeliveredPackage = async () => {
 		try {
-			if (loggedUser) {
+			if (loggedUser?.role === 'CARRIER') {
 				await PackageServices.udapatePackage(pack._id, {
 					...pack,
 					isShownToCarrier: false,
@@ -76,30 +67,22 @@ export const ShipmentCard = observer(function ShipmentCard({
 					setUserLogged(res.data)
 					message.success('Paquete eliminado del historial')
 				})
+			} else {
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					isShownToAdmin: false,
+				})
+				message.success('Paquete eliminado del historial')
+				const users = await UserServices.getAllUsers()
+				setUsers(users)
+				const packages = await PackageServices.getAllPackages()
+				setPackages(packages)
 			}
 		} catch (error) {
 			console.error('Error al eliminar el paquete:', error)
 			throw error
 		}
 	}
-
-	const handleDeleteDeliveredPackageAdmin = async () => {
-		try {
-			await PackageServices.udapatePackage(pack._id, {
-				...pack,
-				isShownToAdmin: false,
-			})
-			message.success('Paquete eliminado del historial')
-			const users = await UserServices.getAllUsers()
-			setUsers(users)
-			const packages = await PackageServices.getAllPackages()
-			setPackages(packages)
-		} catch (error) {
-			console.error('Error al eliminar el paquete:', error)
-			throw error
-		}
-	}
-
 	const handleStartDelivery = async () => {
 		try {
 			if (loggedUser) {
@@ -146,30 +129,16 @@ export const ShipmentCard = observer(function ShipmentCard({
 							<span className="text-[10px]">INICIAR</span>
 						</Button>
 					) : null}
-					{pack.status === 'EN CURSO' || pack.status === 'PENDIENTE' ? (
-						<Button
-							variant="secondary"
-							className="rounded-md p-0 w-full flex justify-center "
-							onClick={
-								loggedUser?.role === 'CARRIER'
-									? handleDeletePackage
-									: handleDeletePackageAdmin
-							}>
-							<TrashIcon className="w-[1rem]" />
-						</Button>
-					) : null}
-					{pack.status === 'ENTREGADO' ? (
-						<Button
-							variant="secondary"
-							className="rounded-md p-0 w-full flex justify-center "
-							onClick={
-								loggedUser?.role === 'CARRIER'
-									? handleDeleteDeliveredPackage
-									: handleDeleteDeliveredPackageAdmin
-							}>
-							<TrashIcon className="w-[1rem]" />
-						</Button>
-					) : null}
+					<Button
+						variant="secondary"
+						className="rounded-md p-0 w-full flex justify-center "
+						onClick={
+							pack.status === 'EN CURSO' || pack.status === 'PENDIENTE'
+								? handleDeletePendingPackage
+								: handleDeleteDeliveredPackage
+						}>
+						<TrashIcon className="w-[1rem]" />
+					</Button>
 				</div>
 			</div>
 		</div>
