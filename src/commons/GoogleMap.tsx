@@ -6,6 +6,7 @@ interface GoogleMapProps {
 
 export const GoogleMap = ({ destination }: GoogleMapProps) => {
 	const [origin, setOrigin] = useState<string | null>(null)
+	const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
 
 	useEffect(() => {
 		const getGeolocation = () => {
@@ -26,7 +27,7 @@ export const GoogleMap = ({ destination }: GoogleMapProps) => {
 		getGeolocation()
 	}, [])
 
-	const mapSrc = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyDHpvaGqc_rZRtn4gmFBBnRqr3D4vumqE0&origin=${
+	const mapSrc = `https://www.google.com/maps/embed/v1/directions?key=${GOOGLE_API_KEY}&origin=${
 		origin || 'current+location'
 	}&destination=${encodeURIComponent(destination)}&mode=driving`
 

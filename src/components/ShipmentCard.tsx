@@ -5,6 +5,7 @@ import { message } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import { useRouter } from 'next/navigation'
+import { UserServices, PackageServices } from 'services'
 
 interface ShipmentCardProps {
 	pack: Package
@@ -16,24 +17,89 @@ export const ShipmentCard = observer(function ShipmentCard({
 	const splitAddress = pack.address.split(',')
 
 	const {
-		packages: { setPackageId },
-		users: { deletePendingPackage, deleteHistoryPackages },
+		packages: { setPackageId, setPackages },
+		users: { loggedUser, setUserLogged, selectedCarrier, setUsers },
 	} = useStore()
 
 	const router = useRouter()
 	const viewMap = () => {
 		setPackageId(pack._id)
-
+		localStorage.setItem('CURRENT_PACKAGE_ID', pack._id)
 		router.push('/carrier/map')
 	}
-	const handleDeletePackage = () => {
-		pack.status === 'EN CURSO' && deletePendingPackage(pack._id)
-		pack.status === 'ENTREGADO' && deleteHistoryPackages(pack._id)
-		message.success('Paquete eliminado!')
+
+	const handleDeletePendingPackage = async () => {
+		try {
+			if (loggedUser?.role === 'CARRIER') {
+				await UserServices.removePackage(loggedUser._id, pack._id)
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					status: 'NO ASIGNADO',
+				})
+				UserServices.getUserById(loggedUser._id).then((res) => {
+					setUserLogged(res.data)
+					message.success('Paquete desasignado')
+				})
+			} else if (selectedCarrier) {
+				await UserServices.removePackage(selectedCarrier._id, pack._id)
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					status: 'NO ASIGNADO',
+				})
+				const users = await UserServices.getAllUsers()
+				setUsers(users)
+				message.success('Paquete desasignado del repartidor')
+			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
 	}
 
-	const handleStartDelivery = () => {
-		message.success('Entrega inicializada')
+	const handleDeleteDeliveredPackage = async () => {
+		try {
+			if (loggedUser?.role === 'CARRIER') {
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					isShownToCarrier: false,
+				})
+				UserServices.getUserById(loggedUser._id).then((res) => {
+					setUserLogged(res.data)
+					message.success('Paquete eliminado del historial')
+				})
+			} else {
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					isShownToAdmin: false,
+				})
+				message.success('Paquete eliminado del historial')
+				const users = await UserServices.getAllUsers()
+				setUsers(users)
+				const packages = await PackageServices.getAllPackages()
+				setPackages(packages)
+			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
+	}
+	const handleStartDelivery = async () => {
+		try {
+			if (loggedUser) {
+				PackageServices.udapatePackage(pack._id, {
+					...pack,
+					status: 'EN CURSO',
+				}).then(() => {
+					UserServices.getUserById(loggedUser._id).then((res) => {
+						setUserLogged(res.data)
+						message.success('Entrega inicializada')
+					})
+				})
+			}
+		} catch (error) {
+			console.error('Error al iniciar paquete:', error)
+			throw error
+		}
 	}
 
 	return (
@@ -48,43 +114,31 @@ export const ShipmentCard = observer(function ShipmentCard({
 				<div>{<Status status={`${pack.status}`}></Status>}</div>
 
 				<div className="flex items-center gap-2 w-full  justify-around">
-					{pack.status === 'EN CURSO' && (
+					{pack.status === 'EN CURSO' && loggedUser?.role === 'CARRIER' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
 							onClick={viewMap}>
 							<MapIcon className="w-[1rem]" />
 						</Button>
-					)}
-
-					{pack.status === 'EN CURSO' || pack.status === 'ENTREGADO' ? (
-						<Button
-							variant="secondary"
-							className="rounded-md p-0 w-full flex justify-center "
-							onClick={handleDeletePackage}>
-							<TrashIcon className="w-[1rem]" />
-						</Button>
-					) : (
+					) : pack.status === 'PENDIENTE' && loggedUser?.role === 'CARRIER' ? (
 						<Button
 							variant="secondary"
 							className="rounded-md p-0 w-full flex justify-center "
 							onClick={handleStartDelivery}>
 							<span className="text-[10px]">INICIAR</span>
 						</Button>
-					)}
-
-					{/* <Button
-            variant="secondary"
-            className="rounded-md p-0 w-full flex justify-center "
-            onClick={handleDeletePackage}>
-            {pack.status === "EN CURSO" || pack.status === "ENTREGADO" ? (
-              <div>
-                <TrashIcon className="w-[1rem]" />
-              </div>
-            ) : (
-              <span className="text-[10px]">INICIAR</span>
-            )}
-          </Button> */}
+					) : null}
+					<Button
+						variant="secondary"
+						className="rounded-md p-0 w-full flex justify-center "
+						onClick={
+							pack.status === 'EN CURSO' || pack.status === 'PENDIENTE'
+								? handleDeletePendingPackage
+								: handleDeleteDeliveredPackage
+						}>
+						<TrashIcon className="w-[1rem]" />
+					</Button>
 				</div>
 			</div>
 		</div>

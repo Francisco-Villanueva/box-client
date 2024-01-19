@@ -5,6 +5,10 @@ import { ArrowLeft } from 'commons/Icons'
 import Link from 'next/link'
 import { message } from 'antd'
 import { useRouter } from 'next/navigation'
+import { PackageServices, UserServices } from 'services'
+import { useStore } from 'models/root.store'
+import Loading from 'app/loading'
+import { observer } from 'mobx-react-lite'
 
 interface DeliveryProps {
 	address: string | undefined
@@ -12,35 +16,68 @@ interface DeliveryProps {
 	packNumber: string | undefined
 }
 
-export function DeliveryInProgress({
+export const DeliveryInProgress = observer(function ({
 	address,
 	receiver,
 	packNumber,
 }: DeliveryProps) {
+	const {
+		packages: { currentPackage },
+		users: { loggedUser },
+	} = useStore()
 	const router = useRouter()
+
+	const handleCompletedDelivery = () => {
+		if (currentPackage)
+			PackageServices.udapatePackage(currentPackage._id, {
+				...currentPackage,
+				status: 'ENTREGADO',
+			}).then(() => {
+				message.success('Entrega completada')
+			})
+	}
+	const handleCanceledDelivery = async () => {
+		try {
+			if (loggedUser && currentPackage) {
+				await UserServices.removePackage(loggedUser._id, currentPackage._id)
+				await PackageServices.udapatePackage(currentPackage._id, {
+					...currentPackage,
+					status: 'NO ASIGNADO',
+				})
+				message.success('Paquete eliminado!')
+				router.push('/carrier')
+			}
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
+	}
+
 	return (
 		<>
 			<TitleBox
 				variant="primary"
-				icon={<ArrowLeft onClick={() => router.back()} />}
+				icon={<ArrowLeft onClick={() => router.push('/carrier')} />}
 				className="w-full my-2 pr-6">
 				reparto en curso
 			</TitleBox>
-			{/* //TODO: check how store's data arrives this component. If we've undefined, ts
-			use "". */}
 			<div className="w-full h-[45vh] rounded-2xl overflow-hidden my-2">
-				<GoogleMap destination={address || ''}></GoogleMap>
+				{address ? (
+					<GoogleMap destination={address || ''}></GoogleMap>
+				) : (
+					<Loading />
+				)}
 			</div>
 			<MapDescription
-				destiny={address || ''}
-				packageNumber={packNumber || ''}
-				receiver={receiver || ''}></MapDescription>
+				destiny={address || 'Cargando...'}
+				packageNumber={packNumber || 'Cargando...'}
+				receiver={receiver || 'Cargando...'}></MapDescription>
 			<div className="flex flex-col items-center justify-center">
 				<Link href={'/carrier'} className="w-5/6 mt-4">
 					<Button
 						className="w-full"
 						variant="primary"
-						onClick={() => message.success('Entrega completada')}>
+						onClick={handleCompletedDelivery}>
 						FINALIZAR
 					</Button>
 				</Link>
@@ -48,11 +85,11 @@ export function DeliveryInProgress({
 					<Button
 						className="w-full"
 						variant="secondary"
-						onClick={() => message.success('Entrega cancelada')}>
+						onClick={handleCanceledDelivery}>
 						CANCELAR ENTREGA
 					</Button>
 				</Link>
 			</div>
 		</>
 	)
-}
+})

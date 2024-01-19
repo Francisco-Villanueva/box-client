@@ -7,6 +7,10 @@ export const PackageStore = types
 		packageId: types.maybe(types.string),
 	})
 	.views((store) => ({
+		get allPackages() {
+			// RETORNA TODOS LOS PACKAGES
+			return store.packages
+		},
 		get deliveredPackages() {
 			// RETORNA LOS PACKAGES QUE FUERON ENTREGADOS
 			return store.packages.filter((pack) => pack.status === 'ENTREGADO')
@@ -16,8 +20,8 @@ export const PackageStore = types
 			return store.packages.find((pack) => pack._id === store.packageId)
 		},
 		get unassignedPackages() {
-			// RETORNA LOS PACKAGES QUE NO ESTAN ASSIGANADOS (status = "unassigned")
-			return store.packages.filter((pack) => pack.status === 'unassigned')
+			// RETORNA LOS PACKAGES QUE NO ESTAN ASSIGANADOS (status = "NO ASIGNADO")
+			return store.packages.filter((pack) => pack.status === 'NO ASIGNADO')
 		},
 		get onDeliverPackages() {
 			// RETORNA LOS PACKAGES QUE  ESTAN ASSIGANADOS PERO NO ENTREGADOS
@@ -32,7 +36,7 @@ export const PackageStore = types
 	}))
 	.actions((store) => ({
 		setPackages(packages: Package[]) {
-			store.packages.push(...packages)
+			store.packages.replace(packages)
 		},
 		setPackageId(packId: string) {
 			store.packageId = packId

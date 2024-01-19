@@ -14,11 +14,34 @@ export const ShipmentView = observer(function ({
 	shipmentTitle,
 }: ShipmentProps) {
 	const {
-		users: { pendingPackagesByCarrier, delviredPackagesByCarrier },
+		users: {
+			loggedUserPendingPackages,
+			loggedUserDeliveredPackages,
+			loggedUser,
+			selectedCarrierDeliveredPackages,
+			selectedCarrierPendingPackages,
+		},
 	} = useStore()
 
-	const packs =
-		variant === 'pending' ? pendingPackagesByCarrier : delviredPackagesByCarrier
+	const isCarrier = loggedUser?.role === 'CARRIER'
+	const isAdmin = loggedUser?.role === 'ADMIN'
+
+	const packs = (() => {
+		switch (true) {
+			case isCarrier && variant === 'pending':
+				return loggedUserPendingPackages
+			case isCarrier && variant !== 'pending':
+				return loggedUserDeliveredPackages
+			case isAdmin && variant === 'pending':
+				return selectedCarrierPendingPackages
+			default:
+				return selectedCarrierDeliveredPackages
+		}
+	})()
+
+	const packsToShow = packs?.filter((pack) =>
+		isCarrier ? pack.isShownToCarrier : pack.isShownToAdmin
+	)
 
 	const { isModalOpen, toggleModal } = useModal()
 
@@ -48,7 +71,7 @@ export const ShipmentView = observer(function ({
 							<hr></hr>
 						</div>
 					) : null}
-					{packs?.map((pack) => <ShipmentCard pack={pack} key={pack._id} />)}
+					{packsToShow?.map((pack) => <ShipmentCard pack={pack} key={pack._id} />)}
 				</section>
 			) : null}
 		</BoxLayout>

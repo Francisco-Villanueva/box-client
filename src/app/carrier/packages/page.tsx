@@ -1,6 +1,4 @@
 'use client'
-
-import { message } from 'antd'
 import {
 	ArrowLeft,
 	BoxLayout,
@@ -13,15 +11,23 @@ import {
 import { PackageCheckboxCard } from 'components'
 
 import { observer } from 'mobx-react-lite'
-import { useStore } from 'models/root.store'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { PackageServices } from 'services'
+import { Package } from 'types'
 
 export default observer(function PackagesPage() {
+	const router = useRouter()
+	const [unassignedPackages, setUnassignedPackages] = useState<Package[]>([])
+	useEffect(() => {
+		PackageServices.getPackageByStatus('NO ASIGNADO').then((res) => {
+			setUnassignedPackages(res.data)
+		})
+	}, [])
+
 	const [trimmer, setTrimmer] = useState(7)
-	const {
-		packages: { unassignedPackages },
-	} = useStore()
+	const [selectedPackages, setSelectedPackages] = useState<string[]>([])
 
 	const handleTrimmer = () => {
 		if (trimmer === unassignedPackages.length) {
@@ -32,7 +38,16 @@ export default observer(function PackagesPage() {
 	}
 
 	const handlePackagesAssignment = () => {
-		message.success('Paquetes asignados correctamente')
+		localStorage.setItem('SELECTED_PACKAGES', selectedPackages.join(','))
+		router.push('/carrier/sworn-statement')
+	}
+
+	const handleAddPackages = (packId: string) => {
+		if (selectedPackages.includes(packId)) {
+			setSelectedPackages((prev) => prev.filter((e) => e !== packId))
+		} else {
+			setSelectedPackages((prev) => [...prev, packId])
+		}
 	}
 
 	return (
@@ -52,17 +67,17 @@ export default observer(function PackagesPage() {
 					<Title>¿Cuántos paquetes repartirás hoy?</Title>
 				</BoxTitle>
 
-				{/* //TODO Aplicar Trimmer */}
-
 				<div className="overflow-scroll max-h-[80%] flex flex-col m-auto ">
-					{unassignedPackages.slice(0, trimmer).map((packages) => (
-						<PackageCheckboxCard pack={packages} key={packages._id} />
-					))}
+					{unassignedPackages.length > 0 &&
+						unassignedPackages.map((packages: Package) => (
+							<PackageCheckboxCard
+								pack={packages}
+								key={packages._id}
+								handleAddPackages={handleAddPackages}
+							/>
+						))}
 				</div>
 
-				{/* <BoxTitle variant="bottom" className="h-[10%] border-t">
-          <ShortArrowIcon className="rotate-[270deg]" />
-        </BoxTitle> */}
 				<BoxTitle variant="bottom" className="h-[10%]">
 					<Button
 						className="border-none"
@@ -79,13 +94,12 @@ export default observer(function PackagesPage() {
 				</BoxTitle>
 			</BoxLayout>
 
-			<Link href={'/carrier'} className="w-full flex justify-center">
-				<Button
-					className="w-[90%] uppercase flex m-auto justify-center"
-					onClick={handlePackagesAssignment}>
-					Iniciar Jornada
-				</Button>
-			</Link>
+			<Button
+				className="w-[90%] uppercase flex m-auto justify-center"
+				onClick={handlePackagesAssignment}
+				disabled={selectedPackages.length === 0}>
+				Iniciar Jornada
+			</Button>
 		</div>
 	)
 })

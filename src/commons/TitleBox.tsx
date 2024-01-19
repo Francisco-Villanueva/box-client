@@ -1,5 +1,5 @@
 'use client'
-import { MouseEvent, ReactNode, useState } from 'react'
+import { MouseEvent, ReactNode } from 'react'
 
 interface TitleProps {
 	children?: ReactNode
@@ -31,8 +31,6 @@ export function TitleBox({
 	onClick,
 	className,
 }: TitleProps) {
-	const [isActive, setIsActive] = useState(true)
-
 	return (
 		<div
 			className={`flex justify-between ${TITLE_STYLE.variant[variant]} ${className}`}>
@@ -41,13 +39,7 @@ export function TitleBox({
 				<span className="text-sm lowercase mt-[-5px]">{subtitle}</span>
 			</div>
 			<div className="font-medium">{date}</div>
-			{variant === 'secondary' ? (
-				<button
-					onClick={() => setIsActive(!isActive)}
-					className={`w-5 ${isActive ? 'rotate-90' : 'rotate-180'}`}>
-					{icon}
-				</button>
-			) : (
+			{icon && (
 				<button className="w-5" onClick={onClick}>
 					{icon}
 				</button>

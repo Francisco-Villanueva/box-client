@@ -1,9 +1,9 @@
 'use client'
 import { RootStore, RootStoreContext } from 'models/root.store'
 import { ReactNode, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { observer } from 'mobx-react-lite'
-import { PackageServices, UserServices } from 'services'
+import { AuthServices, PackageServices, UserServices } from 'services'
 
 type ProvidersProps = {
 	children: ReactNode
@@ -16,25 +16,40 @@ export default observer(function Providers({ children }: ProvidersProps) {
 	})
 
 	const setData = useCallback(async () => {
-		// PUNTO DE 'HIDRATACION': aca es donde hidratamos al root store (store) con los services. Se carga con el backend.
+		// TODD: Determinar estas peticiones solo si es admin el user logged
 
 		const users = await UserServices.getAllUsers()
-		// console.log(users)
 		store.users.setUsers(users)
 
 		const packages = await PackageServices.getAllPackages()
-		// console.log(packages)
 		store.packages.setPackages(packages)
 	}, [store])
 
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const loginValidations = () => {
-		const USER_ID = localStorage.getItem('USER_LOGGED_ID') || ''
-		store.users.setUserLoggedId(USER_ID)
-		store.users.setUserId(USER_ID)
-		if (!store.users.loggedUser) {
+		const USER_TOKEN = localStorage.getItem('USER_TOKEN') || ''
+		const excludedRoutes = [
+			'/register',
+			'/reset-password',
+			'/reset-password/[resetToken]',
+		]
+
+		if (excludedRoutes.some((route) => pathname.startsWith(route))) {
+			return
+		}
+
+		//TODO REVISAR ESTO:
+		if (!USER_TOKEN) {
 			router.push('/login')
+		} else {
+			AuthServices.me(USER_TOKEN).then((res) => {
+				const user = res.data
+				UserServices.getUserById(user._id).then((userRes) => {
+					store.users.setUserLogged({ ...userRes.data })
+				})
+			})
 		}
 	}
 	useEffect(() => {

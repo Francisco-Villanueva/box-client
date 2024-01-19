@@ -24,12 +24,12 @@ export function Button({
 			secondary: 'bg-none text-darkGreen border border-darkGreen',
 		},
 		disabled: {
-			primary: 'bg-light-grey text-grey',
-			secondary: 'bg-none text-darkGreen border border-darkGreen',
+			primary: 'bg-darkGreen text-yellow border-darkGreen font-roboto opacity-60',
+			secondary: 'bg-none text-darkGreen border border-darkGreen  opacity-60',
 		},
 	}
 
-	const buttonClassName = `rounded-lg px-2 py-1 ${
+	const buttonClassName = `rounded-lg px-2 py-1  ${
 		disabled
 			? `${BUTTON_STYLE.disabled[variant]} `
 			: `${BUTTON_STYLE.variant[variant]} `

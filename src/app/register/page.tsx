@@ -1,5 +1,5 @@
 'use client'
-import { AppLayout } from 'commons/AppLayout'
+import { AppLayout } from 'commons'
 import React from 'react'
 import { RegisterForm } from 'components'
 import { TitleBox } from 'commons'

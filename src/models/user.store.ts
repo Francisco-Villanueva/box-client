@@ -1,85 +1,80 @@
 import { types } from 'mobx-state-tree'
-import { UserModel, User, Package } from '../types'
+import { UserModel, User } from '../types'
 
 export const UserStore = types
 	.model({
 		users: types.array(UserModel),
+		loggedUser: types.maybe(UserModel),
 		userId: types.maybe(types.string),
 		userLoggedId: types.maybe(types.string),
-		pendingPack_ID: types.array(types.string),
-		historyPack_ID: types.array(types.string),
 	})
 	.views((store) => ({
 		get carriers() {
-			return store.users.filter((user) => user.role === 'Carrier')
+			return store.users.filter((user) => user.role === 'CARRIER')
 		},
 		get admins() {
-			return store.users.filter((user) => user.role === 'Admin')
+			return store.users.filter((user) => user.role === 'ADMIN')
 		},
 		get avaliableCarriers() {
 			return store.users.filter(
-				(carrier) => carrier.role === 'Carrier' && carrier.status === 'HABILITADO'
+				(carrier) => carrier.role === 'CARRIER' && carrier.status === 'HABILITADO'
 			)
 		},
 		get selectedCarrier() {
 			//RETORNA EL CARRIER SELECCIONADO
 			return store.users.find((user) => user._id === store.userId)
 		},
-		get loggedUser() {
-			//RETORNA EL CARRIER SELECCIONADO
-			return store.users.find((user) => user._id === store.userLoggedId)
-		},
-		get selectedCarrierPackages() {
-			//RETORNA LOS PACKAGES DE EL CARRIER SELECCIONADO
-			const carrier = store.users.find((user) => user._id === store.userId)
-			return carrier?.packages
-		},
-		get delviredPackagesByCarrier() {
-			//RETORNA LOS PACKAGES ENTREGADOS DEL CARRIER SELECCIONADO
-			const carrier = store.users.find((user) => user._id === store.userId)
 
-			return carrier?.packages.filter(
-				(pack) =>
-					pack.status === 'ENTREGADO' &&
-					!store.historyPack_ID.some((id) => id === pack._id)
+		get selectedCarrierDeliveredPackages() {
+			//RETORNA LOS PAQUETES ENTREGADOS DEL CARRIER SELECCIONADO
+			const selectedUser = store.users.find((user) => user._id === store.userId)
+			return selectedUser?.packages.filter((pack) => pack.status === 'ENTREGADO')
+		},
+
+		get selectedCarrierPendingPackages() {
+			//RETORNA LOS PAQUETES PENDIENTES Y EN CURSO DEL CARRIER SELECCIONADO
+			const selectedUser = store.users.find((user) => user._id === store.userId)
+			return selectedUser?.packages.filter((pack) => pack.status !== 'ENTREGADO')
+		},
+
+		get selectedCarrierPackages() {
+			//RETORNA LOS PACKAGES DE EL CARRIER LOGUEADO
+			return store.loggedUser?.packages
+		},
+		get loggedUserDeliveredPackages() {
+			//RETORNA LOS PACKAGES ENTREGADOS DEL CARRIER LOGUEADO
+
+			return store.loggedUser?.packages.filter(
+				(pack) => pack.status === 'ENTREGADO'
 			)
 		},
-		get pendingPackagesByCarrier() {
-			//RETORNA LOS PACKAGES PENDIENTES Y EN CURSO DEL CARRIER SELECCIONADO
-			const carrier = store.users.find((user) => user._id === store.userId)
+		get loggedUserPendingPackages() {
+			//RETORNA LOS PACKAGES PENDIENTES Y EN CURSO DEL CARRIER LOGUEADO
 
-			return carrier?.packages.filter(
-				(pack) =>
-					pack.status !== 'ENTREGADO' &&
-					!store.pendingPack_ID.some((id) => id === pack._id)
+			return store.loggedUser?.packages.filter(
+				(pack) => pack.status !== 'ENTREGADO'
 			)
 		},
 
 		findUserByEmail(email: string) {
 			return store.users.find((user) => user.email === email)
 		},
-		validatePassword(user: User, password: string) {
-			return user.password === password
+
+		findUserByUserName(userName: string) {
+			return store.users.find((user) => user.userName === userName)
 		},
 	}))
 	.actions((store) => ({
 		setUsers(users: User[]) {
-			store.users.push(...users)
+			store.users.replace(users)
+		},
+		setUserLogged(user: User) {
+			store.loggedUser = user
 		},
 		setUserId(userId: string) {
 			store.userId = userId
 		},
 		setUserLoggedId(userId: string) {
 			store.userLoggedId = userId
-		},
-		deletePendingPackage(packId: string) {
-			store.pendingPack_ID.push(packId)
-		},
-		deleteHistoryPackages(packId: string) {
-			store.historyPack_ID.push(packId)
-		},
-		addPackage(pack: Package) {
-			const user = store.loggedUser
-			user?.packages.push(pack)
 		},
 	}))

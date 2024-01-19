@@ -1,51 +1,48 @@
 'use client'
-import { CarrierStatus, Switch, Title, BoxLayout } from 'commons'
-
+import { CarrierStatus, Switch, BoxLayout } from 'commons'
+import { useStore } from 'models/root.store'
 import Image from 'next/image'
+import { UserServices } from 'services'
+import { User } from 'types'
 
 interface CarrierProps {
 	carrier: User
 }
 
-interface User {
-	_id: string
-	name: string
-	lastName: string
-	email: string
-	password: string
-	image: string
-	role: string
-	status: string
-	packages: Pack[]
-}
-interface Pack {
-	_id: string
-	address: string
-	clientName: string
-	weight: number
-	deliverDate: string
-	status: string
-}
-
 export function CarrierStatusCard({ carrier }: CarrierProps) {
+	const {
+		users: { setUsers },
+	} = useStore()
+
 	return (
-		<BoxLayout className="flex items-center   p-4 justify-between">
-			<div className="flex gap-4 items-center">
+		<BoxLayout className="bg-white p-4 flex items-center justify-between">
+			<section className="flex items-center gap-4">
 				<Image
-					src="/users/user1.jpeg"
-					alt={carrier.name}
-					width={100}
-					height={50}
-					className="rounded-lg "
+					src={carrier.image ? carrier.image : '/users/user1.jpeg'}
+					alt="a"
+					width={90}
+					height={1}
+					className="rounded-2xl"
 				/>
-
-				<div>
-					<Title>{carrier.name}</Title>
-					<CarrierStatus status={carrier.status} />
+				<div className="w-36">
+					<h2 className="font-bold"> {carrier?.name} </h2>
+					<CarrierStatus status={carrier?.status} />
 				</div>
-			</div>
-
-			<Switch onChange={() => {}} />
+			</section>
+			<Switch
+				status={carrier.status}
+				onChange={async () => {
+					try {
+						const newState =
+							carrier.status === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO'
+						await UserServices.updateUserStatus(carrier._id, newState)
+						const users = await UserServices.getAllUsers()
+						setUsers(users)
+					} catch (error) {
+						console.log(error)
+					}
+				}}
+			/>
 		</BoxLayout>
 	)
 }

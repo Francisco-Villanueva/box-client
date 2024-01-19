@@ -2,26 +2,42 @@
 import { TitleBox } from 'commons'
 import React, { useState } from 'react'
 import { ArrowLeft } from 'commons/Icons'
-import { Button, BoxLayout, InputCalendar } from 'commons'
+import { Button, BoxLayout } from 'commons'
 import Link from 'next/link'
 import { message } from 'antd'
 import { FormInput } from 'components'
 import { useRouter } from 'next/navigation'
+import { CreatePackage } from 'types'
+import { PackageServices } from 'services'
 export default function CreatePackage() {
 	const router = useRouter()
-	const [state, setState] = useState({})
+	const [packageData, setPackageData] = useState<CreatePackage>({
+		address: '',
+		clientName: '',
+		deliverDate: '',
+		status: 'NO ASIGNADO',
+		weight: 0,
+		isShownToAdmin: true,
+		isShownToCarrier: true,
+	})
 
 	const handleInput = (key: string, value: string) => {
-		setState((prev) => ({
+		const trimmedValue = value.trim()
+		setPackageData((prev) => ({
 			...prev,
-			[key]: value,
+			[key]: trimmedValue,
 		}))
-		console.log(state)
 	}
 
 	const handleCreatePackage = () => {
-		router.push('/admin')
-		message.success('Paquete creado')
+		PackageServices.createPackage(packageData)
+			.then(() => {
+				router.push('/admin')
+				message.success('Paquete creado')
+			})
+			.catch(() => {
+				message.error('error al crear el paquete')
+			})
 	}
 
 	return (
@@ -39,27 +55,46 @@ export default function CreatePackage() {
 				<FormInput
 					placeholder="Dirección"
 					type="text"
-					reference="adress"
+					reference="address"
 					handleInput={handleInput}
+					validation="address"
+					className="my-5"
 				/>
 				<FormInput
 					type="text"
-					reference="adress"
+					reference="clientName"
 					handleInput={handleInput}
 					placeholder="Nombre de quien recibe"
+					validation="name"
+					className="my-5"
 				/>
 				<FormInput
-					type="text"
-					reference="adress"
+					type="number"
+					reference="weight"
 					handleInput={handleInput}
 					placeholder="Peso del paquete (Kg)"
+					validation="weight"
+					className="my-5"
 				/>
 				<div className="pt-12 pb-28">
-					<InputCalendar title="Seleccione una fecha" />
+					{/* <InputCalendar title="Seleccione una fecha" /> */}
+					<div className="flex flex-col">
+						<span className="text-darkGreen ">Seleccione una fecha</span>
+						<FormInput
+							type="date"
+							reference="deliverDate"
+							handleInput={handleInput}
+							placeholder=""
+							className="my-5"
+						/>
+					</div>
 				</div>
 			</BoxLayout>
 			<div className="flex justify-center">
-				<Button className="w-11/12 mt-5" onClick={handleCreatePackage}>
+				<Button
+					className="w-11/12 mt-5"
+					onClick={handleCreatePackage}
+					disabled={Object.values(packageData).some((value) => value === '')}>
 					AGREGAR
 				</Button>
 			</div>

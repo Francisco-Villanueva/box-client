@@ -21,14 +21,18 @@ export const CarrierCard = observer(function CarrierCard({
 		(pack) => pack.status === 'ENTREGADO'
 	)
 
-	const percentage = Math.floor(
-		(packagesDelivered.length / carrier.packages.length) * 100
-	)
+	const percentage =
+		carrier.packages.length > 0
+			? Math.floor((packagesDelivered.length / carrier.packages.length) * 100)
+			: 0
 
 	const handleSelectCarrier = () => {
 		setUserId(carrier._id)
+		localStorage.setItem('SELECTED_CARRIER_ID', carrier._id)
 		router.push('/admin/carriers/profile')
 	}
+
+	const userImage = carrier?.image
 
 	return (
 		<div
@@ -49,7 +53,11 @@ export const CarrierCard = observer(function CarrierCard({
 			</div>
 
 			<div className="relative">
-				<UserImg src="/users/user1.jpeg" alt="s" className="w-14 h-14" />
+				<UserImg
+					src={userImage ? userImage : '/users/user1.jpeg'}
+					alt="s"
+					className="w-14 h-14"
+				/>
 			</div>
 		</div>
 	)
