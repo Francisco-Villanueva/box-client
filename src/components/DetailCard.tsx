@@ -45,9 +45,8 @@ export const DetailCard = observer(function DetailCard({
 						)}
 					</div>
 					{type === 'carrier' && (
-						// TODO fixear esto y hacerlo con imagenes reales
 						<div className="flex ml-[1rem]">
-							{avaliableCarriers.map((carrier) => (
+							{avaliableCarriers.slice(0, 9).map((carrier) => (
 								<div
 									key={carrier._id}
 									className="ml-[-1rem] border rounded-full  w-[2rem] h-[2rem] relative">
