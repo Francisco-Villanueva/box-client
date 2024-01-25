@@ -47,7 +47,7 @@ export default observer(function AdminPackagesPage() {
 			const packages = await PackageServices.getAllPackages()
 			setPackages(packages)
 		} catch (error) {
-			console.error('Error al eliminar el paquete:', error)
+			console.error('Error al mostrar todos los paquetes:', error)
 			throw error
 		}
 	}
