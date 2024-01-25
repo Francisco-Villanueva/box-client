@@ -21,6 +21,8 @@ export const ShipmentView = observer(function ({
 			selectedCarrierDeliveredPackages,
 			selectedCarrierPendingPackages,
 		},
+		date: { date_YMD, date_DMY },
+		packages: { packagesByDate },
 	} = useStore()
 
 	const isCarrier = loggedUser?.role === 'CARRIER'
@@ -35,7 +37,7 @@ export const ShipmentView = observer(function ({
 			case isAdmin && variant === 'pending':
 				return selectedCarrierPendingPackages
 			default:
-				return selectedCarrierDeliveredPackages
+				return packagesByDate(selectedCarrierDeliveredPackages || [], date_YMD)
 		}
 	})()
 
@@ -51,6 +53,7 @@ export const ShipmentView = observer(function ({
 				className={`${isModalOpen && 'rounded-b-none'}`}
 				subtitle={packs?.length ? '' : 'Sin repartos'}
 				onClick={toggleModal}
+				date={variant === 'history' && isAdmin ? date_DMY : undefined}
 				icon={
 					<ShortArrowIcon
 						className={`w-4 transition-all duration-150 ${
@@ -65,8 +68,9 @@ export const ShipmentView = observer(function ({
 				<section className="p-2 overflow-scroll h-max-[20%]">
 					{variant === 'history' ? (
 						<div>
-							<div className="font-roboto text-xs font-medium p-2">
-								{`${packs?.length} paquetes entregados`}
+							<div className="font-roboto text-xs font-medium p-2 flex justify-between">
+								<div>{`${packs?.length} paquete(s) entregado(s)`}</div>
+								<div>{`${packs.length - (packsToShow?.length || 0)} ocultado(s)`}</div>
 							</div>
 							<hr></hr>
 						</div>
