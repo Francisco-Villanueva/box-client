@@ -69,13 +69,9 @@ export default observer(function AdminPackagesPage() {
 					<Title>{date_DMY}</Title>
 				</BoxTitle>
 
-				<div className="font-roboto text-xs font-medium p-2 bg-white flex justify-between">
-					<div>{`${DELIVERD_PACKAGES?.length} paquete(s) entregado(s)`}</div>
-					<div>{`${
-						DELIVERD_PACKAGES.length - (deliveredPAckagesToShow?.length || 0)
-					} ocultado(s)`}</div>
+				<div className="font-roboto text-xs font-medium p-2 bg-white">
+					{DELIVERD_PACKAGES.length} paquetes entregados{' '}
 				</div>
-				<></>
 
 				<div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
 					{deliveredPAckagesToShow.slice(0, trimmer).map((packages) => (

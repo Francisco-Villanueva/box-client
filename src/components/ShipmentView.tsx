@@ -68,9 +68,8 @@ export const ShipmentView = observer(function ({
 				<section className="p-2 overflow-scroll h-max-[20%]">
 					{variant === 'history' ? (
 						<div>
-							<div className="font-roboto text-xs font-medium p-2 flex justify-between">
-								<div>{`${packs?.length} paquete(s) entregado(s)`}</div>
-								<div>{`${packs.length - (packsToShow?.length || 0)} ocultado(s)`}</div>
+							<div className="font-roboto text-xs font-medium p-2">
+								{`${packs?.length} paquetes entregados`}
 							</div>
 							<hr></hr>
 						</div>
