@@ -15,11 +15,13 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
 import { useState } from 'react'
+import { PackageServices } from 'services'
+import { message } from 'antd'
 
 export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
 	const {
-		packages: { deliveredPackages, packagesByDate },
+		packages: { deliveredPackages, packagesByDate, setPackages },
 		date: { month },
 	} = useStore()
 
@@ -32,6 +34,23 @@ export default observer(function AdminPackagesPage() {
 	const deliveredPAckagesToShow = DELIVERD_PACKAGES.filter(
 		(pack) => pack.isShownToAdmin
 	)
+
+	const handleShowAllPackages = async () => {
+		try {
+			for (const pack of DELIVERD_PACKAGES) {
+				await PackageServices.udapatePackage(pack._id, {
+					...pack,
+					isShownToAdmin: true,
+				})
+			}
+			message.success('Mostrando todos los paquetes')
+			const packages = await PackageServices.getAllPackages()
+			setPackages(packages)
+		} catch (error) {
+			console.error('Error al mostrar todos los paquetes:', error)
+			throw error
+		}
+	}
 
 	const handleTrimmer = () => {
 		if (trimmer === deliveredPackages.length) {
@@ -60,8 +79,12 @@ export default observer(function AdminPackagesPage() {
 					<Title>{selectedDate?.split('-').reverse().join('/')}</Title>
 				</BoxTitle>
 
-				<div className="font-roboto text-xs font-medium p-2 bg-white">
-					{DELIVERD_PACKAGES.length} paquetes entregados{' '}
+				<div className="font-roboto text-xs font-medium p-2 bg-white flex items-center justify-between">
+					Mostrando {deliveredPAckagesToShow.length} de {DELIVERD_PACKAGES.length}{' '}
+					paquetes entregados
+					<Button variant="secondary" onClick={handleShowAllPackages}>
+						Mostrar todos
+					</Button>
 				</div>
 
 				<div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
