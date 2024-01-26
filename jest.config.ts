@@ -11,9 +11,10 @@ const config: Config = {
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	preset: 'ts-jest',
 	moduleNameMapper: {
+		'^services(.*)$': '<rootDir>/src/services$1',
 		'^commons(.*)$': '<rootDir>/src/commons$1',
 		'^models/(.*)$': '<rootDir>/src/models/$1',
-		'^services/(.*)$': '<rootDir>/src/services/$1',
+		'^utils(.*)$': '<rootDir>/src/utils$1',
 	},
 	resolver: undefined,
 }

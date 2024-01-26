@@ -10,7 +10,9 @@
 		"prepare": "husky install && lint-staged",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
 		"test": "jest",
-		"test:watch": "jest --watch"
+		"test:watch": "jest --watch",
+		"cypress:open": "cypress open",
+		"cypress:run": "cypress run"
 	},
 	"lint-staged": {
 		".{js,ts,jsx,tsx}": [
@@ -47,6 +49,7 @@
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
 		"autoprefixer": "^10.0.1",
+		"cypress": "^13.6.3",
 		"eslint": "^8",
 		"eslint-config-next": "14.0.1",
 		"eslint-config-prettier": "^9.0.0",

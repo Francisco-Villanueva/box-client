@@ -14,7 +14,8 @@ export function CustomLink({ href, children, className }: CustomLinkProps) {
 			target={
 				typeof href === 'string' && href.startsWith('http') ? '_blank' : undefined
 			}
-			className={`text-darkGreen font-semibold font-roboto underline text-sm flex items-center mt-3 ${className}`}>
+			className={`text-darkGreen font-semibold font-roboto underline text-sm flex items-center mt-3 ${className}`}
+			data-testid="custom-link">
 			{children}
 		</Link>
 	)
