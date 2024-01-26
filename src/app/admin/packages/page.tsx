@@ -21,7 +21,7 @@ import { message } from 'antd'
 export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
 	const {
-		packages: { deliveredPackages, packagesByDate , setPackages},
+		packages: { deliveredPackages, packagesByDate, setPackages },
 		date: { month, setDate, date_YMD, date_DMY },
 	} = useStore()
 
