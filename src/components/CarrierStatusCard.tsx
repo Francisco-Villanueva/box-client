@@ -39,7 +39,7 @@ export function CarrierStatusCard({ carrier }: CarrierProps) {
 						const users = await UserServices.getAllUsers()
 						setUsers(users)
 					} catch (error) {
-						console.log(error)
+						console.error(error)
 					}
 				}}
 			/>

@@ -19,7 +19,6 @@ export default observer(function CarrierProfile() {
 			if (storedDate) {
 				const newDate = new Date(storedDate)
 				newDate.setDate(newDate.getDate() + 1)
-				console.log('newDate--->', newDate)
 
 				setDate(newDate)
 			}
