@@ -64,9 +64,6 @@ export const Login = observer(function () {
 						)
 					} else if (user.status === 'RECHAZADO') {
 						const loginDate = timeZoneSetter(new Date())
-						console.log(
-							loginDate.getTime() - new Date(user.rejectedDeclarationTime).getTime()
-						)
 
 						if (
 							loginDate.getTime() - new Date(user.rejectedDeclarationTime).getTime() >

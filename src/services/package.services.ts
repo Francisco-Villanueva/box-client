@@ -19,4 +19,7 @@ export class PackageServices {
 	static async udapatePackage(id: string, data: Package) {
 		return await axios.put(`${BASE_URL}/packages/${id}`, { ...data })
 	}
+	static async deletePackage(id: string) {
+		return await axios.delete(`${BASE_URL}/packages/${id}`)
+	}
 }
