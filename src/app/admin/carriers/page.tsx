@@ -29,8 +29,6 @@ export default observer(function CarriersPage() {
 			if (storedDate) {
 				const newDate = new Date(storedDate)
 				newDate.setDate(newDate.getDate() + 1)
-				console.log('newDate--->', newDate)
-
 				setDate(newDate)
 			}
 		}

@@ -1,11 +1,12 @@
 import { Button, IconBox, Status } from 'commons'
 import { MapIcon, TrashIcon } from 'commons/Icons'
 import { Package } from 'types'
-import { message } from 'antd'
+import { message, Modal } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import { useRouter } from 'next/navigation'
 import { UserServices, PackageServices } from 'services'
+import { useState } from 'react'
 
 interface ShipmentCardProps {
 	pack: Package
@@ -83,6 +84,20 @@ export const ShipmentCard = observer(function ShipmentCard({
 			throw error
 		}
 	}
+
+	const handleDeleteUnassignedPackage = async () => {
+		try {
+			await PackageServices.deletePackage(pack._id)
+			hideModal()
+			message.success('Paquete eliminado')
+			const packages = await PackageServices.getAllPackages()
+			setPackages(packages)
+		} catch (error) {
+			console.error('Error al eliminar el paquete:', error)
+			throw error
+		}
+	}
+
 	const handleStartDelivery = async () => {
 		try {
 			if (loggedUser) {
@@ -100,6 +115,16 @@ export const ShipmentCard = observer(function ShipmentCard({
 			console.error('Error al iniciar paquete:', error)
 			throw error
 		}
+	}
+
+	const [open, setOpen] = useState(false)
+
+	const showModal = () => {
+		setOpen(true)
+	}
+
+	const hideModal = () => {
+		setOpen(false)
 	}
 
 	return (
@@ -129,16 +154,40 @@ export const ShipmentCard = observer(function ShipmentCard({
 							<span className="text-[10px]">INICIAR</span>
 						</Button>
 					) : null}
-					<Button
-						variant="secondary"
-						className="rounded-md p-0 w-full flex justify-center "
-						onClick={
-							pack.status === 'EN CURSO' || pack.status === 'PENDIENTE'
-								? handleDeletePendingPackage
-								: handleDeleteDeliveredPackage
-						}>
-						<TrashIcon className="w-[1rem]" />
-					</Button>
+					{pack.status === 'EN CURSO' ||
+					pack.status === 'PENDIENTE' ||
+					pack.status === 'ENTREGADO' ? (
+						<Button
+							variant="secondary"
+							className="rounded-md p-0 w-full flex justify-center"
+							onClick={
+								pack.status === 'EN CURSO' || pack.status === 'PENDIENTE'
+									? handleDeletePendingPackage
+									: handleDeleteDeliveredPackage
+							}>
+							<TrashIcon className="w-[1rem]" />
+						</Button>
+					) : null}
+
+					{pack.status === 'NO ASIGNADO' ? (
+						<Button
+							onClick={showModal}
+							variant="secondary"
+							className="rounded-md p-0 w-full flex justify-center">
+							<TrashIcon className="w-[1rem]" />
+						</Button>
+					) : null}
+					<Modal
+						title="Eliminar Paquete"
+						open={open}
+						onCancel={hideModal}
+						okButtonProps={{ className: 'bg-darkGreen' }}
+						onOk={handleDeleteUnassignedPackage}>
+						<p>
+							¿Esta seguro que desea eliminar el paquete? Se borrará su registro de la
+							base de datos.
+						</p>
+					</Modal>
 				</div>
 			</div>
 		</div>

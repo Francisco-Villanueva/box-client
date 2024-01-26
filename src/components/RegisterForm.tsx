@@ -78,7 +78,7 @@ export function RegisterForm() {
 			router.push('/login')
 			message.success('Usuario creado correctamente')
 		} catch (error: unknown) {
-			console.log(
+			console.error(
 				error instanceof AxiosError ? 'ERROR: ' : 'Error inesperado',
 				error
 			)
