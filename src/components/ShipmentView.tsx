@@ -24,6 +24,8 @@ export const ShipmentView = observer(function ({
 			selectedCarrierPendingPackages,
 			setUserLogged,
 		},
+		date: { date_YMD, date_DMY },
+		packages: { packagesByDate },
 	} = useStore()
 
 	const isCarrier = loggedUser?.role === 'CARRIER'
@@ -38,7 +40,7 @@ export const ShipmentView = observer(function ({
 			case isAdmin && variant === 'pending':
 				return selectedCarrierPendingPackages
 			default:
-				return selectedCarrierDeliveredPackages
+				return packagesByDate(selectedCarrierDeliveredPackages || [], date_YMD)
 		}
 	})()
 
@@ -73,6 +75,7 @@ export const ShipmentView = observer(function ({
 				className={`${isModalOpen && 'rounded-b-none'}`}
 				subtitle={packs?.length ? '' : 'Sin repartos'}
 				onClick={toggleModal}
+				date={variant === 'history' && isAdmin ? date_DMY : undefined}
 				icon={
 					<ShortArrowIcon
 						className={`w-4 transition-all duration-150 ${

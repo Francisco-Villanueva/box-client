@@ -14,23 +14,32 @@ import { ShipmentCard } from 'components'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PackageServices } from 'services'
 import { message } from 'antd'
 
 export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
 	const {
-		packages: { deliveredPackages, packagesByDate, setPackages },
-		date: { month },
+		packages: { deliveredPackages, packagesByDate , setPackages},
+		date: { month, setDate, date_YMD, date_DMY },
 	} = useStore()
 
-	let selectedDate = ''
-	if (typeof localStorage !== 'undefined') {
-		selectedDate = localStorage.getItem('SELECTED_DATE') || ''
-	}
+	useEffect(() => {
+		if (typeof localStorage !== 'undefined') {
+			const storedDate = localStorage.getItem('SELECTED_DATE')
 
-	const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, selectedDate)
+			if (storedDate) {
+				const newDate = new Date(storedDate)
+				newDate.setDate(newDate.getDate() + 1)
+				console.log('newDate--->', newDate)
+
+				setDate(newDate)
+			}
+		}
+	}, [])
+
+	const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD)
 	const deliveredPAckagesToShow = DELIVERD_PACKAGES.filter(
 		(pack) => pack.isShownToAdmin
 	)
@@ -76,7 +85,7 @@ export default observer(function AdminPackagesPage() {
 					variant="topDate"
 					className="justify-between h-[10%] p-6 items-center">
 					<Title>{month.toUpperCase()}</Title>
-					<Title>{selectedDate?.split('-').reverse().join('/')}</Title>
+					<Title>{date_DMY}</Title>
 				</BoxTitle>
 
 				<div className="font-roboto text-xs font-medium p-2 bg-white flex items-center justify-between">

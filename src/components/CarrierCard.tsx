@@ -16,15 +16,37 @@ export const CarrierCard = observer(function CarrierCard({
 
 	const {
 		users: { setUserId },
+		date: { date_YMD },
+		packages: { packagesByDate },
 	} = useStore()
+
 	const packagesDelivered = carrier.packages.filter(
 		(pack) => pack.status === 'ENTREGADO'
 	)
 
-	const percentage =
-		carrier.packages.length > 0
-			? Math.floor((packagesDelivered.length / carrier.packages.length) * 100)
-			: 0
+	const selectedDateDeliveredPackages = packagesByDate(
+		packagesDelivered,
+		date_YMD
+	)
+	const selectedDateTotalPackages = packagesByDate(carrier.packages, date_YMD)
+
+	let percentage
+	if (selectedDateTotalPackages.length > 0) {
+		percentage =
+			(selectedDateDeliveredPackages.length / selectedDateTotalPackages.length) *
+			100
+	} else {
+		percentage = 0
+	}
+
+	// TODO Esta parte tira errores de indentacion
+	// const percentage =
+	// 	selectedDateTotalPackages.length > 0
+	// 		? Math.floor(
+	// 				(selectedDateDeliveredPackages.length / selectedDateTotalPackages.length) *
+	// 					100
+	// 		  )
+	// 		: 0
 
 	const handleSelectCarrier = () => {
 		setUserId(carrier._id)
@@ -45,9 +67,6 @@ export const CarrierCard = observer(function CarrierCard({
 					<div className="font-medium text-start text-darkGreen text-md">
 						{carrier.name}
 					</div>
-					{/*
-          TODO: ESTE STATUS A QUE HACE REFERENCIA
-                    <Status status={status} /> */}
 					<CarrierStatus status={carrier.status} />
 				</div>
 			</div>
