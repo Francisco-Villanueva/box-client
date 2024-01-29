@@ -33,14 +33,12 @@ export const ResetPasswordView = observer(function () {
 				const userToCheck = findUserByEmail(userData.email)
 				if (!userToCheck) {
 					return message.error('Email no encontrado')
-				} else {
-					message.success('Email enviado')
-					router.push('/login')
 				}
-
 				await AuthServices.resetPassword({
 					email: userData.email,
 				})
+				message.success('Email enviado')
+				router.push('/login')
 			} catch (error) {
 				console.error('Error al enviar', error)
 				message.error('Error al enviar email')
