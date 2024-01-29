@@ -23,9 +23,10 @@ export const ShipmentView = observer(function ({
 			selectedCarrierDeliveredPackages,
 			selectedCarrierPendingPackages,
 			setUserLogged,
+			setUsers,
 		},
 		date: { date_YMD, date_DMY },
-		packages: { packagesByDate },
+		packages: { packagesByDate, setPackages },
 	} = useStore()
 
 	const isCarrier = loggedUser?.role === 'CARRIER'
@@ -51,15 +52,28 @@ export const ShipmentView = observer(function ({
 	const handleShowAllPackages = async () => {
 		try {
 			if (packs && loggedUser) {
-				for (const pack of packs) {
-					await PackageServices.udapatePackage(pack._id, {
-						...pack,
-						isShownToCarrier: true,
-					})
+				if (loggedUser.role === 'CARRIER') {
+					for (const pack of packs) {
+						await PackageServices.udapatePackage(pack._id, {
+							...pack,
+							isShownToCarrier: true,
+						})
+					}
+				} else if (loggedUser.role === 'ADMIN') {
+					for (const pack of packs) {
+						await PackageServices.udapatePackage(pack._id, {
+							...pack,
+							isShownToAdmin: true,
+						})
+					}
 				}
-				message.success('Mostrando todos los paquetes')
+				const updatedPackages = await PackageServices.getAllPackages()
+				setPackages(updatedPackages)
 				const updatedUser = await UserServices.getUserById(loggedUser._id)
 				setUserLogged(updatedUser.data)
+				const users = await UserServices.getAllUsers()
+				setUsers(users)
+				message.success('Mostrando todos los paquetes')
 			}
 		} catch (error) {
 			console.error('Error al mostrar todos los paquetes: ', error)
