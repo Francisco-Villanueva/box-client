@@ -93,6 +93,19 @@ export default observer(function AdminPackagesPage() {
 			}
 		}
 	}
+
+	const getDisplayedPackages = () => {
+		if (showedState === 'ENTREGADO') {
+			return deliveredPAckagesToShow.slice(0, trimmer)
+		} else if (showedState === 'PENDIENTE') {
+			return PENDING_PACKAGES.slice(0, trimmer)
+		} else {
+			return UNASSIGNED_PACKAGES.slice(0, trimmer)
+		}
+	}
+
+	const displayedPackages = getDisplayedPackages()
+
 	return (
 		<div className="h-[95%] flex flex-col gap-4 justify-between">
 			<TitleBox
@@ -143,9 +156,13 @@ export default observer(function AdminPackagesPage() {
 				<div className="font-roboto text-xs font-medium p-2 bg-white flex items-center justify-between">
 					{showedState === 'ENTREGADO'
 						? `Mostrando ${deliveredPAckagesToShow.length} de ${DELIVERD_PACKAGES.length} paquetes entregados`
-						: showedState === 'PENDIENTE'
-						  ? `Mostrando ${PENDING_PACKAGES.length} paquetes pendientes`
-						  : `Mostrando ${UNASSIGNED_PACKAGES.length} paquetes no asignados`}
+						: null}
+					{showedState === 'PENDIENTE'
+						? `Mostrando ${PENDING_PACKAGES.length} paquetes pendientes`
+						: null}
+					{showedState === 'NO ASIGNADO'
+						? `Mostrando ${UNASSIGNED_PACKAGES.length} paquetes no asignados`
+						: null}
 
 					{showedState === 'ENTREGADO' ? (
 						<Button variant="secondary" onClick={handleShowAllPackages}>
@@ -154,16 +171,9 @@ export default observer(function AdminPackagesPage() {
 					) : null}
 				</div>
 				<div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
-					{(showedState === 'ENTREGADO'
-						? deliveredPAckagesToShow
-						: showedState === 'PENDIENTE'
-						  ? PENDING_PACKAGES
-						  : UNASSIGNED_PACKAGES
-					)
-						.slice(0, trimmer)
-						.map((packages) => (
-							<ShipmentCard pack={packages} key={packages._id} />
-						))}
+					{displayedPackages.slice(0, trimmer).map((packages) => (
+						<ShipmentCard pack={packages} key={packages._id} />
+					))}
 				</div>
 
 				<BoxTitle variant="bottom" className="h-[10%]">

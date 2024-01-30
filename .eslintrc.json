@@ -43,9 +43,6 @@
 			"parser": "@typescript-eslint/parser",
 			"plugins": ["@typescript-eslint"],
 			"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
-			"options": {
-				"indent": ["warn", "tab", { "ignoreEOLComments": true }]
-			},
 			"rules": {
 				"indent": ["off", "tab"],
 				// "@typescript-eslint/indent": ["error", "tab"],
