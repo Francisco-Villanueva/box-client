@@ -28,7 +28,7 @@
 	},
 	"plugins": ["react", "cypress"],
 	"rules": {
-		"indent": ["warn", "tab", { "ignoreEOLComments": true }],
+		"indent": ["warn", "tab"],
 		"linebreak-style": ["warn", "unix"],
 		"quotes": ["warn", "single"],
 		"semi": ["warn", "never"],
@@ -43,6 +43,9 @@
 			"parser": "@typescript-eslint/parser",
 			"plugins": ["@typescript-eslint"],
 			"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+			"options": {
+				"indent": ["warn", "tab", { "ignoreEOLComments": true }]
+			},
 			"rules": {
 				"indent": ["off", "tab"],
 				// "@typescript-eslint/indent": ["error", "tab"],
