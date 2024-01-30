@@ -1,5 +1,6 @@
 import { User } from 'types/user.types'
 import axios, { AxiosResponse } from 'axios'
+import { Package } from 'types'
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -30,5 +31,17 @@ export class UserServices {
 		return await axios.patch(
 			`${BASE_URL}/users/${userId}/removepackage/${packageId}`
 		)
+	}
+	static async findPackageCarrier(packageId: string): Promise<User | undefined> {
+		const response: AxiosResponse = await axios.get(`${BASE_URL}/users`)
+
+		for (const user of response.data) {
+			const foundPackage = user.packages.find((p: Package) => p._id === packageId)
+
+			if (foundPackage !== undefined) {
+				return user
+			}
+		}
+		return undefined
 	}
 }

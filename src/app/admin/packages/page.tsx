@@ -28,6 +28,7 @@ export default observer(function AdminPackagesPage() {
 			packagesByDate,
 			setPackages,
 			unassignedPackages,
+			onDeliverPackages,
 		},
 		date: { month, setDate, date_YMD, date_DMY },
 	} = useStore()
@@ -46,14 +47,13 @@ export default observer(function AdminPackagesPage() {
 	}, [])
 
 	const UNASSIGNED_PACKAGES = packagesByDate(unassignedPackages, date_YMD)
-	const unassignedPackagesToShow = UNASSIGNED_PACKAGES.filter(
-		(pack) => pack.isShownToAdmin
-	)
 
 	const DELIVERD_PACKAGES = packagesByDate(deliveredPackages, date_YMD)
 	const deliveredPAckagesToShow = DELIVERD_PACKAGES.filter(
 		(pack) => pack.isShownToAdmin
 	)
+
+	const PENDING_PACKAGES = packagesByDate(onDeliverPackages, date_YMD)
 
 	const handleShowAllPackages = async () => {
 		try {
@@ -79,11 +79,17 @@ export default observer(function AdminPackagesPage() {
 			} else {
 				setTrimmer(deliveredPAckagesToShow.length)
 			}
-		} else {
-			if (trimmer === unassignedPackagesToShow.length) {
+		} else if (showedState === 'PENDIENTE') {
+			if (trimmer === PENDING_PACKAGES.length) {
 				setTrimmer(6)
 			} else {
-				setTrimmer(unassignedPackagesToShow.length)
+				setTrimmer(PENDING_PACKAGES.length)
+			}
+		} else {
+			if (trimmer === UNASSIGNED_PACKAGES.length) {
+				setTrimmer(6)
+			} else {
+				setTrimmer(UNASSIGNED_PACKAGES.length)
 			}
 		}
 	}
@@ -110,7 +116,7 @@ export default observer(function AdminPackagesPage() {
 				<div className="bg-white">
 					<Button
 						variant="secondary"
-						className={`w-1/2 border-transparent rounded-none rounded-b-lg ${
+						className={`w-1/3 border-transparent rounded-none rounded-b-lg ${
 							showedState === 'ENTREGADO' ? 'bg-purple' : null
 						}`}
 						onClick={() => setShowedState('ENTREGADO')}>
@@ -118,18 +124,28 @@ export default observer(function AdminPackagesPage() {
 					</Button>
 					<Button
 						variant="secondary"
-						className={`w-1/2 border-transparent rounded-none rounded-b-lg ${
+						className={`w-1/3 border-transparent rounded-none rounded-b-lg ${
+							showedState === 'PENDIENTE' ? 'bg-purple' : null
+						}`}
+						onClick={() => setShowedState('PENDIENTE')}>
+						Pendientes
+					</Button>
+					<Button
+						variant="secondary"
+						className={`w-1/3 border-transparent rounded-none rounded-b-lg ${
 							showedState === 'NO ASIGNADO' ? 'bg-purple' : null
 						}`}
 						onClick={() => setShowedState('NO ASIGNADO')}>
-						No Asignados
+						Sin asignar
 					</Button>
 				</div>
 
 				<div className="font-roboto text-xs font-medium p-2 bg-white flex items-center justify-between">
 					{showedState === 'ENTREGADO'
 						? `Mostrando ${deliveredPAckagesToShow.length} de ${DELIVERD_PACKAGES.length} paquetes entregados`
-						: `Mostrando ${unassignedPackagesToShow.length} paquetes no asignados`}
+						: showedState === 'PENDIENTE'
+						  ? `Mostrando ${PENDING_PACKAGES.length} paquetes pendientes`
+						  : `Mostrando ${UNASSIGNED_PACKAGES.length} paquetes no asignados`}
 
 					{showedState === 'ENTREGADO' ? (
 						<Button variant="secondary" onClick={handleShowAllPackages}>
@@ -140,7 +156,9 @@ export default observer(function AdminPackagesPage() {
 				<div className="overflow-scroll max-h-[90%] flex flex-col m-auto">
 					{(showedState === 'ENTREGADO'
 						? deliveredPAckagesToShow
-						: unassignedPackagesToShow
+						: showedState === 'PENDIENTE'
+						  ? PENDING_PACKAGES
+						  : UNASSIGNED_PACKAGES
 					)
 						.slice(0, trimmer)
 						.map((packages) => (
@@ -161,10 +179,18 @@ export default observer(function AdminPackagesPage() {
 										: ' rotate-[270deg]'
 								} w-6`}
 							/>
+						) : showedState === 'PENDIENTE' ? (
+							<ShortArrowIcon
+								className={`transition-all duration-300 ${
+									trimmer === PENDING_PACKAGES.length
+										? ' rotate-[90deg]'
+										: ' rotate-[270deg]'
+								} w-6`}
+							/>
 						) : (
 							<ShortArrowIcon
 								className={`transition-all duration-300 ${
-									trimmer === unassignedPackagesToShow.length
+									trimmer === UNASSIGNED_PACKAGES.length
 										? ' rotate-[90deg]'
 										: ' rotate-[270deg]'
 								} w-6`}

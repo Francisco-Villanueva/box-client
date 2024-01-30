@@ -50,6 +50,18 @@ export const ShipmentCard = observer(function ShipmentCard({
 				const users = await UserServices.getAllUsers()
 				setUsers(users)
 				message.success('Paquete desasignado del repartidor')
+			} else {
+				const packageCarrier = await UserServices.findPackageCarrier(pack._id)
+				if (packageCarrier) {
+					await UserServices.removePackage(packageCarrier._id, pack._id)
+					await PackageServices.udapatePackage(pack._id, {
+						...pack,
+						status: 'NO ASIGNADO',
+					})
+				}
+				const packages = await PackageServices.getAllPackages()
+				setPackages(packages)
+				message.success('Paquete desasignado del repartidor')
 			}
 		} catch (error) {
 			console.error('Error al eliminar el paquete:', error)

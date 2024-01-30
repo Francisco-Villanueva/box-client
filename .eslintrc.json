@@ -28,7 +28,7 @@
 	},
 	"plugins": ["react", "cypress"],
 	"rules": {
-		"indent": ["warn", "tab"],
+		"indent": ["warn", "tab", { "ignoreEOLComments": true }],
 		"linebreak-style": ["warn", "unix"],
 		"quotes": ["warn", "single"],
 		"semi": ["warn", "never"],
