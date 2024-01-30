@@ -1,5 +1,5 @@
 import { Button, IconBox, Status } from 'commons'
-import { MapIcon, TrashIcon } from 'commons/Icons'
+import { ArchiveIcon, MapIcon, TrashIcon } from 'commons/Icons'
 import { Package } from 'types'
 import { message, Modal } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -165,7 +165,11 @@ export const ShipmentCard = observer(function ShipmentCard({
 									? handleDeletePendingPackage
 									: handleDeleteDeliveredPackage
 							}>
-							<TrashIcon className="w-[1rem]" />
+							{pack.status === 'EN CURSO' || pack.status === 'PENDIENTE' ? (
+								<TrashIcon className="w-[1rem]" />
+							) : (
+								<ArchiveIcon className="w-[1rem]" />
+							)}
 						</Button>
 					) : null}
 
