@@ -35,15 +35,13 @@ export default observer(function AdminPackagesPage() {
 	useEffect(() => {
 		if (typeof localStorage !== 'undefined') {
 			const storedDate = localStorage.getItem('SELECTED_DATE')
-
 			if (storedDate) {
 				const newDate = new Date(storedDate)
 				newDate.setDate(newDate.getDate() + 1)
-
 				setDate(newDate)
 			}
 		}
-	}, [])
+	})
 
 	const UNASSIGNED_PACKAGES = packagesByDate(unassignedPackages, date_YMD)
 	const unassignedPackagesToShow = UNASSIGNED_PACKAGES.filter(

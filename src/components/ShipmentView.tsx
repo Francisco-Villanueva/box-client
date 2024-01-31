@@ -39,7 +39,7 @@ export const ShipmentView = observer(function ({
 			case isCarrier && variant !== 'pending':
 				return loggedUserDeliveredPackages
 			case isAdmin && variant === 'pending':
-				return selectedCarrierPendingPackages
+				return packagesByDate(selectedCarrierPendingPackages || [], date_YMD)
 			default:
 				return packagesByDate(selectedCarrierDeliveredPackages || [], date_YMD)
 		}
@@ -89,7 +89,7 @@ export const ShipmentView = observer(function ({
 				className={`${isModalOpen && 'rounded-b-none'}`}
 				subtitle={packs?.length ? '' : 'Sin repartos'}
 				onClick={toggleModal}
-				date={variant === 'history' && isAdmin ? date_DMY : undefined}
+				date={isAdmin ? date_DMY : undefined}
 				icon={
 					<ShortArrowIcon
 						className={`w-4 transition-all duration-150 ${
