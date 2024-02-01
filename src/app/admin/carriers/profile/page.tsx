@@ -23,7 +23,7 @@ export default observer(function CarrierProfile() {
 				setDate(newDate)
 			}
 		}
-	}, [])
+	})
 
 	if (typeof window !== 'undefined') {
 		const selectedUserId = localStorage.getItem('SELECTED_CARRIER_ID')

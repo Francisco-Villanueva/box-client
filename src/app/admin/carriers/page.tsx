@@ -32,7 +32,7 @@ export default observer(function CarriersPage() {
 				setDate(newDate)
 			}
 		}
-	}, [])
+	})
 
 	const handleTrimmer = () => {
 		if (trimmer === carriers.length) {
