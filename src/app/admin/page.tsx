@@ -1,5 +1,5 @@
 'use client'
-import { AddIcon, BoxTitle, Button, Title } from 'commons'
+import { AddIcon, Button, Title } from 'commons'
 import { Calendar, DetailView } from 'components'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
@@ -8,7 +8,6 @@ import Link from 'next/link'
 
 export default observer(function AdminPage() {
 	const {
-		date: { month },
 		users: { loggedUser },
 	} = useStore()
 
@@ -31,15 +30,7 @@ export default observer(function AdminPage() {
 				</div>
 			</section>
 
-			<section className="bg-white flex flex-col rounded-2xl">
-				<BoxTitle
-					variant="topDate"
-					className="bg-lightGrey w-full p-2 px-4 rounded-t-2xl ">
-					<Title>{month.toUpperCase()}</Title>
-				</BoxTitle>
-
-				<Calendar />
-			</section>
+			<Calendar />
 
 			<DetailView />
 

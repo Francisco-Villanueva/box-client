@@ -4,12 +4,26 @@ import { CarrierStatusCard, ShipmentView } from 'components'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default observer(function CarrierProfile() {
 	const {
 		users: { selectedCarrier, setUserId },
+		date: { setDate },
 	} = useStore()
+
+	useEffect(() => {
+		if (typeof localStorage !== 'undefined') {
+			const storedDate = localStorage.getItem('SELECTED_DATE')
+
+			if (storedDate) {
+				const newDate = new Date(storedDate)
+				newDate.setDate(newDate.getDate() + 1)
+
+				setDate(newDate)
+			}
+		}
+	})
 
 	if (typeof window !== 'undefined') {
 		const selectedUserId = localStorage.getItem('SELECTED_CARRIER_ID')
@@ -30,7 +44,6 @@ export default observer(function CarrierProfile() {
 				}>
 				Gestionar pedidos
 			</TitleBox>
-			{/* TODO Selected carrier no persiste al recargar la pagina */}
 			{selectedCarrier ? (
 				<CarrierStatusCard carrier={selectedCarrier}></CarrierStatusCard>
 			) : null}

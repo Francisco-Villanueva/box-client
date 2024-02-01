@@ -9,7 +9,7 @@ import {
 	TitleBox,
 } from 'commons'
 import { CarrierCard } from 'components'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
@@ -19,8 +19,20 @@ export default observer(function CarriersPage() {
 	const [trimmer, setTrimmer] = useState(4)
 	const {
 		users: { carriers },
-		date: { month, date_DMY },
+		date: { month, date_DMY, setDate },
 	} = useStore()
+
+	useEffect(() => {
+		if (typeof localStorage !== 'undefined') {
+			const storedDate = localStorage.getItem('SELECTED_DATE')
+
+			if (storedDate) {
+				const newDate = new Date(storedDate)
+				newDate.setDate(newDate.getDate() + 1)
+				setDate(newDate)
+			}
+		}
+	})
 
 	const handleTrimmer = () => {
 		if (trimmer === carriers.length) {
