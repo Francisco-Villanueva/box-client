@@ -1,22 +1,23 @@
+import '../support/commands'
+
 describe('Login', () => {
+	const baseUrl = Cypress.env('baseUrl')
+	const carrier = Cypress.env('carrier')
+	const admin = Cypress.env('admin')
+
 	it('should log in successfully with valid credentials', () => {
-		/*   const username = process.env.NEXT_PUBLIC_USERNAME;
-  const password = process.env.NEXT_PUBLIC_PASSWORD; */
-		const username = 'darioberatti'
-		const password = 'Dario123'
+		cy.visit(`${baseUrl}/login`)
 
-		cy.visit('localhost:3000/login')
-
-		cy.get('[placeholder="Usuario"]').type(username)
-		cy.get('[placeholder="Contraseña"]').type(password)
+		cy.get('[placeholder="Usuario"]').type(carrier.username)
+		cy.get('[placeholder="Contraseña"]').type(carrier.password)
 
 		cy.get('button').contains('INGRESAR').click()
 
-		cy.contains('Bienvenido Dario')
+		cy.contains(`Bienvenido ${carrier.name}`)
 	})
 
 	it('should display an error message with invalid credentials', () => {
-		cy.visit('localhost:3000/login')
+		cy.visit(`${baseUrl}/login`)
 
 		cy.get('[placeholder="Usuario"]').type('invalidUsername')
 		cy.get('[placeholder="Contraseña"]').type('invalidPassword')
@@ -27,13 +28,10 @@ describe('Login', () => {
 	})
 
 	it('should login successfully with valid credentials and redirect to /carrier', () => {
-		const username = 'darioberatti'
-		const password = 'Dario123'
+		cy.visit(`${baseUrl}/login`)
 
-		cy.visit('localhost:3000/login')
-
-		cy.get('[placeholder="Usuario"]').type(username)
-		cy.get('[placeholder="Contraseña"]').type(password)
+		cy.get('[placeholder="Usuario"]').type(carrier.username)
+		cy.get('[placeholder="Contraseña"]').type(carrier.password)
 
 		cy.get('button').contains('INGRESAR').click()
 
@@ -41,21 +39,19 @@ describe('Login', () => {
 	})
 
 	it('should login successfully with valid credentials and redirect to /admin', () => {
-		const adminUser = 'Admin'
-		const adminPassword = 'Admin123'
+		cy.visit(`${baseUrl}/login`)
 
-		cy.visit('localhost:3000/login')
-
-		cy.get('[placeholder="Usuario"]').type(adminUser)
-		cy.get('[placeholder="Contraseña"]').type(adminPassword)
+		cy.get('[placeholder="Usuario"]').type(admin.username)
+		cy.get('[placeholder="Contraseña"]').type(admin.password)
 
 		cy.get('button').contains('INGRESAR').click()
 
+		cy.contains(`Bienvenido ${admin.name}`)
 		cy.url().should('include', '/admin')
 	})
 
 	it('should redirect to /register when "CREAR CUENTA" is clicked', () => {
-		cy.visit('localhost:3000/login')
+		cy.visit(`${baseUrl}/login`)
 
 		cy.get('button').contains('CREAR CUENTA').click()
 
@@ -63,7 +59,7 @@ describe('Login', () => {
 	})
 
 	it('should redirect to /reset-password when "Olvidé mi contraseña" is clicked', () => {
-		cy.visit('localhost:3000/login')
+		cy.visit(`${baseUrl}/login`)
 
 		cy.get('[data-testid="custom-link"]').contains('Olvidé mi contraseña').click()
 
