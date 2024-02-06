@@ -78,7 +78,7 @@ export const ShipmentCard = observer(function ShipmentCard({
 				})
 				UserServices.getUserById(loggedUser._id).then((res) => {
 					setUserLogged(res.data)
-					message.success('Paquete eliminado del historial')
+					message.success('Paquete archivado')
 				})
 			} else {
 				await PackageServices.udapatePackage(pack._id, {

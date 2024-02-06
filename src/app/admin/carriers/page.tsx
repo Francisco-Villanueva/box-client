@@ -17,6 +17,7 @@ import Loading from 'app/loading'
 
 export default observer(function CarriersPage() {
 	const [trimmer, setTrimmer] = useState(4)
+	const [isLoading, setIsLoading] = useState(true)
 	const {
 		users: { carriers },
 		date: { month, date_DMY, setDate },
@@ -30,6 +31,7 @@ export default observer(function CarriersPage() {
 				const newDate = new Date(storedDate)
 				newDate.setDate(newDate.getDate() + 1)
 				setDate(newDate)
+				setIsLoading(false)
 			}
 		}
 	})
@@ -59,8 +61,16 @@ export default observer(function CarriersPage() {
 				<BoxTitle
 					variant="topDate"
 					className="justify-between h-[10%] p-6 items-center">
-					<Title>{month.toUpperCase()}</Title>
-					<Title>{date_DMY}</Title>
+					{isLoading ? (
+						<div className="w-full justify-center content-center">
+							<Loading />
+						</div>
+					) : (
+						<>
+							<Title>{month.toUpperCase()}</Title>
+							<Title>{date_DMY}</Title>
+						</>
+					)}
 				</BoxTitle>
 
 				{/* TODO ver el error de Type en PackageCheckboxCard */}
