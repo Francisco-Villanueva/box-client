@@ -16,10 +16,14 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { PackageServices } from 'services'
 import { Package } from 'types'
+import { useValidateUser } from 'utils'
 
 export default observer(function PackagesPage() {
 	const router = useRouter()
 	const [unassignedPackages, setUnassignedPackages] = useState<Package[]>([])
+
+	useValidateUser('CARRIER')
+
 	useEffect(() => {
 		PackageServices.getPackageByStatus('NO ASIGNADO').then((res) => {
 			setUnassignedPackages(res.data)
