@@ -5,11 +5,14 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useValidateUser } from 'utils'
 
 export default observer(function AdminPage() {
 	const {
 		users: { loggedUser },
 	} = useStore()
+
+	useValidateUser('ADMIN')
 
 	return (
 		<div className="flex flex-col justify-between gap-2 h-full">

@@ -17,6 +17,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { PackageServices } from 'services'
 import { message } from 'antd'
+import { useValidateUser } from 'utils'
 
 export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
@@ -32,6 +33,8 @@ export default observer(function AdminPackagesPage() {
 		},
 		date: { month, setDate, date_YMD, date_DMY },
 	} = useStore()
+
+	useValidateUser('ADMIN')
 
 	useEffect(() => {
 		if (typeof localStorage !== 'undefined') {

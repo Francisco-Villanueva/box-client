@@ -14,6 +14,7 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
 import Loading from 'app/loading'
+import { useValidateUser } from 'utils'
 
 export default observer(function CarriersPage() {
 	const [trimmer, setTrimmer] = useState(4)
@@ -21,6 +22,8 @@ export default observer(function CarriersPage() {
 		users: { carriers },
 		date: { month, date_DMY, setDate },
 	} = useStore()
+
+	useValidateUser('ADMIN')
 
 	useEffect(() => {
 		if (typeof localStorage !== 'undefined') {

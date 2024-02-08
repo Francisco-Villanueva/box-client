@@ -9,6 +9,7 @@ import { FormInput } from 'components'
 import { useRouter } from 'next/navigation'
 import { CreatePackage } from 'types'
 import { PackageServices } from 'services'
+import { useValidateUser } from 'utils'
 export default function CreatePackage() {
 	const router = useRouter()
 	const [packageData, setPackageData] = useState<CreatePackage>({
@@ -20,6 +21,8 @@ export default function CreatePackage() {
 		isShownToAdmin: true,
 		isShownToCarrier: true,
 	})
+
+	useValidateUser('ADMIN')
 
 	const handleInput = (key: string, value: string) => {
 		const trimmedValue = value.trim()
@@ -36,7 +39,7 @@ export default function CreatePackage() {
 				message.success('Paquete creado')
 			})
 			.catch(() => {
-				message.error('error al crear el paquete')
+				message.error('Error al crear el paquete')
 			})
 	}
 
