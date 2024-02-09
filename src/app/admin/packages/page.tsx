@@ -20,7 +20,6 @@ import { message } from 'antd'
 import { useValidateUser } from 'utils'
 import Loading from 'app/loading'
 
-
 export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
 	const [showedState, setShowedState] = useState('ENTREGADO')
