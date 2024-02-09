@@ -3,11 +3,14 @@ import { DeliveryInProgress } from 'components/DeliveryInProgress'
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
+import { useValidateUser } from 'utils'
 
 export default observer(function MapPage() {
 	const {
 		packages: { currentPackage, setPackageId },
 	} = useStore()
+
+	useValidateUser('CARRIER')
 
 	//TODO Mejorar la carga y el renderizado de los componentes
 	if (typeof window !== 'undefined') {

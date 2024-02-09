@@ -17,10 +17,13 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { PackageServices } from 'services'
 import { message } from 'antd'
+import { useValidateUser } from 'utils'
+import Loading from 'app/loading'
 
 export default observer(function AdminPackagesPage() {
 	const [trimmer, setTrimmer] = useState(6)
 	const [showedState, setShowedState] = useState('ENTREGADO')
+	const [isLoading, setIsLoading] = useState(true)
 
 	const {
 		packages: {
@@ -33,6 +36,8 @@ export default observer(function AdminPackagesPage() {
 		date: { month, setDate, date_YMD, date_DMY },
 	} = useStore()
 
+	useValidateUser('ADMIN')
+
 	useEffect(() => {
 		if (typeof localStorage !== 'undefined') {
 			const storedDate = localStorage.getItem('SELECTED_DATE')
@@ -40,6 +45,7 @@ export default observer(function AdminPackagesPage() {
 				const newDate = new Date(storedDate)
 				newDate.setDate(newDate.getDate() + 1)
 				setDate(newDate)
+				setIsLoading(false)
 			}
 		}
 	})
@@ -120,8 +126,16 @@ export default observer(function AdminPackagesPage() {
 				<BoxTitle
 					variant="topDate"
 					className="justify-between h-[10%] p-6 items-center">
-					<Title>{month.toUpperCase()}</Title>
-					<Title>{date_DMY}</Title>
+					{isLoading ? (
+						<div className="w-full justify-center content-center">
+							<Loading />
+						</div>
+					) : (
+						<>
+							<Title>{month.toUpperCase()}</Title>
+							<Title>{date_DMY}</Title>
+						</>
+					)}
 				</BoxTitle>
 
 				<div className="bg-white">

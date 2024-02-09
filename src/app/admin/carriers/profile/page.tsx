@@ -5,12 +5,15 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from 'models/root.store'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
+import { useValidateUser } from 'utils'
 
 export default observer(function CarrierProfile() {
 	const {
 		users: { selectedCarrier, setUserId },
 		date: { setDate },
 	} = useStore()
+
+	useValidateUser('ADMIN')
 
 	useEffect(() => {
 		if (typeof localStorage !== 'undefined') {

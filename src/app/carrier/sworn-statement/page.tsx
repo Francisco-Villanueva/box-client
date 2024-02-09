@@ -6,7 +6,7 @@ import { message } from 'antd'
 import { UserServices } from 'services'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
-import { timeZoneSetter } from 'utils'
+import { timeZoneSetter, useValidateUser } from 'utils'
 
 export default observer(function SwornStatementPage() {
 	const {
@@ -19,6 +19,8 @@ export default observer(function SwornStatementPage() {
 	const [issueSelected, setIssueSelected] = useState<string | null>(null)
 
 	const router = useRouter()
+
+	useValidateUser('CARRIER')
 
 	const handleChangeAnswers = () => {
 		setAlcoholSelected(null)

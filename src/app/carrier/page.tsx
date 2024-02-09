@@ -8,11 +8,14 @@ import { useStore } from 'models/root.store'
 import Image from 'next/image'
 import Loading from 'app/loading'
 import { UserServices } from 'services'
+import { useValidateUser } from 'utils'
 
 export default observer(function CarrierHomePage() {
 	const {
 		users: { loggedUser, setUserLogged },
 	} = useStore()
+
+	useValidateUser('CARRIER')
 
 	useEffect(() => {
 		if (loggedUser) {
