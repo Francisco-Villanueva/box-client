@@ -80,6 +80,12 @@ export const ShipmentView = observer(function ({
 			throw error
 		}
 	}
+	const shouldApplyOverflow = packsToShow && packsToShow.length > 4
+	const containerClass = shouldApplyOverflow
+		? variant === 'history'
+			? 'overflow-y-auto max-h-[315px]'
+			: 'overflow-y-auto max-h-[210px]'
+		: ''
 
 	const { isModalOpen, toggleModal } = useModal()
 
@@ -101,7 +107,7 @@ export const ShipmentView = observer(function ({
 			</TitleBox>
 
 			{isModalOpen && packs?.length ? (
-				<section className="p-2 overflow-scroll h-max-[20%]">
+				<section className={`p-2 ${containerClass} `}>
 					{variant === 'history' ? (
 						<div>
 							<div className="font-roboto text-xs font-medium pb-2 flex items-center justify-between">
